@@ -16,3 +16,16 @@ node_modules/
 # Build output
 apps/client/dist/
 apps/client/dist-h5/
+
+# Build / compiler caches & logs
+apps/client/.swc/
+apps/client/build-out.log
+apps/client/build-trace.log
+apps/client/build-trace2.log
+
+# Runtime artifacts (written by the running server — must NOT be tracked)
+backend/celerybeat-schedule
+backend/celerybeat-schedule.*
+backend/uvicorn-err.log
+backend/uvicorn-out.log
+*.log
