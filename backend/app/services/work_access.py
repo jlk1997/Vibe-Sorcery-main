@@ -80,6 +80,20 @@ def get_viewable_work_optional(db: Session, work_id: str, user: User | None) -> 
     return work
 
 
+def get_work_or_404(db: Session, work_id: str) -> Work:
+    """Fetch a work by id without view gating.
+
+    For media streaming endpoints (audio/HLS) the request carries no auth header,
+    so authorization is delegated to the short-lived playback ticket via
+    ``validate_playback_access``. View permission must NOT be enforced here or a
+    valid ticket could never grant access to a private/just-generated work.
+    """
+    work = db.query(Work).filter(Work.id == parse_uuid(work_id, field="work_id")).first()
+    if not work:
+        raise HTTPException(status_code=404, detail="Work not found")
+    return work
+
+
 def get_seed_work(db: Session, work_id: str, user: User) -> Work:
     work = db.query(Work).filter(Work.id == parse_uuid(work_id, field="work_id")).first()
     if not work:

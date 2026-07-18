@@ -187,7 +187,7 @@ export default function Profile() {
 
   if (!loggedIn) {
     return (
-      <PageShell title={p.title} subtitle={copy.brand.tagline} ambient tabVariant noPadTop>
+      <PageShell title={p.title} ambient tabVariant noPadTop hideHeader>
         <ImmersiveCover height="200rpx">
           <Text className="profile-guest__hero-title">{copy.brand.name}</Text>
           <Text className="profile-guest__hero-tag">{copy.brand.tagline}</Text>
@@ -214,7 +214,7 @@ export default function Profile() {
   }));
 
   return (
-    <PageShell title={me?.display_name || p.title} subtitle={me ? `@${me.username}` : copy.brand.tagline} showCredits={false} ambient tabVariant noPadTop>
+    <PageShell title={p.title} showCredits={false} ambient tabVariant noPadTop hideHeader>
       {loading && !me && <LoadingSkeleton count={3} />}
       {loadError && (
         <EmptyState
@@ -226,7 +226,7 @@ export default function Profile() {
       )}
       {!loadError && (
       <>
-      <ImmersiveCover coverUrl={me?.avatar_url} height="220rpx">
+      <ImmersiveCover coverUrl={me?.avatar_url} height="300rpx">
         <View className="profile-hero">
           <View className="profile-hero__avatar-ring">
             <View className="profile-hero__avatar-inner">

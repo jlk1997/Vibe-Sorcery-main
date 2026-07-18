@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: "Vibe Sorcery",
+  navigationBarTitleText: "我的",
 };

@@ -1,4 +1,22 @@
 @import "../../../styles/_utilities.scss";
+.pricing-consent-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4rpx;
+  margin: $space-xs 0;
+  font-size: var(--text-micro);
+  line-height: 1.4;
+
+  &__text {
+    color: $muted;
+  }
+
+  &__link {
+    color: $gold;
+  }
+}
+
 .pricing-hero {
   margin-bottom: $space-md;
   padding: $space-md;

@@ -1,11 +1,11 @@
 export const zh = {
   brand: {
-    name: "炼金音坊",
+    name: "比特音",
     tagline: "AI 音乐创作",
-    fullName: "炼金音坊 · Vibe Sorcery",
+    fullName: "比特音 · BitTune",
   },
   meta: {
-    title: "炼金音坊",
+    title: "比特音",
     description: "情绪驱动的 AI 音乐创作，每一轨可溯源、可二次创作。",
   },
   navGroups: {
@@ -33,7 +33,7 @@ export const zh = {
     profile: "我的",
   },
   navTitles: {
-    create: "创作",
+    create: "比特音",
     feed: "发现",
     library: "我的音乐库",
     profile: "我的",
@@ -102,7 +102,7 @@ export const zh = {
       provenance: "溯源谱系",
       provenanceDesc: "每一步情绪与生成参数可追溯，支持完整性验证与 .vibe 导出。",
     },
-    create: { title: "创作工作室", description: "选风格包、写创作意图，一键生成音乐。" },
+    create: { title: "比特音", description: "选风格包、写创作意图，一键生成音乐。" },
     journey: {
       title: "情绪地图",
       description: "用连续播放的 AI 音乐，完成一次心情转换。",
@@ -937,6 +937,7 @@ export const zh = {
   },
   paywallUi: {
     title: "额度不足",
+    payConsentInline: "支付前将确认并同意",
     needCredits: "本次需要 {n} 额度，当前余额 {balance}",
     shortfall: "还差 {n} 额度即可继续炼成",
     moreOptions: "更多充值选项",
@@ -1859,6 +1860,9 @@ export const zh = {
     agreeTermsAndPrivacy: "我已阅读并同意《用户服务协议》和《隐私政策》",
     agreePrivacyOnly: "我已阅读并同意《隐私政策》",
     agreePaymentTerms: "我已阅读并同意《付费服务协议》，知悉虚拟商品退款规则",
+    agreeAndPay: "同意并支付",
+    viewTerms: "查看协议",
+    payConsentTitle: "支付前确认",
     agreeAiNotice: "我了解本服务使用 AI 生成内容，内容可能不准确，我将合法使用",
     agreePublishCompliance: "我确认内容合法，并同意按所选许可发布",
     agreeAnalytics: "同意基于我的偏好与行为进行内容推荐",

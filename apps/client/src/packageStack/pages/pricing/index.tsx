@@ -12,7 +12,6 @@ import { bootstrapAuth, isLoggedIn, requireAuth } from "../../../utils/auth";
 import { useCreditsOptional } from "../../../contexts/CreditsProvider";
 import { payProduct } from "../../../platform/payment";
 import { pollPaymentUntilPaid } from "../../../utils/paymentPoll";
-import { ConsentCheckbox } from "../../../components/legal/ConsentCheckbox";
 import { LegalFooter } from "../../../components/legal/LegalFooter";
 import { LEGAL_ROUTES } from "../../../utils/legal";
 import { getRequiredVersions } from "../../../utils/consent";
@@ -146,16 +145,31 @@ export default function PricingPage() {
     return status;
   }
 
+  async function ensurePaymentAgreed(): Promise<boolean> {
+    if (paymentAgreed) return true;
+    const res = await Taro.showModal({
+      title: copy.legalUi.payConsentTitle,
+      content: copy.legalUi.agreePaymentTerms,
+      confirmText: copy.legalUi.agreeAndPay,
+      cancelText: copy.legalUi.viewTerms,
+    }).catch(() => ({ confirm: false, cancel: false }));
+    if (res.confirm) {
+      setPaymentAgreed(true);
+      return true;
+    }
+    if (res.cancel) {
+      Taro.navigateTo({ url: LEGAL_ROUTES.paymentTerms }).catch(() => {});
+    }
+    return false;
+  }
+
   async function pay(
     productId: string,
     productLabel: string,
     channel: "wechat" | "alipay" | "stripe" = isWeapp ? "wechat" : "stripe"
   ) {
     if (!requireAuth()) return;
-    if (!paymentAgreed) {
-      Taro.showToast({ title: copy.legalUi.mustAgree, icon: "none" });
-      return;
-    }
+    if (!(await ensurePaymentAgreed())) return;
     setBuying(`${productId}:${channel}`);
     vibeApi.trackEvent("payment_start", { product_id: productId, channel }).catch(() => {});
     try {
@@ -279,13 +293,15 @@ export default function PricingPage() {
         </>
       )}
 
-      <ConsentCheckbox
-        checked={paymentAgreed}
-        onChange={setPaymentAgreed}
-        links={[{ label: `《${copy.legalUi.paymentTerms}》`, route: LEGAL_ROUTES.paymentTerms }]}
-      >
-        {copy.legalUi.agreePaymentTerms.replace(`《${copy.legalUi.paymentTerms}》`, "")}
-      </ConsentCheckbox>
+      <View className="pricing-consent-hint">
+        <Text className="pricing-consent-hint__text">{copy.paywallUi.payConsentInline}</Text>
+        <Text
+          className="pricing-consent-hint__link"
+          onClick={() => Taro.navigateTo({ url: LEGAL_ROUTES.paymentTerms }).catch(() => {})}
+        >
+          《{copy.legalUi.paymentTerms}》
+        </Text>
+      </View>
 
       <SectionLabel>{p.packsLabel}</SectionLabel>
       <View className="pricing-grid">

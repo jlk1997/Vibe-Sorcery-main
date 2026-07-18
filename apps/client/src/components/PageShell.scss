@@ -14,16 +14,15 @@ $page-top-offset: calc(var(--safe-area-top, 0px) + var(--app-header-height, 0px)
 
   &--ambient {
     background: $void;
-    overflow: hidden;
+    // Do not clip here: on weapp a full-height root with overflow:hidden can
+    // block native page scroll (e.g. while a generation task is running).
+    // The atmosphere layer clips its own orbs, so page scroll stays intact.
+    overflow: visible;
 
     .ui-atmosphere {
       position: absolute;
       inset: 0;
     }
-  }
-
-  .app-layout-root &--ambient {
-    overflow: visible;
   }
 
   &--wide {

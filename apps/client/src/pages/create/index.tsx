@@ -1044,7 +1044,12 @@ export default function CreatePage() {
           <View className="create-home__deck-head">
             <View className="create-home__deck-brand">
               <View className="create-home__deck-sigil">
-                <Icon name="flask" accent size="sm" />
+                <View className="create-home__deck-wave" aria-hidden>
+                  <View className="create-home__deck-wave-bar" />
+                  <View className="create-home__deck-wave-bar" />
+                  <View className="create-home__deck-wave-bar" />
+                  <View className="create-home__deck-wave-bar" />
+                </View>
               </View>
               <View>
                 <Text className="create-home__deck-title">{copy.pages.create.title}</Text>

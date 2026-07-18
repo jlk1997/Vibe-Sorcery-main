@@ -50,6 +50,7 @@ from app.services.work_access import (
     get_seed_work,
     get_viewable_work,
     get_viewable_work_optional,
+    get_work_or_404,
 )
 from app.services.job_dispatch import dispatch_playlist, dispatch_single, dispatch_variations
 
@@ -385,7 +386,7 @@ def stream_work_audio(
 ):
     """Proxied audio stream — requires short-lived ticket or authenticated viewer."""
     user = _auth_user_optional(credentials, access_token, db)
-    work = get_viewable_work_optional(db, work_id, user)
+    work = get_work_or_404(db, work_id)
     validate_playback_access(db, work, ticket=ticket, user=user)
 
     range_header = request.headers.get("range") or request.headers.get("Range")
@@ -430,7 +431,7 @@ def get_hls_playlist(
 ):
     """Serve HLS playlist with same-origin proxied segment URLs (no long-lived S3 links)."""
     user = _auth_user_optional(credentials, access_token, db)
-    work = get_viewable_work_optional(db, work_id, user)
+    work = get_work_or_404(db, work_id)
     validate_playback_access(db, work, ticket=ticket, user=user)
     prefix = hls_prefix_from_work(
         hls_storage_prefix=work.hls_storage_prefix,
@@ -469,7 +470,7 @@ def get_hls_segment(
     if not is_safe_segment_name(segment_name):
         raise HTTPException(status_code=400, detail="Invalid segment")
     user = _auth_user_optional(credentials, access_token, db)
-    work = get_viewable_work_optional(db, work_id, user)
+    work = get_work_or_404(db, work_id)
     validate_playback_access(db, work, ticket=ticket, user=user)
     prefix = hls_prefix_from_work(
         hls_storage_prefix=work.hls_storage_prefix,

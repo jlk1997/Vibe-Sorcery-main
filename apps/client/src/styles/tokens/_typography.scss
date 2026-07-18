@@ -1,14 +1,21 @@
 // Typography tokens — single sans family app-wide (Chinese + Latin).
 // Hierarchy via size/weight only; avoids Songti vs YaHei mismatch when webfonts fail.
 
-$font-ui-stack: "DM Sans", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+// Prefer the most refined system CJK sans available per platform:
+// iOS/macOS -> PingFang SC; HarmonyOS -> HarmonyOS Sans; Xiaomi -> MiSans;
+// OPPO -> OPPO Sans; else Source Han / Noto / YaHei. DM Sans only styles Latin
+// on H5 (mini-program ignores webfonts, so CJK falls straight through).
+$font-ui-stack: "DM Sans", "PingFang SC", "MiSans", "HarmonyOS Sans SC", "OPPO Sans",
+  "Source Han Sans SC", "Noto Sans SC", "Hiragino Sans GB", "Microsoft YaHei",
   -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
 // Alias: headings use the same stack (legacy var(--font-display) references stay valid).
 $font-display-stack: $font-ui-stack;
 $font-sans-stack: $font-ui-stack;
 
-$font-mono-stack: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+// Latin digits stay tabular; CJK falls back to the same sans family (never Songti).
+$font-mono-stack: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", "PingFang SC",
+  "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 
 // Backward compat
 $font-sans: $font-ui-stack;

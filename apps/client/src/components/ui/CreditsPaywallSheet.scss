@@ -113,3 +113,20 @@
   gap: $space-xs;
   margin-top: $space-xs;
 }
+
+.paywall-sheet__consent-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4rpx;
+  font-size: var(--text-micro);
+  line-height: 1.4;
+}
+
+.paywall-sheet__consent-text {
+  color: $muted;
+}
+
+.paywall-sheet__consent-link {
+  color: $gold;
+}

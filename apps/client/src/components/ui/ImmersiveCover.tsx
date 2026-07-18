@@ -11,7 +11,7 @@ type Props = {
 
 export function ImmersiveCover({ coverUrl, height = "360rpx", className, children }: Props) {
   return (
-    <View className={clsx("ui-immersive-cover", className)} style={{ height }}>
+    <View className={clsx("ui-immersive-cover", className)} style={{ minHeight: height }}>
       {coverUrl ? (
         <>
           <Image className="ui-immersive-cover__bg" src={coverUrl} mode="aspectFill" />

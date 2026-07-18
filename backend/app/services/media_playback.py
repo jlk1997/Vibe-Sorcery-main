@@ -97,18 +97,21 @@ def validate_playback_access(
     ticket: str | None,
     user: User | None,
 ) -> None:
-    """Raise HTTPException if caller may not stream this work."""
+    """Raise HTTPException if caller may not stream this work.
+
+    Media requests (mini-program InnerAudioContext, <audio>/<img> tags) cannot
+    attach an Authorization header, so a valid short-lived ticket is the only
+    credential they can present. Tickets are minted exclusively for viewers who
+    were already authorized at issue time and are bound to this work id, so a
+    valid, unexpired ticket is sufficient on its own — we must NOT additionally
+    require the media request to be authenticated.
+    """
     if user is not None and can_view_work(work, user):
         return
     if ticket:
         data = consume_playback_ticket(ticket, work_id=str(work.id))
         if not data:
             raise HTTPException(status_code=403, detail="Playback ticket invalid or expired")
-        ticket_user = data.get("user_id")
-        if ticket_user and (not user or str(user.id) != ticket_user):
-            raise HTTPException(status_code=403, detail="Playback ticket user mismatch")
-        if not can_view_work(work, user):
-            raise HTTPException(status_code=403, detail="Forbidden")
         return
     raise HTTPException(status_code=401, detail="Authentication or playback ticket required")
 

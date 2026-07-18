@@ -2,12 +2,12 @@ import type { Copy } from "../copy-type";
 
 export const en: Copy = {
   brand: {
-    name: "Vibe Sorcery",
+    name: "BitTune",
     tagline: "AI Music Studio",
-    fullName: "Vibe Sorcery · Alchemy Studio",
+    fullName: "BitTune · Vibe Sorcery",
   },
   meta: {
-    title: "Vibe Sorcery",
+    title: "BitTune",
     description: "Emotion-driven AI music creation with provenance and remix lineage.",
   },
   navGroups: {
@@ -35,7 +35,7 @@ export const en: Copy = {
     profile: "Me",
   },
   navTitles: {
-    create: "Create",
+    create: "BitTune",
     feed: "Discover",
     library: "My library",
     profile: "Me",
@@ -104,7 +104,7 @@ export const en: Copy = {
       provenance: "Provenance",
       provenanceDesc: "Trace emotions and generation params; verify integrity and export .vibe.",
     },
-    create: { title: "Creation Studio", description: "Pick a preset, write intent, generate music." },
+    create: { title: "BitTune", description: "Pick a preset, write intent, generate music." },
     journey: {
       title: "Emotion Map",
       description: "Use sequential AI music to complete a mood shift.",
@@ -939,6 +939,7 @@ export const en: Copy = {
   },
   paywallUi: {
     title: "Not enough credits",
+    payConsentInline: "You'll confirm and agree before paying",
     needCredits: "This action needs {n} credits · balance {balance}",
     shortfall: "Need {n} more credits to continue",
     moreOptions: "More packs",
@@ -1860,6 +1861,9 @@ export const en: Copy = {
     agreeTermsAndPrivacy: "I have read and agree to the Terms of Service and Privacy Policy",
     agreePrivacyOnly: "I have read and agree to the Privacy Policy",
     agreePaymentTerms: "I have read and agree to the Payment Terms and understand the refund policy",
+    agreeAndPay: "Agree & Pay",
+    viewTerms: "View terms",
+    payConsentTitle: "Confirm before paying",
     agreeAiNotice: "I understand this service uses AI-generated content which may be inaccurate; I will use it lawfully",
     agreePublishCompliance: "I confirm my content is lawful and agree to publish under the selected license",
     agreeAnalytics: "Allow personalized recommendations based on my preferences and activity",

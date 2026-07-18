@@ -8,7 +8,6 @@ import { payProduct, type PaymentChannel } from "../../platform/payment";
 import { pollPaymentUntilPaid } from "../../utils/paymentPoll";
 import { getRequiredVersions } from "../../utils/consent";
 import { LEGAL_ROUTES } from "../../utils/legal";
-import { ConsentCheckbox } from "../legal/ConsentCheckbox";
 import { requestLowCreditsSubscribeMessages } from "../../platform/wechatSubscribe";
 import { stackPage } from "../../constants/routes";
 import { BottomSheet, Button, PaymentQRModal, PricingPackCard } from "./index";
@@ -139,9 +138,26 @@ export function CreditsPaywallSheet({
     await creditsCtx?.refresh();
   }
 
+  async function ensurePaymentAgreed(): Promise<boolean> {
+    if (paymentAgreed) return true;
+    const res = await Taro.showModal({
+      title: copy.legalUi.payConsentTitle,
+      content: copy.legalUi.agreePaymentTerms,
+      confirmText: copy.legalUi.agreeAndPay,
+      cancelText: copy.legalUi.viewTerms,
+    }).catch(() => ({ confirm: false, cancel: false }));
+    if (res.confirm) {
+      setPaymentAgreed(true);
+      return true;
+    }
+    if (res.cancel) {
+      Taro.navigateTo({ url: LEGAL_ROUTES.paymentTerms }).catch(() => {});
+    }
+    return false;
+  }
+
   async function buy(productId: string, channel: PaymentChannel = isWeapp ? "wechat" : "stripe") {
-    if (!paymentAgreed) {
-      Taro.showToast({ title: copy.legalUi.mustAgree, icon: "none" });
+    if (!(await ensurePaymentAgreed())) {
       return;
     }
     setBuying(`${productId}:${channel}`);
@@ -203,13 +219,15 @@ export function CreditsPaywallSheet({
             </View>
           </View>
 
-          <ConsentCheckbox
-            checked={paymentAgreed}
-            onChange={setPaymentAgreed}
-            links={[{ label: `《${copy.legalUi.paymentTerms}》`, route: LEGAL_ROUTES.paymentTerms }]}
-          >
-            {copy.legalUi.agreePaymentTerms.replace(`《${copy.legalUi.paymentTerms}》`, "")}
-          </ConsentCheckbox>
+          <View className="paywall-sheet__consent-hint">
+            <Text className="paywall-sheet__consent-text">{copy.paywallUi.payConsentInline}</Text>
+            <Text
+              className="paywall-sheet__consent-link"
+              onClick={() => Taro.navigateTo({ url: LEGAL_ROUTES.paymentTerms }).catch(() => {})}
+            >
+              《{copy.legalUi.paymentTerms}》
+            </Text>
+          </View>
 
           {tab === "member" && featuredPlan && (
             <View className="paywall-sheet__member">

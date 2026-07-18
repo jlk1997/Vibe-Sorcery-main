@@ -225,22 +225,35 @@ export function EngagementPanel({ showHeader = true, variant = "full" }: Props) 
 
       {referral && (
         <View className="engagement-referral">
-          <View className="engagement-referral__icon-wrap">
-            <Icon name="share" accent size="md" />
+          <View className="engagement-referral__glow" />
+          <View className="engagement-referral__head">
+            <View className="engagement-referral__icon-wrap">
+              <Icon name="share" accent size="md" />
+            </View>
+            <View className="engagement-referral__head-text">
+              <Text className="engagement-referral__title">{p.referralTitle}</Text>
+              <Text className="engagement-referral__meta">
+                {p.referralHint
+                  .replace("{n}", String(referral.referrer_reward))
+                  .replace("{count}", String(referral.invites_count))}
+              </Text>
+            </View>
           </View>
-          <View className="engagement-referral__body">
-            <Text className="engagement-referral__title">{p.referralTitle}</Text>
+          <View
+            className="engagement-referral__code-chip"
+            onClick={() => {
+              Taro.setClipboardData({ data: referral.referral_code });
+              Taro.showToast({ title: p.referralCopied, icon: "success" });
+            }}
+          >
             <Text className="engagement-referral__code">{referral.referral_code}</Text>
-            <Text className="engagement-referral__meta">
-              {p.referralHint
-                .replace("{n}", String(referral.referrer_reward))
-                .replace("{count}", String(referral.invites_count))}
-            </Text>
+            <Text className="engagement-referral__code-hint">{p.referralCopy}</Text>
           </View>
           <View className="engagement-referral__actions">
             <Button
-              variant="secondary"
+              variant="primary"
               size="sm"
+              block
               onClick={() => {
                 Taro.setClipboardData({ data: referral.referral_code });
                 Taro.showToast({ title: p.referralCopied, icon: "success" });
@@ -249,8 +262,9 @@ export function EngagementPanel({ showHeader = true, variant = "full" }: Props) 
               {p.referralCopy}
             </Button>
             <Button
-              variant="ghost"
+              variant="secondary"
               size="sm"
+              block
               onClick={() => {
                 const origin = typeof window !== "undefined" ? window.location.origin : "";
                 const link = origin ? `${origin}${referral.share_url}` : referral.share_url;

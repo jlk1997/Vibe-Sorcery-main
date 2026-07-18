@@ -78,7 +78,7 @@ export default {
   window: {
     backgroundTextStyle: "dark",
     navigationBarBackgroundColor: "#050508",
-    navigationBarTitleText: "炼金音坊",
+    navigationBarTitleText: "比特音",
     navigationBarTextStyle: "white",
     backgroundColor: "#050508",
   },
