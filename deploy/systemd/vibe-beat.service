@@ -5,11 +5,11 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=agentuser
+User=root
 WorkingDirectory=/opt/vibe-sorcery/Vibe-Sorcery-main/backend
 EnvironmentFile=/opt/vibe-sorcery/Vibe-Sorcery-main/.env
 Environment=PYTHONPATH=/opt/vibe-sorcery/Vibe-Sorcery-main:/opt/vibe-sorcery/Vibe-Sorcery-main/backend
-ExecStart=/opt/vibe-sorcery/venv/bin/celery -A app.celery_app.celery_app beat --loglevel=info
+ExecStart=/opt/vibe-sorcery/Vibe-Sorcery-main/venv/bin/celery -A app.celery_app.celery_app beat --loglevel=info
 Restart=on-failure
 RestartSec=5
 

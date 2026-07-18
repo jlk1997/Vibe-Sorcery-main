@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=agentuser
+User=root
 # 把 CHANGE_ME_* 改成强密码，且必须与 .env 里的 S3_ACCESS_KEY / S3_SECRET_KEY 一致
 Environment=MINIO_ROOT_USER=CHANGE_ME_MINIO_USER
 Environment=MINIO_ROOT_PASSWORD=CHANGE_ME_MINIO_PASSWORD
