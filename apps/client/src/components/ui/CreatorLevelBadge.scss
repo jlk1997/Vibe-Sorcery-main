@@ -1,0 +1,28 @@
+.creator-badge {
+  display: inline-block;
+  padding: 2rpx 12rpx;
+  border-radius: 999rpx;
+  font-size: var(--text-meta);
+  font-family: var(--font-mono);
+  border: 1px solid currentColor;
+}
+
+.creator-badge--compact {
+  font-size: 20rpx;
+  padding: 0 8rpx;
+}
+
+.creator-badge--bronze {
+  color: #c17f59;
+  background: rgba(193, 127, 89, 0.12);
+}
+
+.creator-badge--silver {
+  color: #a8b4c4;
+  background: rgba(168, 180, 196, 0.15);
+}
+
+.creator-badge--gold {
+  color: $gold;
+  background: rgba(212, 175, 55, 0.15);
+}

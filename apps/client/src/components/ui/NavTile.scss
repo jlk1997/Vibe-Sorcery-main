@@ -1,0 +1,78 @@
+.ui-nav-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2xs;
+  padding: $space-sm $space-xs;
+  min-height: 160rpx;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.14;
+    pointer-events: none;
+  }
+
+  &--accent::before {
+    background: radial-gradient(circle at 50% 0%, $gold, transparent 70%);
+  }
+
+  &--info::before {
+    background: radial-gradient(circle at 50% 0%, $teal-mood, transparent 70%);
+  }
+
+  &--warm::before {
+    background: radial-gradient(circle at 50% 0%, $warning, transparent 70%);
+  }
+
+  &--neutral::before {
+    background: radial-gradient(circle at 50% 0%, $ether, transparent 70%);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &__icon {
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: $radius-md;
+    background: $slate-veil;
+    border: 1rpx solid $border-ritual;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__label {
+    color: $text;
+    font-size: var(--text-meta);
+    text-align: center;
+    line-height: 1.3;
+    font-family: var(--font-ui);
+  }
+
+  &__badge {
+    position: absolute;
+    top: $space-2xs;
+    right: $space-2xs;
+    min-width: 32rpx;
+    height: 32rpx;
+    padding: 0 $space-2xs;
+    background: $danger;
+    color: #fff;
+    font-size: var(--text-micro);
+    font-weight: $font-weight-bold;
+    border-radius: $radius-pill;
+    text-align: center;
+    line-height: 32rpx;
+    font-family: var(--font-mono);
+  }
+}

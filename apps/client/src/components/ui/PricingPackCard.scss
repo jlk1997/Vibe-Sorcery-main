@@ -1,0 +1,39 @@
+@import "../../styles/_utilities.scss";
+.pricing-pack {
+  position: relative;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  padding: $space-md $space-sm;
+  margin-bottom: $space-sm;
+  box-shadow: $shadow-sm;
+
+  &--featured {
+    border-color: $gold;
+    background: linear-gradient(180deg, $gold-muted 0%, $obsidian 100%);
+    box-shadow: $shadow-gold;
+  }
+
+  &__label {
+    @extend .typo-h2;
+    font-family: var(--font-display);
+    display: block;
+    margin-top: $space-2xs;
+  }
+
+  &__price {
+    display: block;
+    color: $gold;
+    font-size: var(--text-title);
+    font-weight: $font-weight-display;
+    font-family: var(--font-display);
+    margin-top: $space-2xs;
+  }
+
+  &__actions {
+    margin-top: $space-sm;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2xs;
+  }
+}

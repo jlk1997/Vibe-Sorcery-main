@@ -1,0 +1,28 @@
+from fastapi import APIRouter
+
+from app.api.routes import admin, analytics, auth, billing, challenges, collections, community, config, copilot, ecosystem, emotion, engagement, jobs, legal, notifications, playlists, provenance, search, studio, tenant_admin, users, wechat_auth, works
+
+api_router = APIRouter()
+api_router.include_router(auth.router)
+api_router.include_router(legal.router)
+api_router.include_router(users.router)
+api_router.include_router(emotion.router)
+api_router.include_router(works.router)
+api_router.include_router(playlists.router)
+api_router.include_router(collections.router)
+api_router.include_router(jobs.router)
+api_router.include_router(provenance.router)
+api_router.include_router(community.router)
+api_router.include_router(engagement.router)
+api_router.include_router(studio.router)
+api_router.include_router(challenges.router)
+api_router.include_router(config.router)
+api_router.include_router(admin.router)
+api_router.include_router(tenant_admin.router)
+api_router.include_router(notifications.router)
+api_router.include_router(copilot.router)
+api_router.include_router(billing.router)
+api_router.include_router(ecosystem.router)
+api_router.include_router(analytics.router)
+api_router.include_router(wechat_auth.router)
+api_router.include_router(search.router)

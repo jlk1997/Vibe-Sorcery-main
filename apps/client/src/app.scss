@@ -1,0 +1,72 @@
+@import "./styles/theme.scss";
+
+// Weapp-safe global baseline (also valid on H5).
+page {
+  background: $void;
+  color: $text;
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+page,
+view,
+text,
+button,
+input,
+textarea,
+label {
+  font-family: inherit;
+}
+
+button::after {
+  border: none;
+}
+
+.app-error-fallback {
+  padding: $space-lg;
+  color: $text;
+  background: $void;
+  min-height: 100vh;
+  font-family: var(--font-ui);
+  box-sizing: border-box;
+
+  &__title {
+    color: $danger;
+    font-family: var(--font-ui);
+    font-size: var(--text-title);
+    margin: 0 0 $space-sm;
+  }
+
+  &__message {
+    white-space: pre-wrap;
+    font-size: var(--text-meta);
+    font-family: var(--font-mono);
+    margin: 0;
+    color: $muted;
+  }
+}
+
+.app-layout-root {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.app-consent-slot {
+  position: relative;
+  z-index: 220;
+  flex-shrink: 0;
+}
+
+.wechat-privacy-gate {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-lg;
+
+  &__text {
+    color: $muted;
+    font-size: var(--text-meta);
+  }
+}

@@ -1,0 +1,38 @@
+@import "../../styles/_utilities.scss";
+.variation-picker {
+  margin-top: $space-md;
+  padding-top: $space-md;
+  border-top: 1rpx solid $border;
+
+  &__row {
+    padding: $space-sm 0;
+    border-bottom: 1rpx solid $border;
+
+    &--picked {
+      background: $accent-muted;
+      margin: 0 (-#{$space-md});
+      padding-left: $space-md;
+      padding-right: $space-md;
+      border-radius: $radius-md;
+    }
+  }
+
+  &__label {
+    @extend .micro-label;
+    display: block;
+  }
+
+  &__title {
+    color: $text;
+    font-size: 26rpx;
+    margin: 6rpx 0;
+    display: block;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-2xs;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}

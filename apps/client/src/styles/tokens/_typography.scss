@@ -1,0 +1,32 @@
+// Typography tokens — single sans family app-wide (Chinese + Latin).
+// Hierarchy via size/weight only; avoids Songti vs YaHei mismatch when webfonts fail.
+
+$font-ui-stack: "DM Sans", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+  -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+// Alias: headings use the same stack (legacy var(--font-display) references stay valid).
+$font-display-stack: $font-ui-stack;
+$font-sans-stack: $font-ui-stack;
+
+$font-mono-stack: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+// Backward compat
+$font-sans: $font-ui-stack;
+$font-mono: $font-mono-stack;
+
+$font-weight-display: 600;
+$font-body-weight: 400;
+// Legacy SCSS alias (numeric weight — not the display font stack)
+$font-display: $font-weight-display;
+$font-weight-body: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Size scale (rpx)
+$text-display: 52rpx;
+$text-title: 44rpx;
+$text-heading: 32rpx;
+$text-body: 28rpx;
+$text-meta: 24rpx;
+$text-micro: 20rpx;

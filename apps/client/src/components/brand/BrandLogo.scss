@@ -1,0 +1,51 @@
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  &--lockup {
+    gap: 12rpx;
+  }
+
+  &--wordmark {
+    width: 100%;
+    max-width: 520rpx;
+    height: 120rpx;
+  }
+
+  &__icon {
+    border-radius: 18%;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2rpx;
+    min-width: 0;
+  }
+
+  &__name {
+    color: $gold;
+    font-size: 30rpx;
+    font-weight: 700;
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+  }
+
+  &__tagline {
+    color: $muted;
+    font-size: 20rpx;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+  }
+
+  &--lg &__name {
+    font-size: 44rpx;
+  }
+
+  &--lg &__tagline {
+    font-size: 24rpx;
+  }
+}

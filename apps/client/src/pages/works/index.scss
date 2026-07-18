@@ -1,0 +1,35 @@
+.works-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+  margin-bottom: $space-md;
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+
+  &__cell {
+    min-width: 0;
+  }
+}
+
+.works-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.works-batch-delete {
+  margin-bottom: $space-sm;
+}
+
+.works-continue {
+  margin-top: $space-lg;
+}
+
+.auth-gate__cta {
+  margin-top: $space-md;
+}

@@ -1,0 +1,162 @@
+x-backend-image: &backend-image
+  image: vibe-sorcery-backend:latest
+  pull_policy: never
+  build:
+    context: .
+    dockerfile: backend/Dockerfile
+    args:
+      PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.tuna.tsinghua.edu.cn/simple}
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: vibe
+      POSTGRES_PASSWORD: vibe
+      POSTGRES_DB: vibe_sorcery
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vibe -d vibe_sorcery"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  api:
+    <<: *backend-image
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    env_file:
+      - .env
+    environment:
+      RUN_ALEMBIC_ON_STARTUP: "false"
+      DATABASE_URL: postgresql://vibe:vibe@postgres:5432/vibe_sorcery
+      REDIS_URL: redis://redis:6379/0
+      RATE_LIMIT_FAIL_CLOSED: "false"
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      S3_ENDPOINT: http://minio:9000
+      S3_PUBLIC_ENDPOINT: http://localhost:9000
+      MODELS_DIR: /app/models
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+      - ./src:/app/src
+      - ./models:/app/models
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+
+  worker:
+    <<: *backend-image
+    command: sh -c "alembic upgrade head && celery -A app.celery_app.celery_app worker --loglevel=info --pool=$${CELERY_POOL:-prefork} --concurrency=$${CELERY_CONCURRENCY:-2} -Q celery,priority"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://vibe:vibe@postgres:5432/vibe_sorcery
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      CELERY_POOL: prefork
+      CELERY_CONCURRENCY: "2"
+      S3_ENDPOINT: http://minio:9000
+      S3_PUBLIC_ENDPOINT: http://localhost:9000
+      MODELS_DIR: /app/models
+    volumes:
+      - ./backend:/app/backend
+      - ./src:/app/src
+      - ./models:/app/models
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+
+  # 独立后处理 worker（ffmpeg/HLS/封面），与生成 worker 分离避免 CPU 争抢
+  worker-post:
+    <<: *backend-image
+    command: sh -c "celery -A app.celery_app.celery_app worker --loglevel=info --pool=$${CELERY_POOL:-prefork} --concurrency=$${CELERY_POST_CONCURRENCY:-2} -Q post_process"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://vibe:vibe@postgres:5432/vibe_sorcery
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+      CELERY_POOL: prefork
+      CELERY_POST_CONCURRENCY: "2"
+      S3_ENDPOINT: http://minio:9000
+      S3_PUBLIC_ENDPOINT: http://localhost:9000
+      MODELS_DIR: /app/models
+    volumes:
+      - ./backend:/app/backend
+      - ./src:/app/src
+      - ./models:/app/models
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+
+  beat:
+    <<: *backend-image
+    command: sh -c "alembic upgrade head && celery -A app.celery_app.celery_app beat --loglevel=info"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://vibe:vibe@postgres:5432/vibe_sorcery
+      CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_RESULT_BACKEND: redis://redis:6379/2
+    volumes:
+      - ./backend:/app/backend
+      - ./src:/app/src
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/client/Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  minio_data:

@@ -1,0 +1,42 @@
+{
+  "name": "vibe-sorcery",
+  "version": "3.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/client",
+    "packages/api-client",
+    "packages/i18n",
+    "packages/types"
+  ],
+  "scripts": {
+    "dev": "npm run dev:web",
+    "dev:h5": "npm run dev:web",
+    "dev:api": "cd backend && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "dev:worker": "cd backend && celery -A app.celery_app.celery_app worker --loglevel=info",
+    "dev:beat": "cd backend && celery -A app.celery_app.celery_app beat --loglevel=info",
+    "dev:web": "cd apps/client && npm run dev:h5",
+    "dev:web:clean": "cd apps/client && npm run dev:h5",
+    "dev:mp": "cd apps/client && npm run dev:weapp",
+    "build:web": "cd apps/client && npm run build:h5",
+    "build:mp": "cd apps/client && npm run build:weapp",
+    "sync:openapi": "node scripts/sync-openapi-client.mjs",
+    "sync:openapi:check": "node scripts/sync-openapi-client.mjs --check",
+    "smoke:health": "node scripts/smoke-health.mjs",
+    "smoke:api": "node scripts/smoke-api.mjs",
+    "smoke:h5": "node scripts/smoke-h5-static.mjs",
+    "lint:tokens": "node scripts/lint-design-tokens.mjs",
+    "lint:taro-config": "node scripts/lint-taro-page-config.mjs",
+    "test:e2e": "playwright test -c e2e/playwright.config.ts",
+    "test:e2e:full": "npm run build:web && npx playwright install chromium && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+    "@playwright/test": "^1.52.0",
+    "react-refresh": "^0.14.2"
+  },
+  "overrides": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-reconciler": "0.27.0"
+  }
+}

@@ -1,0 +1,38 @@
+.mood-visual {
+  padding: $space-md;
+  border-radius: $radius-md;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1rpx solid rgba(255, 255, 255, 0.08);
+
+  &__title {
+    display: block;
+    font-size: 28rpx;
+    font-weight: 600;
+    margin-bottom: $space-sm;
+  }
+
+  &__stage {
+    min-height: 280rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $space-sm;
+    margin-bottom: $space-sm;
+  }
+
+  &__cover {
+    width: 100%;
+    height: 280rpx;
+    border-radius: $radius-md;
+  }
+
+  &__lyric,
+  &__moods,
+  &__emotion {
+    font-size: 32rpx;
+    text-align: center;
+    line-height: 1.5;
+    color: var(--color-accent);
+  }
+}

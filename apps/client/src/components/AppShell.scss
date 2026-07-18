@@ -1,0 +1,80 @@
+.app-shell {
+  min-height: 100vh;
+  background: $void;
+}
+
+.app-shell__header--global {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xs;
+  padding: $space-2xs $space-sm;
+  padding-top: calc(#{$space-2xs} + env(safe-area-inset-top, 0px));
+  background: rgba(5, 5, 8, 0.85);
+  backdrop-filter: blur(24px);
+  border-bottom: 1rpx solid $border-ritual;
+  height: calc(#{$app-header-height} + env(safe-area-inset-top, 0px));
+  box-sizing: border-box;
+}
+
+.app-shell__brand {
+  display: flex;
+  align-items: center;
+  gap: $space-2xs;
+}
+
+.app-shell__logo {
+  color: $gold;
+  font-size: var(--text-heading);
+  font-weight: $font-weight-display;
+  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+}
+
+.app-shell__sigil {
+  color: $gold;
+  font-size: var(--text-heading);
+  opacity: 0.9;
+}
+
+.app-shell__actions {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
+
+.app-shell__action {
+  position: relative;
+  color: $muted;
+  font-size: 36rpx;
+  padding: $space-2xs;
+  min-width: 44rpx;
+  min-height: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--notify {
+    padding-right: $space-2xs;
+  }
+}
+
+.app-shell__notify-pill {
+  position: absolute;
+  top: -4rpx;
+  right: -8rpx;
+  padding: 2rpx 8rpx !important;
+  font-size: 18rpx !important;
+  min-width: 28rpx;
+  text-align: center;
+  pointer-events: none;
+}
+
+.app-shell__body {
+  box-sizing: border-box;
+}

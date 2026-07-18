@@ -1,0 +1,132 @@
+.ui-mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-xs;
+  margin-bottom: $space-md;
+}
+
+.ui-mode-tile {
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  padding: $space-sm $space-xs;
+  min-height: 168rpx;
+  box-sizing: border-box;
+  transition: border-color $duration-medium, background $duration-medium, box-shadow $duration-medium, transform $duration-fast;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &--active {
+    border-color: $gold;
+    background: $gold-muted;
+    box-shadow: $shadow-gold;
+  }
+
+  &--accent .ui-mode-tile__icon {
+    background: $gold-muted;
+    border: 1rpx solid $border-ritual;
+    box-shadow: $shadow-gold;
+  }
+}
+
+.ui-mode-tile__icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-md;
+  background: $slate-veil;
+  border: 1rpx solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $space-xs;
+}
+
+.ui-mode-tile__title {
+  display: block;
+  color: $text;
+  font-size: var(--text-body);
+  font-weight: $font-weight-semibold;
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.ui-mode-tile__desc {
+  display: block;
+  color: $muted;
+  font-size: var(--text-micro);
+  margin-top: $space-2xs;
+  line-height: 1.45;
+  font-family: var(--font-ui);
+}
+
+// ── Horizontal rail layout (create home) ─────────────────────────
+.ui-mode-grid--rail {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: $space-sm;
+  margin: 0 (-$space-sm);
+  padding: $space-2xs $space-sm $space-xs;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+
+  .ui-mode-tile {
+    flex: 0 0 248rpx;
+    min-height: 152rpx;
+    scroll-snap-align: start;
+    background: linear-gradient(165deg, rgba(22, 22, 34, 0.92) 0%, rgba(14, 14, 22, 0.96) 100%);
+    border-color: rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3rpx;
+      background: linear-gradient(90deg, transparent, $gold, transparent);
+      opacity: 0;
+      transition: opacity $duration-medium;
+    }
+
+    &--active {
+      transform: none;
+      border-color: rgba(212, 175, 106, 0.5);
+      box-shadow: $shadow-gold, inset 0 1rpx 0 rgba(212, 175, 106, 0.15);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    &--accent {
+      border-color: rgba(212, 175, 106, 0.28);
+
+      &::before {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .ui-mode-tile__icon {
+    width: 64rpx;
+    height: 64rpx;
+    margin-bottom: $space-2xs;
+  }
+
+  .ui-mode-tile__title {
+    font-size: var(--text-meta);
+    letter-spacing: 0.02em;
+  }
+
+  .ui-mode-tile__desc {
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

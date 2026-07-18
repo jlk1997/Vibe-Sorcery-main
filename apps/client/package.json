@@ -1,0 +1,56 @@
+{
+  "name": "@vibe-sorcery/client",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Unified Taro client — H5 Web + WeChat mini-program",
+  "scripts": {
+    "build:weapp": "taro build --type weapp",
+    "predev:weapp": "node scripts/ensure-mp-dist.mjs --build",
+    "dev:weapp": "taro build --type weapp --watch",
+    "build:h5": "taro build --type h5",
+    "dev:h5": "taro build --type h5 --watch",
+    "check:mp-size": "node scripts/check-mp-size.mjs",
+    "check:mp-wxss": "node scripts/check-mp-wxss.mjs",
+    "check:mp-react": "node scripts/check-mp-react.mjs",
+    "check:mp": "npm run check:mp-wxss && npm run check:mp-react"
+  },
+  "browserslist": [
+    "last 3 versions",
+    "Android >= 4.4",
+    "ios >= 8"
+  ],
+  "dependencies": {
+    "@tarojs/components": "3.6.34",
+    "@tarojs/helper": "3.6.34",
+    "@tarojs/plugin-framework-react": "3.6.34",
+    "@tarojs/plugin-platform-h5": "3.6.34",
+    "@tarojs/plugin-platform-weapp": "3.6.34",
+    "@tarojs/react": "3.6.34",
+    "@tarojs/runtime": "3.6.34",
+    "@tarojs/shared": "3.6.34",
+    "@tarojs/taro": "3.6.34",
+    "@vibe-sorcery/api-client": "3.0.0",
+    "@vibe-sorcery/i18n": "3.0.0",
+    "@vibe-sorcery/types": "3.0.0",
+    "hls.js": "^1.5.15",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0",
+    "@babel/runtime": "^7.24.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
+    "@tarojs/cli": "3.6.34",
+    "@tarojs/webpack5-runner": "3.6.34",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^18.2.0",
+    "babel-preset-taro": "3.6.34",
+    "dotenv": "^16.4.5",
+    "react-refresh": "^0.14.2",
+    "sass": "^1.77.0",
+    "typescript": "^5.7.2",
+    "webpack": "5.88.2"
+  }
+}

@@ -1,0 +1,9 @@
+// Shadow tokens
+
+@import "./colors";
+@import "./motion";
+
+$shadow-sm: 0 2rpx 4rpx rgba(0, 0, 0, 0.45);
+$shadow-md: 0 8rpx 24rpx rgba(0, 0, 0, 0.55);
+$shadow-glass: 0 8rpx 32rpx rgba(0, 0, 0, 0.4);
+$shadow-gold: 0 8rpx 28rpx $gold-glow;

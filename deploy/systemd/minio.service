@@ -1,0 +1,19 @@
+[Unit]
+Description=MinIO object storage for Vibe Sorcery
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=agentuser
+# 把 CHANGE_ME_* 改成强密码，且必须与 .env 里的 S3_ACCESS_KEY / S3_SECRET_KEY 一致
+Environment=MINIO_ROOT_USER=CHANGE_ME_MINIO_USER
+Environment=MINIO_ROOT_PASSWORD=CHANGE_ME_MINIO_PASSWORD
+# 只监听本机，由 Nginx 反代对外；console 后台 9001 也只开本机
+ExecStart=/usr/local/bin/minio server /opt/vibe-sorcery/minio-data --address 127.0.0.1:9000 --console-address 127.0.0.1:9001
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

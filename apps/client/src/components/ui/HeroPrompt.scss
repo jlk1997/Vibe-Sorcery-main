@@ -1,0 +1,135 @@
+@import "../../styles/_utilities.scss";
+.ui-hero-prompt {
+  margin-bottom: $space-md;
+  position: relative;
+}
+
+.ui-hero-prompt__label {
+  @extend .typo-h2;
+  display: block;
+  font-family: var(--font-display);
+  margin-bottom: $space-xs;
+}
+
+.ui-hero-prompt__box {
+  position: relative;
+  background: rgba(14, 14, 22, 0.9);
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  padding: $space-sm $space-md;
+  box-shadow: $shadow-sm, inset 0 1rpx 0 rgba(212, 175, 106, 0.08);
+
+  taro-textarea-core,
+  .ui-hero-prompt__input {
+    width: 100%;
+    display: block;
+  }
+
+  .taro-textarea,
+  textarea {
+    width: 100%;
+    min-height: 160rpx;
+    color: $text;
+    font-size: var(--text-body);
+    font-family: var(--font-ui);
+    line-height: 1.65;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-sizing: border-box;
+    caret-color: $gold;
+    padding: 0;
+    margin: 0;
+
+    &::placeholder {
+      color: rgba(136, 136, 170, 0.75);
+      font-style: italic;
+    }
+  }
+}
+
+.ui-hero-prompt__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $space-xs;
+  gap: $space-xs;
+}
+
+.ui-hero-prompt__hint {
+  @extend .typo-meta;
+  flex: 1;
+}
+
+.ui-hero-prompt__count {
+  @extend .typo-mono;
+  color: $muted;
+  font-size: var(--text-micro);
+}
+
+// ── Ritual variant (create home altar) ───────────────────────────
+.ui-hero-prompt--ritual {
+  margin-bottom: $space-lg;
+
+  .ui-hero-prompt__label {
+    font-size: var(--text-meta);
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(212, 175, 106, 0.9);
+    margin-bottom: $space-sm;
+  }
+
+  .ui-hero-prompt__box {
+    background: linear-gradient(160deg, rgba(20, 20, 32, 0.96) 0%, rgba(10, 10, 16, 0.98) 100%);
+    border-color: rgba(212, 175, 106, 0.2);
+    border-radius: $radius-lg;
+    padding: $space-md;
+    box-shadow:
+      $shadow-md,
+      inset 0 1rpx 0 rgba(212, 175, 106, 0.12),
+      0 0 48rpx rgba(212, 175, 106, 0.06);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 28rpx;
+      height: 28rpx;
+      border-color: rgba(212, 175, 106, 0.45);
+      border-style: solid;
+      pointer-events: none;
+    }
+
+    &::before {
+      top: $space-sm;
+      left: $space-sm;
+      border-width: 2rpx 0 0 2rpx;
+      border-radius: 4rpx 0 0 0;
+    }
+
+    &::after {
+      bottom: $space-sm;
+      right: $space-sm;
+      border-width: 0 2rpx 2rpx 0;
+      border-radius: 0 0 4rpx 0;
+    }
+
+    .taro-textarea,
+    textarea {
+      min-height: 180rpx;
+      font-size: var(--text-body);
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+    }
+  }
+
+  .ui-hero-prompt__hint {
+    color: rgba(136, 136, 170, 0.88);
+    font-style: italic;
+  }
+
+  .ui-hero-prompt__count {
+    color: rgba(212, 175, 106, 0.55);
+  }
+}

@@ -1,0 +1,36 @@
+.member-stats {
+  padding: $space-md;
+  margin-bottom: $space-md;
+  border-radius: $radius-lg;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(22, 22, 34, 0.95));
+  border: 1rpx solid rgba(212, 175, 106, 0.25);
+}
+
+.member-stats__title {
+  display: block;
+  margin-bottom: $space-sm;
+  color: $gold;
+  font-weight: $font-weight-semibold;
+}
+
+.member-stats__grid {
+  display: flex;
+  gap: $space-sm;
+}
+
+.member-stats__cell {
+  flex: 1;
+  text-align: center;
+}
+
+.member-stats__n {
+  display: block;
+  font-size: var(--text-title);
+  font-family: var(--font-mono);
+  color: $text;
+}
+
+.member-stats__label {
+  font-size: var(--text-micro);
+  color: $muted;
+}

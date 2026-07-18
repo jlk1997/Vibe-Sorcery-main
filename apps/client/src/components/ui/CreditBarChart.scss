@@ -1,0 +1,59 @@
+.ui-credit-chart {
+  margin-bottom: $space-md;
+  padding: $space-md;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+
+  &__row {
+    margin-bottom: $space-md;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--featured .ui-credit-chart__fill {
+      background: linear-gradient(90deg, $gold, $teal-mood);
+      box-shadow: 0 0 16rpx $accent-glow;
+    }
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10rpx;
+  }
+
+  &__label {
+    color: $text;
+    font-size: 26rpx;
+    font-weight: 600;
+  }
+
+  &__value {
+    color: $accent;
+    font-size: 24rpx;
+    font-weight: 700;
+  }
+
+  &__price {
+    color: $muted;
+    font-weight: 400;
+  }
+
+  &__track {
+    height: 16rpx;
+    background: $surface-elevated;
+    border-radius: $radius-full;
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    background: linear-gradient(90deg, $gold, $teal-mood);
+    border-radius: $radius-full;
+    min-width: 8rpx;
+    transition: width 0.4s $ease-out;
+  }
+}

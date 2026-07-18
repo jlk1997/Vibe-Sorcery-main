@@ -1,0 +1,79 @@
+.sound-recipe {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  margin-bottom: $space-md;
+  padding: $space-md;
+  border-radius: $radius-lg;
+  background: linear-gradient(165deg, rgba(18, 20, 32, 0.96) 0%, rgba(8, 8, 14, 0.98) 100%);
+  border: 1rpx solid rgba(212, 175, 106, 0.18);
+  box-shadow: $shadow-sm, inset 0 1rpx 0 rgba(212, 175, 106, 0.08);
+}
+
+.sound-recipe__head {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  margin-bottom: $space-sm;
+}
+
+.sound-recipe__title {
+  color: $text;
+  font-size: var(--text-body);
+  font-weight: $font-weight-semibold;
+  font-family: var(--font-display);
+}
+
+.sound-recipe__row {
+  margin-bottom: $space-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sound-recipe__label {
+  display: block;
+  color: $muted;
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+  margin-bottom: $space-2xs;
+  letter-spacing: 0.04em;
+}
+
+.sound-recipe__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2xs;
+}
+
+.sound-recipe__chip {
+  padding: 10rpx 20rpx;
+  border-radius: $radius-pill;
+  border: 1rpx solid $border-ritual;
+  background: $obsidian;
+  color: $muted;
+  font-size: var(--text-micro);
+  font-family: var(--font-ui);
+  transition: border-color $duration-fast $ease-reveal, background $duration-fast $ease-reveal, color $duration-fast $ease-reveal;
+
+  &--active {
+    border-color: $gold;
+    background: $gold-muted;
+    color: $text;
+  }
+}
+
+.sound-recipe__advanced {
+  margin-top: $space-sm;
+  padding-top: $space-xs;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.06);
+}
+
+.sound-recipe__select-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2xs;
+  margin-bottom: $space-xs;
+}

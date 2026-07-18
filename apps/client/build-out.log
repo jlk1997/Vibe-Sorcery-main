@@ -1,0 +1,1190 @@
+﻿
+> @vibe-sorcery/client@3.0.0 build:weapp
+> taro build --type weapp
+
+馃懡 Taro v3.6.34
+
+Tips:
+1. 寤鸿寮€鍚寔涔呭寲缂撳瓨鍔熻兘锛岃兘鏈夋晥鎻愬崌浜屾缂栬瘧閫熷害锛岃鎯呰鍙傝€? https://docs.taro.zone/docs/config-detail#cache銆?
+
+Prebundle dependencies: 
+     @tarojs/plugin-framework-react/dist/runtime
+     @tarojs/plugin-platform-weapp/dist/runtime
+     @tarojs/runtime
+     @tarojs/taro
+     hls.js
+     qrcode
+     react
+     react-dom
+     react/jsx-runtime
+
+node.exe : 
+所在位置 行:1 字符: 1
++ & "D:\nodejs/node.exe" "D:\nodejs/node_modules/npm/bin/npm-cli.js" ru ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻? (0%)  
+ 
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻?setup (9%) compilation 
+ HarmonyModulesPlugin
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻?building (21%) 1/2 entries 10/29 dependenc
+ies 1/10 modules 0 active 
+ 
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻?sealing (73%)  
+ after chunk graph
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻?sealing (78%)  
+ chunk modules optimization
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻?sealing (89%)  
+ hashing
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻?emitting (95%)  
+ emit
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+鈭?Webpack
+  Compiled successfully in 453.95ms
+
+鈿狅笍 Warnings: 
+
+AssetsOverSizeLimitWarning: asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+This can impact web performance.
+Assets: 
+  342.js (515 KiB)
+  212.js (279 KiB)
+
+
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻? (0%)  
+ 
+
+X [ERROR] No loader is configured for ".scss" files: src/pages/marketplace/index.scss
+
+    src/pages/marketplace/index.tsx:10:7:
+      10 鈹?import "./index.scss";
+         鈺?       ~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/LibraryShelf.scss
+
+    src/components/ui/LibraryShelf.tsx:3:7:
+      3 鈹?import "./LibraryShelf.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/SegmentedControl.scss
+
+    src/components/ui/SegmentedControl.tsx:3:7:
+      3 鈹?import "./SegmentedControl.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/SceneCard.scss
+
+    src/components/ui/SceneCard.tsx:4:7:
+      4 鈹?import "./SceneCard.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/UsageMeter.scss
+
+    src/components/ui/UsageMeter.tsx:3:7:
+      3 鈹?import "./UsageMeter.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/FeatureCard.scss
+
+    src/components/ui/FeatureCard.tsx:3:7:
+      3 鈹?import "./FeatureCard.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ui.scss
+
+    src/components/ui/Collapsible.tsx:4:7:
+      4 鈹?import "./ui.scss";
+        鈺?       ~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/MetricCard.scss
+
+    src/components/ui/MetricCard.tsx:4:7:
+      4 鈹?import "./MetricCard.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ViewModeToggle.scss
+
+    src/components/ui/ViewModeToggle.tsx:4:7:
+      4 鈹?import "./ViewModeToggle.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/Icon.scss
+
+    src/components/ui/Icon.tsx:4:7:
+      4 鈹?import "./Icon.scss";
+        鈺?       ~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/StepRail.scss
+
+    src/components/ui/StepRail.tsx:4:7:
+      4 鈹?import "./StepRail.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/CreditBarChart.scss
+
+    src/components/ui/CreditBarChart.tsx:3:7:
+      3 鈹?import "./CreditBarChart.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/TrackRow.scss
+
+    src/components/ui/TrackRow.tsx:4:7:
+      4 鈹?import "./TrackRow.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/PostProcessBadges.scss
+
+    src/components/ui/PostProcessBadges.tsx:3:7:
+      3 鈹?import "./PostProcessBadges.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/MoodShiftViz.scss
+
+    src/components/ui/MoodShiftViz.tsx:3:7:
+      3 鈹?import "./MoodShiftViz.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ActionBar.scss
+
+    src/components/ui/ActionBar.tsx:4:7:
+      4 鈹?import "./ActionBar.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/PageHeader.scss
+
+    src/components/ui/PageHeader.tsx:4:7:
+      4 鈹?import "./PageHeader.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/PaymentQRModal.scss
+
+    src/components/ui/PaymentQRModal.tsx:13:7:
+      13 鈹?import "./PaymentQRModal.scss";
+         鈺?       ~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/CreditLedgerRow.scss
+
+    src/components/ui/CreditLedgerRow.tsx:4:7:
+      4 鈹?import "./CreditLedgerRow.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ProgressRail.scss
+
+    src/components/ui/ProgressRail.tsx:3:7:
+      3 鈹?import "./ProgressRail.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/StatPill.scss
+
+    src/components/ui/StatPill.tsx:4:7:
+      4 鈹?import "./StatPill.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/SectionLabel.scss
+
+    src/components/ui/SectionLabel.tsx:2:7:
+      2 鈹?import "./SectionLabel.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/AudioVisualizer.scss
+
+    src/components/ui/AudioVisualizer.tsx:3:7:
+      3 鈹?import "./AudioVisualizer.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/AtmosphereLayer.scss
+
+    src/components/ui/AtmosphereLayer.tsx:3:7:
+      3 鈹?import "./AtmosphereLayer.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/PageShell.scss
+
+    src/components/PageShell.tsx:9:7:
+      9 鈹?import "./PageShell.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/MoodSpectrum.scss
+
+    src/components/ui/MoodSpectrum.tsx:3:7:
+      3 鈹?import "./MoodSpectrum.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/RankBadge.scss
+
+    src/components/ui/RankBadge.tsx:4:7:
+      4 鈹?import "./RankBadge.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ListRow.scss
+
+    src/components/ui/ListRow.tsx:4:7:
+      4 鈹?import "./ListRow.scss";
+        鈺?       ~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/HeroPrompt.scss
+
+    src/components/ui/HeroPrompt.tsx:3:7:
+      3 鈹?import "./HeroPrompt.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ProvenanceTimeline.scss
+
+    src/components/ui/ProvenanceTimeline.tsx:4:7:
+      4 鈹?import "./ProvenanceTimeline.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/RingGauge.scss
+
+    src/components/ui/RingGauge.tsx:3:7:
+      3 鈹?import "./RingGauge.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ModeTile.scss
+
+    src/components/ui/ModeTile.tsx:4:7:
+      4 鈹?import "./ModeTile.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/BottomSheet.scss
+
+    src/components/ui/BottomSheet.tsx:4:7:
+      4 鈹?import "./BottomSheet.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/Avatar.scss
+
+    src/components/ui/Avatar.tsx:3:7:
+      3 鈹?import "./Avatar.scss";
+        鈺?       ~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/CelebrationSheet.scss
+
+    src/components/ui/CelebrationSheet.tsx:5:7:
+      5 鈹?import "./CelebrationSheet.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/MemberPerksBanner.scss
+
+    src/components/ui/MemberPerksBanner.tsx:5:7:
+      5 鈹?import "./MemberPerksBanner.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/NavTile.scss
+
+    src/components/ui/NavTile.tsx:4:7:
+      4 鈹?import "./NavTile.scss";
+        鈺?       ~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/OverflowMenu.scss
+
+    src/components/ui/OverflowMenu.tsx:4:7:
+      4 鈹?import "./OverflowMenu.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/SearchField.scss
+
+    src/components/ui/SearchField.tsx:4:7:
+      4 鈹?import "./SearchField.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/StickySummary.scss
+
+    src/components/ui/StickySummary.tsx:5:7:
+      5 鈹?import "./StickySummary.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ActionIconBar.scss
+
+    src/components/ui/ActionIconBar.tsx:4:7:
+      4 鈹?import "./ActionIconBar.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ImmersiveCover.scss
+
+    src/components/ui/ImmersiveCover.tsx:3:7:
+      3 鈹?import "./ImmersiveCover.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/SubscriptionManageCard.scss
+
+    src/components/ui/SubscriptionManageCard.tsx:7:7:
+      7 鈹?import "./SubscriptionManageCard.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/PricingPackCard.scss
+
+    src/components/ui/PricingPackCard.tsx:6:7:
+      6 鈹?import "./PricingPackCard.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/CreditEstimateMeter.scss
+
+    src/components/ui/CreditEstimateMeter.tsx:6:7:
+      6 鈹?import "./CreditEstimateMeter.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/CreatorLevelBadge.scss
+
+    src/components/ui/CreatorLevelBadge.tsx:3:7:
+      3 鈹?import "./CreatorLevelBadge.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/ChatBubble.scss
+
+    src/components/ui/ChatBubble.tsx:6:7:
+      6 鈹?import "./ChatBubble.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/ui/CreditsPaywallSheet.scss
+
+    src/components/ui/CreditsPaywallSheet.tsx:14:7:
+      14 鈹?import "./CreditsPaywallSheet.scss";
+         鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+X [ERROR] No loader is configured for ".scss" files: src/components/legal/ConsentCheckbox.scss
+
+    src/components/legal/ConsentCheckbox.tsx:3:7:
+      3 鈹?import "./ConsentCheckbox.scss";
+        鈺?       ~~~~~~~~~~~~~~~~~~~~~~~~
+
+[2K[1A[2K[1A[2K[1A[2K[1A[2K[G
+鈼?Webpack 鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻?setup (2%)  
+ run
+
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+Error: Build failed with 49 errors:
+src/components/PageShell.tsx:9:7: ERROR: No loader is configured for ".scss" files: src/components/PageShell.scss
+src/components/legal/ConsentCheckbox.tsx:3:7: ERROR: No loader is configured for ".scss" files: src/components/legal/Co
+nsentCheckbox.scss
+src/components/ui/ActionBar.tsx:4:7: ERROR: No loader is configured for ".scss" files: src/components/ui/ActionBar.scss
+src/components/ui/ActionIconBar.tsx:4:7: ERROR: No loader is configured for ".scss" files: src/components/ui/ActionIcon
+Bar.scss
+src/components/ui/AtmosphereLayer.tsx:3:7: ERROR: No loader is configured for ".scss" files: src/components/ui/Atmosphe
+reLayer.scss
+...
+    at failureErrorWithLog (E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\esbuild\lib\main.js:1651:15)
+    at E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\esbuild\lib\main.js:1059:25
+    at E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\esbuild\lib\main.js:1004:52
+    at buildResponseToResult (E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\esbuild\lib\main.js:1057:7)
+    at E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\esbuild\lib\main.js:1086:16
+    at responseCallbacks.<computed> (E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\esbuild\lib\main.js:704:9)
+    at handleIncomingPacket (E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\esbuild\lib\main.js:764:9)
+    at Socket.readFromStdout (E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\esbuild\lib\main.js:680:7)
+    at Socket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12) {
+  errors: [
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/PageShell.tsx',
+        length: 18,
+        line: 9,
+        lineText: 'import "./PageShell.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/PageShell.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/legal/ConsentCheckbox.tsx',
+        length: 24,
+        line: 3,
+        lineText: 'import "./ConsentCheckbox.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/legal/ConsentCheckbox.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ActionBar.tsx',
+        length: 18,
+        line: 4,
+        lineText: 'import "./ActionBar.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ActionBar.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ActionIconBar.tsx',
+        length: 22,
+        line: 4,
+        lineText: 'import "./ActionIconBar.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ActionIconBar.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/AtmosphereLayer.tsx',
+        length: 24,
+        line: 3,
+        lineText: 'import "./AtmosphereLayer.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/AtmosphereLayer.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/AudioVisualizer.tsx',
+        length: 24,
+        line: 3,
+        lineText: 'import "./AudioVisualizer.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/AudioVisualizer.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/Avatar.tsx',
+        length: 15,
+        line: 3,
+        lineText: 'import "./Avatar.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/Avatar.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/BottomSheet.tsx',
+        length: 20,
+        line: 4,
+        lineText: 'import "./BottomSheet.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/BottomSheet.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/CelebrationSheet.tsx',
+        length: 25,
+        line: 5,
+        lineText: 'import "./CelebrationSheet.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/CelebrationSheet.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ChatBubble.tsx',
+        length: 19,
+        line: 6,
+        lineText: 'import "./ChatBubble.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ChatBubble.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/Collapsible.tsx',
+        length: 11,
+        line: 4,
+        lineText: 'import "./ui.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ui.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/CreatorLevelBadge.tsx',
+        length: 26,
+        line: 3,
+        lineText: 'import "./CreatorLevelBadge.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/CreatorLevelBadge.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/CreditBarChart.tsx',
+        length: 23,
+        line: 3,
+        lineText: 'import "./CreditBarChart.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/CreditBarChart.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/CreditEstimateMeter.tsx',
+        length: 28,
+        line: 6,
+        lineText: 'import "./CreditEstimateMeter.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/CreditEstimateMeter.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/CreditLedgerRow.tsx',
+        length: 24,
+        line: 4,
+        lineText: 'import "./CreditLedgerRow.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/CreditLedgerRow.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/CreditsPaywallSheet.tsx',
+        length: 28,
+        line: 14,
+        lineText: 'import "./CreditsPaywallSheet.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/CreditsPaywallSheet.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/FeatureCard.tsx',
+        length: 20,
+        line: 3,
+        lineText: 'import "./FeatureCard.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/FeatureCard.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/HeroPrompt.tsx',
+        length: 19,
+        line: 3,
+        lineText: 'import "./HeroPrompt.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/HeroPrompt.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/Icon.tsx',
+        length: 13,
+        line: 4,
+        lineText: 'import "./Icon.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/Icon.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ImmersiveCover.tsx',
+        length: 23,
+        line: 3,
+        lineText: 'import "./ImmersiveCover.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ImmersiveCover.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/LibraryShelf.tsx',
+        length: 21,
+        line: 3,
+        lineText: 'import "./LibraryShelf.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/LibraryShelf.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ListRow.tsx',
+        length: 16,
+        line: 4,
+        lineText: 'import "./ListRow.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ListRow.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/MemberPerksBanner.tsx',
+        length: 26,
+        line: 5,
+        lineText: 'import "./MemberPerksBanner.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/MemberPerksBanner.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/MetricCard.tsx',
+        length: 19,
+        line: 4,
+        lineText: 'import "./MetricCard.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/MetricCard.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ModeTile.tsx',
+        length: 17,
+        line: 4,
+        lineText: 'import "./ModeTile.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ModeTile.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/MoodShiftViz.tsx',
+        length: 21,
+        line: 3,
+        lineText: 'import "./MoodShiftViz.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/MoodShiftViz.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/MoodSpectrum.tsx',
+        length: 21,
+        line: 3,
+        lineText: 'import "./MoodSpectrum.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/MoodSpectrum.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/NavTile.tsx',
+        length: 16,
+        line: 4,
+        lineText: 'import "./NavTile.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/NavTile.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/OverflowMenu.tsx',
+        length: 21,
+        line: 4,
+        lineText: 'import "./OverflowMenu.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/OverflowMenu.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/PageHeader.tsx',
+        length: 19,
+        line: 4,
+        lineText: 'import "./PageHeader.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/PageHeader.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/PaymentQRModal.tsx',
+        length: 23,
+        line: 13,
+        lineText: 'import "./PaymentQRModal.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/PaymentQRModal.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/PostProcessBadges.tsx',
+        length: 26,
+        line: 3,
+        lineText: 'import "./PostProcessBadges.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/PostProcessBadges.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/PricingPackCard.tsx',
+        length: 24,
+        line: 6,
+        lineText: 'import "./PricingPackCard.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/PricingPackCard.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ProgressRail.tsx',
+        length: 21,
+        line: 3,
+        lineText: 'import "./ProgressRail.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ProgressRail.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ProvenanceTimeline.tsx',
+        length: 27,
+        line: 4,
+        lineText: 'import "./ProvenanceTimeline.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ProvenanceTimeline.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/RankBadge.tsx',
+        length: 18,
+        line: 4,
+        lineText: 'import "./RankBadge.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/RankBadge.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/RingGauge.tsx',
+        length: 18,
+        line: 3,
+        lineText: 'import "./RingGauge.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/RingGauge.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/SceneCard.tsx',
+        length: 18,
+        line: 4,
+        lineText: 'import "./SceneCard.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/SceneCard.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/SearchField.tsx',
+        length: 20,
+        line: 4,
+        lineText: 'import "./SearchField.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/SearchField.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/SectionLabel.tsx',
+        length: 21,
+        line: 2,
+        lineText: 'import "./SectionLabel.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/SectionLabel.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/SegmentedControl.tsx',
+        length: 25,
+        line: 3,
+        lineText: 'import "./SegmentedControl.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/SegmentedControl.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/StatPill.tsx',
+        length: 17,
+        line: 4,
+        lineText: 'import "./StatPill.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/StatPill.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/StepRail.tsx',
+        length: 17,
+        line: 4,
+        lineText: 'import "./StepRail.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/StepRail.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/StickySummary.tsx',
+        length: 22,
+        line: 5,
+        lineText: 'import "./StickySummary.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/StickySummary.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/SubscriptionManageCard.tsx',
+        length: 31,
+        line: 7,
+        lineText: 'import "./SubscriptionManageCard.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/SubscriptionManageCard.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/TrackRow.tsx',
+        length: 17,
+        line: 4,
+        lineText: 'import "./TrackRow.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/TrackRow.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/UsageMeter.tsx',
+        length: 19,
+        line: 3,
+        lineText: 'import "./UsageMeter.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/UsageMeter.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/components/ui/ViewModeToggle.tsx',
+        length: 23,
+        line: 4,
+        lineText: 'import "./ViewModeToggle.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/components/ui/ViewModeToggle.scss'
+    },
+    {
+      detail: undefined,
+      id: '',
+      location: {
+        column: 7,
+        file: 'src/pages/marketplace/index.tsx',
+        length: 14,
+        line: 10,
+        lineText: 'import "./index.scss";',
+        namespace: '',
+        suggestion: ''
+      },
+      notes: [],
+      pluginName: '',
+      text: 'No loader is configured for ".scss" files: src/pages/marketplace/index.scss'
+    }
+  ],
+  warnings: []
+}
+
+Node.js v22.18.0
+npm error Lifecycle script `build:weapp` failed with error:
+npm error code 1
+npm error path E:\Vibe-Sorcery-main\Vibe-Sorcery-main\apps\client
+npm error workspace @vibe-sorcery/client@3.0.0
+npm error location E:\Vibe-Sorcery-main\Vibe-Sorcery-main\apps\client
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c taro build --type weapp

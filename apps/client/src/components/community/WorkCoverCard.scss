@@ -1,0 +1,143 @@
+.work-cover-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+
+  &--selected {
+    .work-cover-card__hero {
+      box-shadow: 0 0 0 3rpx $accent;
+    }
+  }
+
+  &--select {
+    cursor: pointer;
+  }
+
+  &__hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    background: $surface-elevated;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+
+    &--fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(212, 175, 106, 0.22), $teal-muted);
+    }
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(10, 10, 15, 0.75) 100%);
+    pointer-events: none;
+  }
+
+  &__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  &__check {
+    position: absolute;
+    top: 12rpx;
+    right: 12rpx;
+    width: 44rpx;
+    height: 44rpx;
+    border-radius: $radius-full;
+    border: 2rpx solid rgba(255, 255, 255, 0.6);
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text;
+    font-size: 24rpx;
+    z-index: 3;
+
+    &--on {
+      background: $accent;
+      border-color: $accent;
+      color: $bg;
+    }
+  }
+
+  &__badges {
+    position: absolute;
+    left: 12rpx;
+    bottom: 12rpx;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8rpx;
+    z-index: 2;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 6rpx;
+    padding-top: $space-2xs;
+    min-width: 0;
+  }
+
+  &__title {
+    color: $text;
+    font-size: 26rpx;
+    font-weight: 600;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__moods {
+    color: $muted;
+    font-size: 22rpx;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 8rpx;
+    margin-top: 8rpx;
+  }
+
+  &__more {
+    flex: 0 0 56rpx;
+    width: 56rpx;
+    height: 56rpx;
+    border-radius: $radius-full;
+    border: 1rpx solid $border-ritual;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $muted;
+    background: $obsidian;
+  }
+
+  &__menu-item {
+    padding: $space-sm $space-md;
+    color: $text;
+    font-size: var(--text-body);
+    border-bottom: 1rpx solid rgba(255, 255, 255, 0.06);
+
+    &--danger {
+      color: $danger;
+    }
+  }
+}

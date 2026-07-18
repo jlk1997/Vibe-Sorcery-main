@@ -1,0 +1,77 @@
+// Occult Atelier Design System v2 — global entry (app.scss only)
+@import "./tokens";
+
+// CSS custom properties for runtime theming
+:root {
+  --font-display: #{$font-display-stack};
+  --font-ui: #{$font-ui-stack};
+  --font-sans: #{$font-ui-stack};
+  --font-mono: #{$font-mono-stack};
+
+  --text-display: #{$text-display};
+  --text-title: #{$text-title};
+  --text-heading: #{$text-heading};
+  --text-body: #{$text-body};
+  --text-meta: #{$text-meta};
+  --text-micro: #{$text-micro};
+  --text-primary: #{$text};
+  --text-secondary: #{$muted};
+  --text-caption: #{$text-meta};
+
+  --color-void: #{$void};
+  --color-bg: #{$void};
+  --color-surface: #{$obsidian};
+  --color-surface-elevated: #{$slate-veil};
+  --color-border: #{$border};
+  --color-text: #{$text};
+  --color-muted: #{$muted};
+  --color-gold: #{$gold};
+  --color-gold-muted: #{$gold-muted};
+  --color-gold-glow: #{$gold-glow};
+  --color-accent: #{$gold};
+  --color-accent-muted: #{$gold-muted};
+  --color-accent-glow: #{$gold-glow};
+  --color-teal-mood: #{$teal-mood};
+  --color-teal-muted: #{$teal-muted};
+  --color-ether: #{$ether};
+  --cover-accent: #{$gold};
+  --atmosphere-hue: 42;
+
+  /* Backward-compatible short aliases (H5 / newer SCSS) */
+  --surface: #{$obsidian};
+  --border: #{$border};
+  --gold: #{$gold};
+  --muted: #{$muted};
+  --radius-lg: #{$radius-lg};
+  --radius-md: #{$radius-md};
+  --color-text-muted: #{$muted};
+  --surface-elevated: #{$slate-veil};
+  --border-subtle: #{$border};
+
+  --shadow-glass: #{$shadow-glass};
+  --shadow-gold: #{$shadow-gold};
+  --focus-ring: #{$focus-ring};
+
+  --safe-bottom: 0rpx;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --tab-bar-height: #{$tab-bar-height};
+  --tab-bar-stack: #{$tab-bar-height};
+  --mini-player-height: 0rpx;
+  --create-dock-reserve: 300rpx;
+  --app-header-height: 0px;
+}
+
+page {
+  --font-display: #{$font-display-stack};
+  --font-ui: #{$font-ui-stack};
+  --font-sans: #{$font-ui-stack};
+  --font-mono: #{$font-mono-stack};
+  --safe-bottom: 0rpx;
+  --tab-bar-height: 0rpx;
+  --tab-bar-stack: 0rpx;
+  --mini-player-height: 0rpx;
+  --create-dock-reserve: 300rpx;
+  --app-header-height: 0px;
+}
+
+@import "./utilities";

@@ -1,0 +1,62 @@
+.work-picker {
+  &__selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-sm;
+    padding: $space-xs $space-sm;
+    background: $surface;
+    border: 1rpx solid $border;
+    border-radius: $radius-md;
+    margin-top: $space-sm;
+  }
+
+  &__selected-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4rpx;
+  }
+
+  &__title {
+    color: $text;
+    font-size: var(--text-body);
+    font-family: var(--font-display);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__id {
+    color: $muted;
+    font-size: var(--text-micro);
+    font-family: var(--font-mono);
+  }
+
+  &__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &__sheet {
+    width: 100%;
+    max-height: 70vh;
+    background: $bg;
+    border-radius: $radius-lg $radius-lg 0 0;
+    padding: $space-md;
+    box-sizing: border-box;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-xs 0;
+    border-bottom: 1rpx solid $border;
+  }
+}

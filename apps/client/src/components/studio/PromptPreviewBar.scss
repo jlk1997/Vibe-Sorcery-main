@@ -1,0 +1,55 @@
+.prompt-preview {
+  margin-bottom: $space-md;
+  padding: $space-sm $space-md;
+  border-radius: $radius-md;
+  background: rgba(212, 175, 106, 0.06);
+  border: 1rpx solid rgba(212, 175, 106, 0.2);
+}
+
+.prompt-preview__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xs;
+  margin-bottom: $space-2xs;
+}
+
+.prompt-preview__label {
+  color: $gold;
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+}
+
+.prompt-preview__toggle {
+  color: $muted;
+  font-size: var(--text-micro);
+}
+
+.prompt-preview__text {
+  color: $text;
+  font-size: var(--text-micro);
+  line-height: 1.5;
+  font-family: var(--font-ui);
+  word-break: break-word;
+}
+
+.prompt-preview__text--loading {
+  color: $muted;
+}
+
+.prompt-preview__raw {
+  margin-top: $space-xs;
+}
+
+.prompt-preview__textarea {
+  width: 100%;
+  min-height: 120rpx;
+  padding: $space-xs;
+  border-radius: $radius-sm;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  color: $text;
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+  box-sizing: border-box;
+}

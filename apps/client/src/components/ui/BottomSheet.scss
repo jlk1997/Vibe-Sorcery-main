@@ -1,0 +1,109 @@
+.ui-bottom-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: calc(
+    var(--safe-bottom, 0px) + var(--tab-bar-height, 0px) + var(--mini-player-height, 0px)
+  );
+  box-sizing: border-box;
+}
+
+.ui-bottom-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  animation: ui-sheet-fade-in 0.2s $ease-out;
+  z-index: 0;
+}
+
+.ui-bottom-sheet__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: $max-wide;
+  max-height: 85vh;
+  background: $surface-glass;
+  border-radius: $radius-lg $radius-lg 0 0;
+  border: 1rpx solid $border-ritual;
+  border-bottom: none;
+  animation: ui-sheet-slide-up 0.28s $ease-out;
+  box-sizing: border-box;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 -8rpx 48rpx rgba(0, 0, 0, 0.4), 0 0 32rpx $gold-glow;
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-bottom-sheet__handle {
+  width: 64rpx;
+  height: 8rpx;
+  background: $border-ritual;
+  border-radius: $radius-full;
+  margin: $space-sm auto;
+}
+
+.ui-bottom-sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $space-md $space-sm;
+}
+
+.ui-bottom-sheet__title {
+  color: $text;
+  font-size: var(--text-title);
+  font-weight: $font-weight-display;
+  font-family: var(--font-display);
+}
+
+.ui-bottom-sheet__close {
+  color: $muted;
+  font-size: 32rpx;
+  padding: 8rpx 16rpx;
+}
+
+.ui-bottom-sheet__body {
+  flex: 1;
+  min-height: 0;
+  padding: 0 $space-md $space-md;
+  max-height: min(52vh, calc(100vh - 280rpx));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &--with-footer {
+    max-height: min(48vh, calc(100vh - 320rpx));
+  }
+}
+
+.ui-bottom-sheet__footer {
+  flex-shrink: 0;
+  padding: $space-sm $space-md $space-md;
+  border-top: 1rpx solid $border-ritual;
+  background: linear-gradient(180deg, rgba(5, 5, 8, 0.4) 0%, rgba(5, 5, 8, 0.92) 100%);
+}
+
+@keyframes ui-sheet-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ui-sheet-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.reduce-motion .ui-bottom-sheet__backdrop,
+.reduce-motion .ui-bottom-sheet__panel {
+  animation: none;
+}

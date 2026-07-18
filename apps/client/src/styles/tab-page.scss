@@ -1,0 +1,13 @@
+.tab-page {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-ui);
+}
+
+.tab-page__row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $space-xs;
+  margin-bottom: $space-sm;
+}

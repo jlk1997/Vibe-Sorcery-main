@@ -1,0 +1,73 @@
+@import "../../styles/_utilities.scss";
+.waypoint-timeline {
+  padding: $space-sm;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  overflow-x: auto;
+}
+
+.waypoint-timeline__track {
+  display: flex;
+  align-items: flex-start;
+  min-width: min-content;
+  gap: 0;
+}
+
+.waypoint-timeline__node-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 140rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 $space-2xs;
+}
+
+.waypoint-timeline__connector {
+  position: absolute;
+  top: 28rpx;
+  left: 50%;
+  width: 100%;
+  height: 4rpx;
+  background: linear-gradient(90deg, $gold, $teal-mood);
+  z-index: 0;
+  opacity: 0.65;
+}
+
+.waypoint-timeline__node {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: $radius-pill;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  border: 2rpx solid $border-ritual;
+  background: $slate-veil;
+}
+
+.waypoint-timeline__step {
+  color: $gold;
+  font-size: var(--text-meta);
+  font-weight: $font-weight-bold;
+  font-family: var(--font-mono);
+}
+
+.waypoint-timeline__label {
+  margin-top: $space-2xs;
+  @extend .typo-meta;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-display);
+}
+
+.waypoint-timeline__meta {
+  margin-top: 4rpx;
+  color: $muted;
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+}

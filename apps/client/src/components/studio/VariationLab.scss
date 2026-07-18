@@ -1,0 +1,33 @@
+.variation-lab {
+  margin-top: 24rpx;
+
+  &__title {
+    font-size: 26rpx;
+    color: var(--color-text-muted);
+    margin-bottom: 12rpx;
+    display: block;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12rpx;
+  }
+
+  &__cell {
+    padding: 16rpx;
+    border-radius: 12rpx;
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+
+    &--active {
+      border-color: var(--color-accent);
+    }
+  }
+
+  &__label {
+    font-size: 24rpx;
+    margin-bottom: 8rpx;
+    display: block;
+  }
+}

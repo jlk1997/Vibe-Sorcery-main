@@ -1,0 +1,64 @@
+.copilot-action-panel {
+  margin: $space-2xs $space-md $space-sm $space-lg;
+  padding: $space-sm;
+  border-radius: $radius-lg;
+  background: linear-gradient(145deg, rgba(22, 22, 34, 0.95), rgba(14, 14, 22, 0.98));
+  border: 1rpx solid rgba(212, 175, 106, 0.22);
+  box-shadow: $shadow-sm, inset 0 1rpx 0 rgba(255, 255, 255, 0.04);
+
+  &__head {
+    display: flex;
+    gap: $space-xs;
+    margin-bottom: $space-xs;
+  }
+
+  &__icon {
+    width: 56rpx;
+    height: 56rpx;
+    border-radius: $radius-pill;
+    background: $gold-muted;
+    border: 1rpx solid $border-ritual;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    display: block;
+    color: $gold;
+    font-size: var(--text-meta);
+    font-weight: $font-weight-semibold;
+    font-family: var(--font-display);
+  }
+
+  &__intent {
+    display: block;
+    color: $text;
+    font-size: var(--text-meta);
+    margin-top: 4rpx;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__cost {
+    display: block;
+    color: $muted;
+    font-size: var(--text-micro);
+    font-family: var(--font-mono);
+    margin-top: 4rpx;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2xs;
+  }
+}

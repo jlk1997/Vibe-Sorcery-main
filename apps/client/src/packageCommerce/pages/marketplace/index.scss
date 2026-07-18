@@ -1,0 +1,27 @@
+.marketplace-card {
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  background: var(--surface);
+  border: 1rpx solid var(--border);
+  border-radius: var(--radius-lg);
+
+  &__title {
+    font-size: var(--text-body);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8rpx;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16rpx;
+  }
+
+  &__price {
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: var(--text-meta);
+  }
+}

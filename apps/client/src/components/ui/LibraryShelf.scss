@@ -1,0 +1,51 @@
+@import "../../styles/_utilities.scss";
+.ui-library-shelf {
+  margin-bottom: $space-md;
+}
+
+.ui-library-shelf__label {
+  @extend .micro-label;
+  display: block;
+  color: $gold;
+  margin-bottom: $space-xs;
+}
+
+.ui-library-shelf__scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.ui-library-shelf__row {
+  display: inline-flex;
+  gap: $space-xs;
+  padding-bottom: 4rpx;
+}
+
+.ui-library-shelf__item {
+  width: 160rpx;
+  flex-shrink: 0;
+}
+
+.ui-library-shelf__cover {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: $radius-md;
+  background: $slate-veil;
+  border: 1rpx solid $border-ritual;
+  box-shadow: $shadow-sm;
+
+  &--fallback {
+    background: linear-gradient(135deg, $gold-muted, rgba(5, 5, 8, 0.9));
+  }
+}
+
+.ui-library-shelf__title {
+  display: block;
+  color: $text;
+  font-size: var(--text-meta);
+  font-family: var(--font-display);
+  margin-top: $space-2xs;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,18 @@
+.feedback-page__history {
+  margin-bottom: $space-md;
+}
+
+.feedback-page__pickers {
+  margin-top: $space-sm;
+}
+
+.feedback-page__submit {
+  margin-top: $space-lg;
+}
+
+.feedback-page__done {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  margin-top: $space-md;
+}

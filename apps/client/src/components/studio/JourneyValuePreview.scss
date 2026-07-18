@@ -1,0 +1,36 @@
+.journey-preview {
+  margin: 16rpx 0 24rpx;
+  padding: 20rpx;
+  border-radius: var(--radius-lg);
+  border: 1rpx solid var(--border);
+  background: var(--surface);
+
+  &__title {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8rpx;
+  }
+
+  &__curve {
+    position: relative;
+    height: 120rpx;
+    margin: 16rpx 0;
+    border-bottom: 1rpx dashed rgba(212, 175, 106, 0.35);
+  }
+
+  &__dot {
+    position: absolute;
+    width: 16rpx;
+    height: 16rpx;
+    border-radius: 50%;
+    background: var(--gold);
+    transform: translate(-50%, 50%);
+    box-shadow: 0 0 12rpx rgba(212, 175, 106, 0.5);
+  }
+
+  &__labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

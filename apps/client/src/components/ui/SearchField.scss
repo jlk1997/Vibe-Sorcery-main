@@ -1,0 +1,23 @@
+.ui-search-field {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: 0 $space-sm;
+  height: 88rpx;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-pill;
+  box-shadow: $shadow-sm;
+}
+
+.ui-search-field__icon {
+  flex-shrink: 0;
+}
+
+.ui-search-field__input {
+  flex: 1;
+  height: 100%;
+  color: $text;
+  font-size: var(--text-body);
+  font-family: var(--font-ui);
+}

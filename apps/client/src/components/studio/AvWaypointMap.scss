@@ -1,0 +1,64 @@
+@import "../../styles/_utilities.scss";
+.av-map {
+  margin: $space-xs 0;
+}
+
+.av-map__hint {
+  @extend .typo-meta;
+  display: block;
+  margin-bottom: $space-2xs;
+}
+
+.av-map__canvas {
+  position: relative;
+  width: 100%;
+  height: 480rpx;
+  background: $obsidian;
+  border-radius: $radius-lg;
+  border: 1rpx solid $border-ritual;
+  overflow: hidden;
+}
+
+.av-map__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 175, 106, 0.08) 1rpx, transparent 1rpx),
+    linear-gradient(90deg, rgba(212, 175, 106, 0.08) 1rpx, transparent 1rpx);
+  background-size: 20% 20%;
+}
+
+.av-map__dot {
+  position: absolute;
+  width: 48rpx;
+  height: 48rpx;
+  margin-left: -24rpx;
+  margin-top: -24rpx;
+  border-radius: $radius-pill;
+  background: $teal-mood;
+  border: 3rpx solid $gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: $shadow-gold;
+}
+
+.av-map__dot--active {
+  background: $gold;
+  transform: scale(1.1);
+}
+
+.av-map__dot-label {
+  color: $void;
+  font-size: var(--text-micro);
+  font-weight: $font-weight-bold;
+  font-family: var(--font-mono);
+}
+
+.av-map__meta {
+  @extend .typo-meta;
+  display: block;
+  margin-top: $space-2xs;
+  font-family: var(--font-mono);
+}

@@ -1,0 +1,13 @@
+.ui-pp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8rpx;
+  margin-top: 8rpx;
+
+  &__retry {
+    color: $accent;
+    font-size: 22rpx;
+    padding: 4rpx -2xs;
+  }
+}

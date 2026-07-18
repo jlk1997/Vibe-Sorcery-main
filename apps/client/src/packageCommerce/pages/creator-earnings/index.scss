@@ -1,0 +1,35 @@
+.creator-earnings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.creator-earnings__weekly {
+  font-size: 13px;
+  color: var(--text-muted, #9a9aaa);
+  line-height: 1.5;
+}
+
+.creator-earnings__hint {
+  font-size: 12px;
+  color: var(--text-muted, #9a9aaa);
+}
+
+.creator-earnings__tips {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(212, 175, 106, 0.06);
+}
+
+.creator-earnings__tips-title {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: var(--text-muted, #9a9aaa);
+}
+
+.creator-earnings__tips-line {
+  display: block;
+  font-size: 13px;
+  line-height: 1.4;
+}

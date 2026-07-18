@@ -1,0 +1,92 @@
+@import "../styles/_utilities.scss";
+.global-job-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(var(--safe-area-top, 0px) + var(--app-header-height, 0px));
+  z-index: 95;
+  padding: $space-2xs $space-sm;
+  background: rgba(5, 5, 8, 0.94);
+  border-bottom: 1rpx solid $border-ritual;
+  backdrop-filter: blur(12px);
+}
+
+.global-job-banner__bar {
+  height: 4rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: $radius-sm;
+  overflow: hidden;
+}
+
+.global-job-banner__fill {
+  height: 100%;
+  background: linear-gradient(90deg, $gold, $teal-mood);
+  transition: width $duration-medium $ease-reveal;
+}
+
+.global-job-banner__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $space-2xs;
+  gap: $space-2xs;
+}
+
+.global-job-banner__text-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.global-job-banner__text {
+  @extend .typo-meta;
+  display: block;
+  font-family: var(--font-display);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.global-job-banner__phase {
+  display: block;
+  color: $muted;
+  font-size: var(--text-micro);
+  margin-top: 2rpx;
+}
+
+.global-job-banner__remix {
+  display: block;
+  font-size: var(--text-micro);
+  color: $gold;
+  opacity: 0.85;
+  margin-top: 2rpx;
+}
+
+.global-job-banner__badge {
+  color: $gold;
+  font-size: var(--text-micro);
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+.global-job-banner__pct {
+  color: $gold;
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+  margin-left: $space-xs;
+}
+
+.global-job-banner--failed {
+  border-bottom-color: rgba(248, 113, 113, 0.35);
+}
+
+.global-job-banner__fill--failed {
+  background: linear-gradient(90deg, #f87171, rgba(248, 113, 113, 0.5));
+}
+
+.global-job-banner__text--failed {
+  color: #fca5a5;
+}
+
+.global-job-banner__badge--failed {
+  color: #fca5a5;
+}

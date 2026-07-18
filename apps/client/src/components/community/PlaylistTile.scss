@@ -1,0 +1,54 @@
+.playlist-tile {
+  background: $surface;
+  border: 1rpx solid $border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  padding-bottom: $space-sm;
+}
+
+.playlist-tile__cover {
+  position: relative;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playlist-tile__count-ring {
+  position: absolute;
+  right: 16rpx;
+  bottom: 16rpx;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: $radius-full;
+  background: rgba(10, 10, 15, 0.55);
+  backdrop-filter: blur(8px);
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playlist-tile__count {
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.playlist-tile__title {
+  display: block;
+  color: $text;
+  font-size: 28rpx;
+  font-weight: 600;
+  padding: $space-2xs $space-sm 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.playlist-tile__meta {
+  display: block;
+  color: $muted;
+  font-size: 22rpx;
+  padding: 0 $space-sm;
+}

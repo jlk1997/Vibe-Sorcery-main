@@ -1,0 +1,133 @@
+.vinyl-disc {
+  position: relative;
+  width: 520rpx;
+  height: 520rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vinyl-disc__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: $radius-full;
+  border: 2rpx solid rgba(20, 184, 166, 0.25);
+  opacity: 0;
+  pointer-events: none;
+
+  &--on {
+    animation: vinyl-pulse-ring 2.8s ease-out infinite;
+  }
+
+  &--2 {
+    animation-delay: 1.4s;
+  }
+}
+
+.vinyl-disc__grooves {
+  position: absolute;
+  width: 500rpx;
+  height: 500rpx;
+  border-radius: $radius-full;
+  background: repeating-radial-gradient(
+    circle at center,
+    transparent 0,
+    transparent 8rpx,
+    rgba(255, 255, 255, 0.03) 8rpx,
+    rgba(255, 255, 255, 0.03) 10rpx
+  );
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.vinyl-disc__disc {
+  position: relative;
+  width: 480rpx;
+  height: 480rpx;
+  border-radius: $radius-full;
+  box-shadow:
+    0 0 0 8rpx rgba(20, 20, 28, 0.9),
+    0 0 48rpx rgba(20, 184, 166, 0.2),
+    $shadow-md;
+  overflow: hidden;
+
+  &--spin {
+    animation: vinyl-spin 14s linear infinite;
+  }
+}
+
+.vinyl-disc--playing .vinyl-disc__disc {
+  box-shadow:
+    0 0 0 8rpx rgba(20, 20, 28, 0.9),
+    0 0 64rpx $accent-glow,
+    0 0 120rpx rgba(20, 184, 166, 0.25),
+    $shadow-md;
+  animation: vinyl-glow-breathe 3s ease-in-out infinite;
+}
+
+.vinyl-disc--playing .vinyl-disc__disc--spin {
+  animation: vinyl-spin 14s linear infinite, vinyl-glow-breathe 3s ease-in-out infinite;
+}
+
+.vinyl-disc__cover {
+  width: 100%;
+  height: 100%;
+  border-radius: $radius-full;
+
+  &--fallback {
+    background: linear-gradient(135deg, $gold, $teal-mood);
+  }
+}
+
+.vinyl-disc__ring {
+  position: absolute;
+  inset: 12rpx;
+  border-radius: $radius-full;
+  border: 2rpx solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.vinyl-disc__hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48rpx;
+  height: 48rpx;
+  margin: -24rpx 0 0 -24rpx;
+  border-radius: $radius-full;
+  background: $bg;
+  border: 4rpx solid rgba(30, 30, 40, 0.95);
+  box-shadow: inset 0 0 12rpx rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
+
+@keyframes vinyl-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes vinyl-pulse-ring {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+}
+
+@keyframes vinyl-glow-breathe {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.08);
+  }
+}

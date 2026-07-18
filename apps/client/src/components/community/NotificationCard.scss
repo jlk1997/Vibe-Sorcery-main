@@ -1,0 +1,81 @@
+.notification-card {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-md;
+  border-bottom: 1rpx solid $border-ritual;
+  background: $obsidian;
+  transition: background 0.15s;
+
+  &--unread {
+    background: $gold-muted;
+  }
+
+  &--clickable:active {
+    background: rgba(212, 175, 106, 0.2);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.notification-card__icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &--accent {
+    background: $gold-muted;
+  }
+
+  &--info {
+    background: rgba(147, 130, 180, 0.18);
+  }
+
+  &--warm {
+    background: rgba(251, 146, 60, 0.15);
+  }
+
+  &--danger {
+    background: rgba(239, 68, 68, 0.12);
+  }
+}
+
+.notification-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-card__message {
+  display: block;
+  color: $text;
+  font-size: 28rpx;
+  line-height: 1.4;
+}
+
+.notification-card__time {
+  display: block;
+  color: $muted;
+  font-size: 22rpx;
+  margin-top: 6rpx;
+}
+
+.notification-card__dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: $radius-full;
+  background: $accent;
+  flex-shrink: 0;
+  box-shadow: 0 0 12rpx $accent-glow;
+}
+
+.notification-card__arrow {
+  color: $muted;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}

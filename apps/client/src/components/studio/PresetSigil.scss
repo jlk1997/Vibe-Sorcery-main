@@ -1,0 +1,43 @@
+.preset-sigil {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--sm {
+    width: 56rpx;
+    height: 56rpx;
+  }
+
+  &--md {
+    width: 80rpx;
+    height: 80rpx;
+  }
+
+  &--lg {
+    width: 112rpx;
+    height: 112rpx;
+  }
+
+  &__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: $radius-pill;
+    border: 1rpx solid $border-ritual;
+    opacity: 0.6;
+  }
+
+  &--active &__ring {
+    border-color: $gold;
+    box-shadow: 0 0 24rpx $gold-glow;
+    opacity: 1;
+  }
+
+  &__icon {
+    width: 55%;
+    height: 55%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}

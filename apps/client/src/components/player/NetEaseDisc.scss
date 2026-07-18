@@ -1,0 +1,145 @@
+.netease-disc {
+  position: relative;
+  width: min(460rpx, 68vw);
+  height: min(460rpx, 68vw);
+  margin: 0 auto;
+}
+
+.netease-disc__arm {
+  position: absolute;
+  top: 24rpx;
+  right: 72rpx;
+  width: 200rpx;
+  height: 280rpx;
+  z-index: 20;
+  transform-origin: 88% 12%;
+  transform: rotate(-32deg);
+  transition: transform 0.65s cubic-bezier(0.34, 1.2, 0.64, 1);
+
+  &--down {
+    transform: rotate(8deg);
+  }
+}
+
+.netease-disc__arm-pivot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: $radius-full;
+  background: linear-gradient(145deg, #4a4a52, #2a2a32);
+  border: 2rpx solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.netease-disc__arm-bar {
+  position: absolute;
+  top: 16rpx;
+  right: 14rpx;
+  width: 8rpx;
+  height: 220rpx;
+  background: linear-gradient(90deg, #3a3a42, #6a6a72, #4a4a52);
+  border-radius: 4rpx;
+  transform-origin: top center;
+  transform: rotate(8deg);
+  box-shadow: 2rpx 4rpx 8rpx rgba(0, 0, 0, 0.4);
+}
+
+.netease-disc__arm-head {
+  position: absolute;
+  bottom: 28rpx;
+  right: -4rpx;
+  width: 48rpx;
+  height: 72rpx;
+  background: linear-gradient(180deg, #888, #555);
+  border-radius: 8rpx 8rpx 4rpx 4rpx;
+  transform: rotate(12deg);
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.35);
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 4rpx;
+    left: 50%;
+    width: 16rpx;
+    height: 20rpx;
+    margin-left: -8rpx;
+    background: #222;
+    border-radius: 2rpx;
+  }
+}
+
+.netease-disc__shadow {
+  position: absolute;
+  bottom: 8rpx;
+  left: 50%;
+  width: 420rpx;
+  height: 40rpx;
+  margin-left: -210rpx;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.45) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.netease-disc__plate {
+  position: absolute;
+  inset: 40rpx;
+  border-radius: $radius-full;
+  background: #050508;
+  box-shadow:
+    0 0 0 8rpx rgba(212, 175, 106, 0.35),
+    0 0 0 10rpx rgba(255, 255, 255, 0.06),
+    0 24rpx 64rpx rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+
+  &--spin {
+    animation: netease-disc-spin 22s linear infinite;
+  }
+}
+
+.netease-disc--playing .netease-disc__plate {
+  box-shadow:
+    0 0 0 8rpx rgba(212, 175, 106, 0.45),
+    0 0 0 10rpx rgba(255, 255, 255, 0.08),
+    0 0 48rpx var(--player-accent-glow, #{$gold-glow}),
+    0 24rpx 64rpx rgba(0, 0, 0, 0.55);
+}
+
+.netease-disc__groove {
+  position: absolute;
+  inset: 16rpx;
+  border-radius: $radius-full;
+  background: repeating-radial-gradient(
+    circle at center,
+    transparent 0,
+    transparent 6rpx,
+    rgba(255, 255, 255, 0.025) 6rpx,
+    rgba(255, 255, 255, 0.025) 8rpx
+  );
+  pointer-events: none;
+}
+
+.netease-disc__cover {
+  width: 72%;
+  height: 72%;
+  border-radius: $radius-full;
+  position: relative;
+  z-index: 1;
+
+  &--fallback {
+    background: linear-gradient(135deg, var(--player-accent, #{$gold}), $gold-muted);
+  }
+}
+
+@keyframes netease-disc-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

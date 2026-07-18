@@ -1,0 +1,93 @@
+.ui-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  &__veil {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212, 175, 106, 0.04) 0%, transparent 55%);
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: $radius-pill;
+    filter: blur(90px);
+    opacity: 0.45;
+    transition: opacity $duration-medium $ease-reveal, transform $duration-slow $ease-ritual;
+  }
+
+  &__orb--1 {
+    width: 520rpx;
+    height: 520rpx;
+    top: -140rpx;
+    left: -100rpx;
+    background: color-mix(in srgb, var(--cover-accent, #{$gold}) 35%, transparent);
+    animation: ui-atmo-float 16s $ease-ritual infinite;
+  }
+
+  &__orb--2 {
+    width: 420rpx;
+    height: 420rpx;
+    top: 32%;
+    right: -120rpx;
+    background: $ether;
+    animation: ui-atmo-float 20s $ease-ritual infinite reverse;
+  }
+
+  &__orb--3 {
+    width: 360rpx;
+    height: 360rpx;
+    bottom: 12%;
+    left: 18%;
+    background: color-mix(in srgb, #{$teal-mood} 18%, transparent);
+    animation: ui-atmo-float 14s $ease-ritual infinite;
+    animation-delay: -5s;
+  }
+
+  &__grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180rpx 180rpx;
+  }
+
+  &__vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, transparent 55%, rgba(5, 5, 8, 0.45) 100%);
+  }
+
+  &--warm .ui-atmosphere__orb--2 {
+    background: rgba(212, 175, 106, 0.2);
+  }
+
+  &--cool .ui-atmosphere__orb--2 {
+    background: rgba(20, 184, 166, 0.15);
+  }
+
+  &--low .ui-atmosphere__orb {
+    opacity: 0.25;
+  }
+
+  &--high .ui-atmosphere__orb {
+    opacity: 0.55;
+  }
+}
+
+.reduce-motion .ui-atmosphere__orb {
+  animation: none !important;
+}
+
+@keyframes ui-atmo-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(28rpx, -24rpx) scale(1.05);
+  }
+}

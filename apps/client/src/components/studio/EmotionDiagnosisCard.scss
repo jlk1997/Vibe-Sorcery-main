@@ -1,0 +1,39 @@
+.emotion-diagnosis {
+  margin: 16rpx 0 24rpx;
+  padding: 24rpx;
+  border-radius: var(--radius-lg);
+  border: 1rpx solid rgba(212, 175, 106, 0.25);
+  background: rgba(212, 175, 106, 0.06);
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12rpx;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: var(--text-body);
+  }
+
+  &__step {
+    font-size: var(--text-micro);
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  &__q {
+    display: block;
+    margin-bottom: 16rpx;
+    font-size: var(--text-meta);
+  }
+
+  &__skip {
+    display: block;
+    margin-top: 12rpx;
+    text-align: center;
+    font-size: var(--text-micro);
+    color: var(--muted);
+  }
+}

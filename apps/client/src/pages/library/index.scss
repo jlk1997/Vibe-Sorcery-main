@@ -1,0 +1,18 @@
+.library-tabs {
+  margin-bottom: $space-lg;
+}
+
+.library-panel {
+  padding-bottom: $space-xl;
+
+  &--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-md;
+  }
+}
+
+.library-manage {
+  margin-top: $space-md;
+  color: $gold;
+}

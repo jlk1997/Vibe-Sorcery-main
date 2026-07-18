@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 240" fill="none" role="img" aria-label="炼金音坊 Vibe Sorcery">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="960" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#e8c98a"/>
+      <stop offset="50%" stop-color="#d4af6a"/>
+      <stop offset="100%" stop-color="#b8944f"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="240" rx="24" fill="#050508"/>
+
+  <g transform="translate(48 48)">
+    <circle cx="72" cy="72" r="68" stroke="url(#gold)" stroke-width="3" opacity="0.85"/>
+    <circle cx="72" cy="72" r="52" stroke="url(#gold)" stroke-width="1.5" opacity="0.4"/>
+    <path d="M64 24 C64 24 88 44 88 72 C88 100 64 120 64 120" stroke="url(#gold)" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <ellipse cx="64" cy="24" rx="10" ry="8" fill="url(#gold)"/>
+    <path d="M36 84 C52 92 92 92 108 84" stroke="#14b8a6" stroke-width="3" stroke-linecap="round" opacity="0.65"/>
+    <circle cx="72" cy="72" r="5" fill="url(#gold)"/>
+  </g>
+
+  <text x="200" y="108" fill="url(#gold)" font-family="'Noto Serif SC', 'Songti SC', serif" font-size="56" font-weight="700" letter-spacing="4">炼金音坊</text>
+  <text x="202" y="156" fill="#d4af6a" opacity="0.72" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" font-weight="600" letter-spacing="8">VIBE SORCERY</text>
+  <text x="202" y="186" fill="#8888aa" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" letter-spacing="2">AI 音乐创作</text>
+</svg>

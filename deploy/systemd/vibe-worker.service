@@ -1,0 +1,18 @@
+[Unit]
+Description=Vibe Sorcery Celery worker (generation)
+After=network-online.target postgresql.service redis-server.service minio.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=agentuser
+WorkingDirectory=/opt/vibe-sorcery/Vibe-Sorcery-main/backend
+EnvironmentFile=/opt/vibe-sorcery/Vibe-Sorcery-main/.env
+Environment=PYTHONPATH=/opt/vibe-sorcery/Vibe-Sorcery-main:/opt/vibe-sorcery/Vibe-Sorcery-main/backend
+ExecStart=/opt/vibe-sorcery/venv/bin/celery -A app.celery_app.celery_app worker \
+    --loglevel=info --pool=prefork --concurrency=2 -Q celery,priority
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

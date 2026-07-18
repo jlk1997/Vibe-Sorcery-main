@@ -1,0 +1,63 @@
+.ui-usage-meter {
+  padding: $space-md;
+  background: $surface;
+  border: 1rpx solid $border;
+  border-radius: $radius-lg;
+
+  &__row {
+    display: flex;
+    gap: $space-md;
+    align-items: flex-start;
+    margin-bottom: $space-md;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__icon {
+    width: 56rpx;
+    height: 56rpx;
+    flex-shrink: 0;
+    border-radius: $radius-md;
+    background: $accent-muted;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8rpx;
+  }
+
+  &__label {
+    color: $text;
+    font-size: 26rpx;
+  }
+
+  &__cost {
+    color: $accent;
+    font-size: 24rpx;
+    font-weight: 700;
+  }
+
+  &__track {
+    height: 10rpx;
+    background: $surface-elevated;
+    border-radius: $radius-full;
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    background: linear-gradient(90deg, $gold, $teal-mood);
+    border-radius: $radius-full;
+  }
+}

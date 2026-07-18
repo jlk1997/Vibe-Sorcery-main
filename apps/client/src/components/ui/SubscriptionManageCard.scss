@@ -1,0 +1,28 @@
+.sub-manage {
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: var(--surface-elevated, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+}
+
+.sub-manage__title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.sub-manage__status {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sub-manage__perks {
+  margin: 12px 0;
+}
+
+.sub-manage__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

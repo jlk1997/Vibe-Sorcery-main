@@ -1,0 +1,117 @@
+export default {
+  lazyCodeLoading: "requiredComponents",
+  pages: [
+    "pages/create/index",
+    "pages/feed/index",
+    "pages/library/index",
+    "pages/profile/index",
+  ],
+  subPackages: [
+    {
+      root: "packageStack",
+      name: "stack",
+      pages: [
+        "pages/playlists/index",
+        "pages/playlist/index",
+        "pages/pricing/index",
+        "pages/login/index",
+        "pages/settings/index",
+        "pages/notifications/index",
+        "pages/challenges/index",
+        "pages/challenge/index",
+        "pages/works/index",
+        "pages/work/index",
+        "pages/collections/index",
+        "pages/search/index",
+        "pages/user/index",
+        "pages/now-playing/index",
+      ],
+    },
+    {
+      root: "packageCommerce",
+      name: "commerce",
+      pages: [
+        "pages/marketplace/index",
+        "pages/emotion-calendar/index",
+        "pages/creator-earnings/index",
+      ],
+    },
+    {
+      root: "packageStudio",
+      name: "studio",
+      pages: ["pages/journey/index", "pages/provenance/index", "pages/feedback/index", "pages/variation-lab/index"],
+    },
+    {
+      root: "packageOps",
+      name: "ops",
+      pages: ["pages/admin/index", "pages/embed/index", "pages/tenant/index"],
+    },
+    {
+      root: "packageCopilot",
+      name: "copilot",
+      pages: ["pages/copilot/index"],
+    },
+    {
+      root: "packageLegal",
+      name: "legal",
+      pages: [
+        "pages/privacy/index",
+        "pages/terms/index",
+        "pages/ai-notice/index",
+        "pages/community-rules/index",
+        "pages/payment-terms/index",
+        "pages/minor-protection/index",
+      ],
+    },
+    {
+      root: "packageSocial",
+      name: "social",
+      pages: ["pages/charts/index", "pages/duels/index", "pages/duel/index"],
+    },
+  ],
+  preloadRule: {
+    "pages/create/index": { network: "wifi", packages: ["studio"] },
+    "pages/feed/index": { network: "wifi", packages: ["social", "stack"] },
+    "pages/library/index": { network: "wifi", packages: ["stack"] },
+    "pages/profile/index": { network: "wifi", packages: ["stack", "commerce"] },
+  },
+  window: {
+    backgroundTextStyle: "dark",
+    navigationBarBackgroundColor: "#050508",
+    navigationBarTitleText: "炼金音坊",
+    navigationBarTextStyle: "white",
+    backgroundColor: "#050508",
+  },
+  tabBar: {
+    color: "#8888aa",
+    selectedColor: "#d4af6a",
+    backgroundColor: "#0e0e16",
+    borderStyle: "white",
+    list: [
+      {
+        pagePath: "pages/create/index",
+        text: "创作",
+        iconPath: "assets/tab/create.png",
+        selectedIconPath: "assets/tab/create-active.png",
+      },
+      {
+        pagePath: "pages/feed/index",
+        text: "发现",
+        iconPath: "assets/tab/feed.png",
+        selectedIconPath: "assets/tab/feed-active.png",
+      },
+      {
+        pagePath: "pages/library/index",
+        text: "库",
+        iconPath: "assets/tab/library.png",
+        selectedIconPath: "assets/tab/library-active.png",
+      },
+      {
+        pagePath: "pages/profile/index",
+        text: "我的",
+        iconPath: "assets/tab/profile.png",
+        selectedIconPath: "assets/tab/profile-active.png",
+      },
+    ],
+  },
+};

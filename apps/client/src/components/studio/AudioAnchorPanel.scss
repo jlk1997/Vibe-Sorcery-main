@@ -1,0 +1,32 @@
+@import "../../styles/_utilities.scss";
+.audio-anchor {
+  padding: $space-sm;
+  margin-bottom: $space-sm;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+}
+
+.audio-anchor__title {
+  @extend .typo-h2;
+  font-family: var(--font-display);
+  display: block;
+}
+
+.audio-anchor__desc {
+  @extend .typo-meta;
+  display: block;
+  margin: $space-2xs 0 $space-xs;
+}
+
+.audio-anchor__btn {
+  background: $gold-muted !important;
+  color: $gold !important;
+  border: 1rpx solid $border-ritual !important;
+}
+
+.audio-anchor__result {
+  margin-top: $space-xs;
+  @extend .typo-meta;
+  font-family: var(--font-mono);
+}

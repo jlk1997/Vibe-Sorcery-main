@@ -1,0 +1,75 @@
+.ui-track-row {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-sm $space-xs;
+  margin: 0 (-$space-xs);
+  border-radius: $radius-md;
+  border-bottom: none;
+
+  &:active {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  &--active .ui-track-row__title {
+    color: $accent;
+  }
+}
+
+.ui-track-row__index {
+  width: 40rpx;
+  color: $muted;
+  font-size: 24rpx;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.ui-track-row__cover {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+  background: $surface-elevated;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.25);
+
+  &--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, $accent-muted, $surface-elevated);
+  }
+}
+
+.ui-track-row__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ui-track-row__title {
+  display: block;
+  color: $text;
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ui-track-row__subtitle {
+  display: block;
+  color: $muted;
+  font-size: 22rpx;
+  margin-top: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ui-track-row__play,
+.ui-track-row__menu {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

@@ -1,0 +1,91 @@
+@import "../../../styles/_utilities.scss";
+.login-page {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(var(--safe-bottom, 0px) + #{$space-2xl} + env(safe-area-inset-bottom, 16px));
+  box-sizing: border-box;
+}
+
+.login-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: $space-2xs 0;
+}
+
+.login-hero__orb {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: $radius-pill;
+  background: $gold-muted;
+  border: 2rpx solid $border-ritual;
+  box-shadow: $shadow-gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $space-xs;
+}
+
+.login-hero__sigil {
+  color: $gold;
+  font-size: 48rpx;
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+.login-hero__logo {
+  @extend .typo-h1;
+  font-family: var(--font-display);
+  display: block;
+}
+
+.login-hero__tagline {
+  @extend .typo-meta;
+  margin-top: $space-2xs;
+  display: block;
+  max-width: 480rpx;
+}
+
+.login-hero__hint {
+  @extend .typo-meta;
+  margin-top: $space-2xs;
+  display: block;
+  max-width: 520rpx;
+  color: $muted;
+  line-height: 1.45;
+}
+
+.login-features {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+  margin: $space-sm 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  padding: $space-md !important;
+  background: $obsidian !important;
+  border: 1rpx solid $border-ritual !important;
+  box-shadow: $shadow-sm;
+}
+
+.login-wechat {
+  background: $wechat !important;
+  border-color: $wechat !important;
+  color: #fff !important;
+}
+
+.login-toggle {
+  color: $gold;
+  font-size: var(--text-body);
+  text-align: center;
+  margin-top: $space-md;
+  padding: $space-sm $space-md $space-xs;
+  display: block;
+  font-family: var(--font-display);
+  font-weight: $font-weight-semibold;
+}

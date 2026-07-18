@@ -1,0 +1,115 @@
+.paywall-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  padding-bottom: $space-md;
+}
+
+.paywall-sheet__hint {
+  color: $text;
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
+
+.paywall-sheet__shortfall {
+  color: $gold;
+  font-size: var(--text-meta);
+  font-family: var(--font-mono);
+}
+
+.paywall-sheet__create-context {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  padding: $space-xs $space-sm;
+  border-radius: $radius-md;
+  background: rgba(212, 175, 106, 0.06);
+  border: 1rpx solid rgba(212, 175, 106, 0.2);
+}
+
+.paywall-sheet__create-hint {
+  color: $text;
+  font-size: var(--text-meta);
+}
+
+.paywall-sheet__create-compare {
+  color: $muted;
+  font-size: var(--text-micro);
+}
+
+.paywall-sheet__tabs {
+  display: flex;
+  gap: $space-xs;
+  padding: 4rpx;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: $radius-pill;
+  border: 1rpx solid $border-ritual;
+}
+
+.paywall-sheet__tab {
+  flex: 1;
+  text-align: center;
+  padding: 14rpx 20rpx;
+  border-radius: $radius-pill;
+  color: $muted;
+  font-size: var(--text-meta);
+  font-weight: 600;
+
+  &--active {
+    background: $gold-muted;
+    color: $gold;
+  }
+}
+
+.paywall-sheet__member {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.paywall-sheet__badge {
+  color: $gold;
+  font-size: var(--text-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.paywall-sheet__perks {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  margin: $space-2xs 0;
+}
+
+.paywall-sheet__perk {
+  color: $muted;
+  font-size: var(--text-meta);
+}
+
+.paywall-sheet__roi {
+  padding: $space-xs;
+  background: rgba(212, 175, 106, 0.08);
+  border-radius: $radius-md;
+  border: 1rpx solid rgba(212, 175, 106, 0.2);
+}
+
+.paywall-sheet__roi-title {
+  color: $gold;
+  font-size: var(--text-meta);
+  font-weight: 600;
+  display: block;
+}
+
+.paywall-sheet__roi-line {
+  color: $text;
+  font-size: var(--text-meta);
+  display: block;
+  margin-top: 4rpx;
+}
+
+.paywall-sheet__alt {
+  display: flex;
+  gap: $space-xs;
+  margin-top: $space-xs;
+}

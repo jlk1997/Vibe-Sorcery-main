@@ -1,0 +1,21 @@
+[Unit]
+Description=Vibe Sorcery API (FastAPI/uvicorn)
+After=network-online.target postgresql.service redis-server.service minio.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=agentuser
+WorkingDirectory=/opt/vibe-sorcery/Vibe-Sorcery-main/backend
+EnvironmentFile=/opt/vibe-sorcery/Vibe-Sorcery-main/.env
+Environment=PYTHONPATH=/opt/vibe-sorcery/Vibe-Sorcery-main:/opt/vibe-sorcery/Vibe-Sorcery-main/backend
+# 启动前自动建表/迁移（更新代码后 restart 即生效，无需手动）
+ExecStartPre=/opt/vibe-sorcery/venv/bin/alembic upgrade head
+ExecStart=/opt/vibe-sorcery/venv/bin/uvicorn app.main:app \
+    --host 127.0.0.1 --port 8000 --workers 2 \
+    --proxy-headers --forwarded-allow-ips=*
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

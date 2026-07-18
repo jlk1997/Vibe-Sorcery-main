@@ -1,0 +1,312 @@
+@import "../../styles/_utilities.scss";
+.gen-progress {
+  position: relative;
+  margin-top: $space-sm;
+  padding: $space-sm;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.gen-progress__remix {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  margin-bottom: $space-sm;
+  padding: $space-sm;
+  border-radius: $radius-md;
+  background: rgba(147, 130, 180, 0.12);
+  border: 1rpx solid rgba(147, 130, 180, 0.28);
+}
+
+.gen-progress__remix-icon {
+  flex-shrink: 0;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-md;
+  background: rgba(212, 175, 106, 0.12);
+}
+
+.gen-progress__remix-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.gen-progress__remix-title {
+  display: block;
+  font-size: var(--text-body);
+  font-family: var(--font-display);
+  color: $text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gen-progress__remix-intent {
+  margin-top: 4rpx;
+  font-size: var(--text-micro);
+  color: $muted;
+  line-height: 1.45;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.gen-progress__remix-link {
+  flex-shrink: 0;
+  font-size: var(--text-micro);
+  color: $gold;
+}
+
+.gen-progress__ritual {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.gen-progress__orb {
+  position: absolute;
+  border-radius: $radius-pill;
+  filter: blur(60px);
+  opacity: 0.35;
+
+  &--1 {
+    width: 200rpx;
+    height: 200rpx;
+    top: -60rpx;
+    left: 20%;
+    background: $gold-muted;
+    animation: gen-orb-pulse $duration-slow $ease-ritual infinite;
+  }
+
+  &--2 {
+    width: 160rpx;
+    height: 160rpx;
+    bottom: -40rpx;
+    right: 15%;
+    background: $teal-muted;
+    animation: gen-orb-pulse $duration-slow $ease-ritual infinite reverse;
+  }
+}
+
+@keyframes gen-orb-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.5;
+  }
+}
+
+.gen-progress__layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: $space-sm;
+  margin-top: $space-sm;
+}
+
+.gen-progress__timeline {
+  flex: 0 0 42%;
+  max-width: 280rpx;
+}
+
+.gen-progress__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.gen-progress__viz--composing .ui-ring-gauge__ring {
+  box-shadow: 0 0 24rpx rgba(212, 175, 106, 0.35);
+  animation: gen-compose-pulse $duration-slow $ease-ritual infinite;
+}
+
+@keyframes gen-compose-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.15);
+  }
+}
+
+.gen-progress__eta {
+  text-align: center;
+  color: $muted;
+  margin-top: $space-2xs;
+}
+
+.gen-progress__priority {
+  text-align: center;
+  color: $gold;
+  margin-top: $space-2xs;
+}
+
+.gen-progress__tracker-warn {
+  text-align: center;
+  color: #fbbf24;
+  margin-top: $space-2xs;
+}
+
+.gen-progress__degraded {
+  display: block;
+  text-align: center;
+  color: $muted;
+  margin: $space-xs $space-sm 0;
+  line-height: 1.45;
+}
+
+.gen-progress__tip {
+  text-align: center;
+  color: $muted;
+  margin-top: $space-2xs;
+  line-height: 1.5;
+  padding: 0 $space-sm;
+}
+
+.gen-progress__incremental {
+  position: relative;
+  z-index: 1;
+  display: block;
+  text-align: center;
+  margin-top: $space-sm;
+  color: $gold;
+}
+
+.gen-progress__preview {
+  margin-top: $space-sm;
+  padding: $space-xs;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-md;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2xs;
+}
+
+.gen-progress__preview-cover {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.gen-progress__preview-img {
+  width: 100%;
+  height: 100%;
+
+  &--placeholder {
+    background: $slate-veil;
+  }
+}
+
+.gen-progress__preview-hint {
+  @extend .typo-meta;
+  color: $gold;
+  text-align: center;
+}
+
+.reduce-motion .gen-progress__viz--composing .ui-ring-gauge__ring {
+  animation: none;
+}
+
+.gen-progress__viz {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.gen-progress__rail {
+  width: 100%;
+}
+
+.gen-progress__meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  margin-top: $space-2xs;
+}
+
+.gen-progress__steps {
+  position: relative;
+  z-index: 1;
+  margin-top: $space-sm;
+}
+
+.gen-progress__step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-2xs 0;
+  border-bottom: 1rpx solid $border;
+}
+
+.gen-progress__step-title {
+  @extend .typo-body;
+  flex: 1;
+  font-family: var(--font-display);
+}
+
+.gen-progress__actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2xs;
+  margin-top: $space-sm;
+}
+
+.gen-progress__refund {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: $space-2xs;
+  color: $muted;
+}
+
+.gen-progress__listen-hero {
+  position: relative;
+  z-index: 1;
+  margin-top: $space-md;
+  padding: $space-md;
+  border-radius: $radius-lg;
+  background: linear-gradient(165deg, rgba(212, 175, 106, 0.14) 0%, rgba(147, 130, 180, 0.08) 100%);
+  border: 1rpx solid rgba(212, 175, 106, 0.28);
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.gen-progress__listen-hero-title {
+  font-size: var(--text-title);
+  font-family: var(--font-display);
+  color: $text;
+}
+
+.gen-progress__listen-hero-hint {
+  font-size: var(--text-micro);
+  color: $muted;
+  line-height: 1.5;
+}
+
+.reduce-motion .gen-progress__orb {
+  animation: none;
+}

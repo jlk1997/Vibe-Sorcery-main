@@ -1,0 +1,75 @@
+@import "../../styles/_utilities.scss";
+.prov-timeline {
+  margin: $space-sm 0;
+  padding-left: $space-2xs;
+}
+
+.prov-timeline__item {
+  display: flex;
+  gap: $space-sm;
+  min-height: 120rpx;
+}
+
+.prov-timeline__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 56rpx;
+  flex-shrink: 0;
+}
+
+.prov-timeline__node {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: $radius-pill;
+  background: $obsidian;
+  border: 2rpx solid $border-ritual;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  font-family: var(--font-display);
+  color: $gold;
+  font-size: var(--text-meta);
+
+  &--start {
+    border-color: $gold;
+    box-shadow: $shadow-gold;
+  }
+
+  &--end {
+    border-color: $gold;
+    box-shadow: $shadow-gold;
+  }
+}
+
+.prov-timeline__line {
+  flex: 1;
+  width: 2rpx;
+  min-height: 48rpx;
+  background: linear-gradient(180deg, $gold, $teal-mood);
+  margin: $space-2xs 0;
+}
+
+.prov-timeline__card {
+  flex: 1;
+  padding: $space-sm;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  margin-bottom: $space-xs;
+}
+
+.prov-timeline__kind {
+  @extend .typo-h2;
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+}
+
+.prov-timeline__meta {
+  @extend .typo-meta;
+  display: block;
+  margin-top: $space-2xs;
+  font-family: var(--font-mono);
+}

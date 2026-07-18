@@ -1,0 +1,44 @@
+.collections-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+  margin-bottom: $space-md;
+}
+
+.collections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+
+  &__cell {
+    min-width: 0;
+  }
+
+  &__remove {
+    margin-top: 8rpx;
+  }
+}
+
+.collections-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.collections-row {
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  padding: $space-sm $space-md;
+  padding-bottom: 0;
+
+  &__remove {
+    margin: 0 0 $space-sm;
+  }
+}
+
+.auth-gate__cta {
+  margin-top: $space-md;
+}

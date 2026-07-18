@@ -1,0 +1,57 @@
+.payment-qr {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-md;
+  box-sizing: border-box;
+
+  &__sheet {
+    width: 100%;
+    max-width: 560rpx;
+    background: $surface;
+    border: 1rpx solid $border;
+    border-radius: $radius-lg;
+    padding: $space-lg;
+    text-align: center;
+    box-shadow: $shadow-md;
+  }
+
+  &__title {
+    color: $text;
+    font-size: 32rpx;
+    font-weight: 600;
+    display: block;
+  }
+
+  &__label {
+    color: $muted;
+    font-size: 26rpx;
+    margin-top: 8rpx;
+    display: block;
+  }
+
+  &__img {
+    width: 360rpx;
+    height: 360rpx;
+    margin: $space-md auto;
+    background: #fff;
+    border-radius: $radius-md;
+  }
+
+  &__hint {
+    color: $muted;
+    font-size: 22rpx;
+    display: block;
+    margin-bottom: $space-md;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-2xs;
+    justify-content: center;
+  }
+}

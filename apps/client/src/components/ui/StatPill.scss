@@ -1,0 +1,49 @@
+.ui-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-2xs $space-xs;
+  border-radius: $radius-pill;
+  font-size: var(--text-micro);
+  font-weight: $font-weight-semibold;
+  font-family: var(--font-mono);
+
+  &--accent {
+    color: $gold;
+    background: $gold-muted;
+    border: 1rpx solid $border-ritual;
+  }
+
+  &--muted {
+    color: $muted;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1rpx solid rgba(255, 255, 255, 0.08);
+  }
+
+  &--danger {
+    color: $danger;
+    background: rgba(248, 113, 113, 0.12);
+    border: 1rpx solid rgba(248, 113, 113, 0.28);
+  }
+
+  &--pulse {
+    animation: ui-pill-pulse 2s infinite;
+  }
+
+  &--member {
+    box-shadow: 0 0 0 2rpx rgba(212, 175, 55, 0.45);
+  }
+
+  &__text {
+    line-height: 1.2;
+  }
+}
+
+@keyframes ui-pill-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 $gold-glow;
+  }
+  50% {
+    box-shadow: 0 0 0 8rpx transparent;
+  }
+}

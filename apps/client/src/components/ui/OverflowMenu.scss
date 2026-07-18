@@ -1,0 +1,41 @@
+.ui-overflow-menu {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+  padding-bottom: $space-xs;
+}
+
+.ui-overflow-item {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  min-height: 96rpx;
+  padding: $space-sm $space-md;
+  border-radius: $radius-md;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1rpx solid $border-ritual;
+  color: $text;
+  font-size: var(--text-body);
+  transition: background $duration-fast $ease-out;
+
+  &:active {
+    background: rgba(212, 175, 106, 0.12);
+  }
+
+  &--danger {
+    color: $danger;
+    border-color: rgba(255, 90, 90, 0.35);
+  }
+}
+
+.ui-overflow-item__label {
+  flex: 1;
+  font-family: var(--font-ui);
+}
+
+.ui-overflow-menu__empty {
+  color: $muted;
+  font-size: var(--text-body);
+  text-align: center;
+  padding: $space-lg $space-md;
+}

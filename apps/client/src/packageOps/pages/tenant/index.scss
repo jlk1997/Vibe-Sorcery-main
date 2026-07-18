@@ -1,0 +1,20 @@
+.tenant-stat {
+  padding: $space-md;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  margin-bottom: $space-md;
+
+  &__n {
+    color: $gold;
+    font-size: var(--text-display);
+    font-weight: $font-weight-display;
+    font-family: var(--font-display);
+    display: block;
+  }
+}
+
+.tenant-member {
+  padding: $space-sm 0;
+  border-bottom: 1rpx solid $border;
+}

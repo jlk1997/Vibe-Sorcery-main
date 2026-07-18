@@ -1,0 +1,97 @@
+.user-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-sm;
+  width: 100%;
+}
+
+.user-metrics {
+  display: flex;
+  gap: $space-sm;
+  width: 100%;
+  margin: $space-sm 0;
+
+  .ui-metric-card {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.user-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+  margin: $space-md 0;
+}
+
+.user-works-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+
+  &__cell {
+    min-width: 0;
+  }
+}
+
+.user-store {
+  margin-bottom: $space-md;
+
+  &__title {
+    display: block;
+    font-size: 30rpx;
+    font-weight: 600;
+    margin-bottom: $space-sm;
+  }
+
+  &__card {
+    padding: $space-sm;
+    margin-bottom: $space-sm;
+    border-radius: $radius-md;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1rpx solid rgba(255, 255, 255, 0.08);
+  }
+
+  &__name {
+    display: block;
+    font-size: 28rpx;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: $space-xs;
+  }
+
+  &__price {
+    font-size: 24rpx;
+    color: var(--color-accent);
+  }
+}
+.user-social-row {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-sm 0;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.06);
+
+  &__meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    display: block;
+    font-size: 28rpx;
+  }
+
+  &__handle {
+    display: block;
+    font-size: 22rpx;
+    color: var(--color-text-muted);
+  }
+}

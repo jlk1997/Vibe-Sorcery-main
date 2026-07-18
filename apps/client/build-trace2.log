@@ -1,0 +1,35 @@
+﻿
+> @vibe-sorcery/client@3.0.0 build:weapp
+> taro build --type weapp
+
+node.exe : E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\@tarojs\helper\dist\esbuild\index.js:24
+所在位置 行:1 字符: 1
++ & "D:\nodejs/node.exe" "D:\nodejs/node_modules/npm/bin/npm-cli.js" ru ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (E:\Vibe-Sorcery...ild\index.js:24:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+esbuild_1.default.build = function (...args) {
+                        ^
+
+TypeError: Cannot set property build of #<Object> which has only a getter
+    at Object.<anonymous> (E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\@tarojs\helper\dist\esbuild\index.js:24:
+25)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Object..js (node:internal/modules/cjs/loader:1820:10)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Module.require (node:internal/modules/cjs/loader:1445:12)
+    at require (node:internal/modules/helpers:135:16)
+    at Object.<anonymous> (E:\Vibe-Sorcery-main\Vibe-Sorcery-main\node_modules\@tarojs\helper\dist\index.js:42:14)
+
+Node.js v22.18.0
+npm error Lifecycle script `build:weapp` failed with error:
+npm error code 1
+npm error path E:\Vibe-Sorcery-main\Vibe-Sorcery-main\apps\client
+npm error workspace @vibe-sorcery/client@3.0.0
+npm error location E:\Vibe-Sorcery-main\Vibe-Sorcery-main\apps\client
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c taro build --type weapp

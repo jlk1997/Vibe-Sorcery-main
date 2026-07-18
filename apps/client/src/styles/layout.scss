@@ -1,0 +1,46 @@
+.container {
+  width: 100%;
+  max-width: $max-content;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.container--wide {
+  width: 100%;
+  max-width: $max-wide;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.stack--sm {
+  gap: $space-sm;
+}
+
+.stack--lg {
+  gap: $space-lg;
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-md;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-sm;
+}

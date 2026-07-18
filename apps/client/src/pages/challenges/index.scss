@@ -1,0 +1,24 @@
+.challenges-stats {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $space-md;
+}
+
+.challenges-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+
+  &__cell {
+    min-width: 0;
+
+    .challenge-card {
+      margin-bottom: 0;
+      height: 100%;
+    }
+
+    .challenge-card__hero {
+      height: 180rpx;
+    }
+  }
+}

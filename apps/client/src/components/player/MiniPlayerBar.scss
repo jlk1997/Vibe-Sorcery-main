@@ -1,0 +1,117 @@
+.mini-player {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--tab-bar-stack, var(--tab-bar-height, 0));
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  height: $mini-player-height;
+  padding: 0 $space-xs 0 $space-2xs;
+  background: rgba(5, 5, 8, 0.94);
+  backdrop-filter: blur(24px);
+  border-top: 1rpx solid $border-ritual;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  &--playing {
+    box-shadow: 0 -4rpx 24rpx $gold-glow;
+
+    .mini-player__progress-fill {
+      background: var(--player-accent, #{$gold});
+      box-shadow: 0 0 8rpx var(--player-accent-glow, #{$gold-glow});
+    }
+  }
+}
+
+.mini-player__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2rpx;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mini-player__progress-fill {
+  height: 100%;
+  background: rgba(212, 175, 106, 0.35);
+  transition: width $duration-fast linear;
+}
+
+.mini-player__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  min-width: 0;
+}
+
+.mini-player__cover {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+  background: $slate-veil;
+  border: 1rpx solid $border-ritual;
+
+  &--fallback {
+    background: linear-gradient(135deg, var(--player-accent, #{$gold}), $gold-muted);
+  }
+
+  &--spin {
+    animation: mini-cover-spin 12s linear infinite;
+  }
+}
+
+@keyframes mini-cover-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mini-player__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mini-player__title {
+  display: block;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: var(--text-body);
+  font-family: var(--font-display);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &--active {
+    color: var(--player-accent, #{$gold});
+  }
+}
+
+.mini-player__artist {
+  display: block;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+  margin-top: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mini-player__btn {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.reduce-motion .mini-player__cover--spin {
+  animation: none;
+}

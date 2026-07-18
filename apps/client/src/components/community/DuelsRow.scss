@@ -1,0 +1,122 @@
+@import "../../styles/tokens";
+
+.duels-row {
+  margin: 16rpx 0 20rpx;
+}
+
+.duels-row__head {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+  padding: 0 4rpx;
+}
+
+.duels-row__title {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: $font-weight-semibold;
+  color: $text;
+}
+
+.duels-row__more {
+  font-size: 26rpx;
+  color: $gold;
+}
+
+.duels-row__banner {
+  padding: 24rpx 28rpx;
+  border-radius: $radius-md;
+  background: rgba(212, 175, 106, 0.06);
+  border: 1rpx solid rgba(212, 175, 106, 0.14);
+}
+
+.duels-row__banner--error {
+  background: rgba(255, 100, 100, 0.06);
+  border-color: rgba(255, 120, 120, 0.2);
+}
+
+.duels-row__banner-text {
+  display: block;
+  font-size: 28rpx;
+  font-weight: $font-weight-semibold;
+  color: $text;
+}
+
+.duels-row__banner-hint {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: $muted;
+  line-height: 1.45;
+}
+
+.duels-row__banner-link {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  font-weight: $font-weight-semibold;
+  color: $gold;
+}
+
+.duels-row__scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.duels-row__track {
+  display: flex;
+  flex-direction: row;
+  gap: 16rpx;
+  padding: 4rpx 4rpx 8rpx;
+}
+
+.duels-row__card {
+  flex-shrink: 0;
+  width: 280rpx;
+  padding: 24rpx;
+  border-radius: $radius-md;
+  background: $surface-elevated;
+  border: 1rpx solid $border;
+  box-sizing: border-box;
+}
+
+.duels-row__card-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.duels-row__side {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+  border-radius: $radius-sm;
+  font-size: 24rpx;
+  font-weight: $font-weight-semibold;
+  color: $gold;
+  background: rgba(212, 175, 106, 0.12);
+}
+
+.duels-row__vs {
+  font-size: 22rpx;
+  font-weight: $font-weight-semibold;
+  color: $muted;
+}
+
+.duels-row__match {
+  display: block;
+  font-size: 26rpx;
+  color: $text;
+  line-height: 1.4;
+}
+
+.duels-row__votes {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: $muted;
+}

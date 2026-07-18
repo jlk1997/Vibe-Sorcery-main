@@ -1,0 +1,51 @@
+{
+  "locale": "zh",
+  "effective_date": "2026-07-08",
+  "company_name": "炼金音坊",
+  "contact_email": "privacy@vibe-sorcery.com",
+  "contact_phone": "400-000-0000",
+  "documents": [
+    {
+      "slug": "privacy-policy",
+      "title": "隐私政策",
+      "version": "2026-07-08",
+      "file": "privacy-policy.md",
+      "required_for": ["privacy"]
+    },
+    {
+      "slug": "terms-of-service",
+      "title": "用户服务协议",
+      "version": "2026-07-08",
+      "file": "terms-of-service.md",
+      "required_for": ["terms"]
+    },
+    {
+      "slug": "ai-service-notice",
+      "title": "AI 生成服务声明",
+      "version": "2026-07-08",
+      "file": "ai-service-notice.md",
+      "required_for": ["ai_notice"]
+    },
+    {
+      "slug": "community-guidelines",
+      "title": "社区内容规范",
+      "version": "2026-07-08",
+      "file": "community-guidelines.md",
+      "required_for": []
+    },
+    {
+      "slug": "payment-terms",
+      "title": "付费服务协议",
+      "version": "2026-07-08",
+      "file": "payment-terms.md",
+      "required_for": ["payment"]
+    },
+    {
+      "slug": "minor-protection",
+      "title": "未成年人保护声明",
+      "version": "2026-07-08",
+      "file": "minor-protection.md",
+      "required_for": []
+    }
+  ]
+}

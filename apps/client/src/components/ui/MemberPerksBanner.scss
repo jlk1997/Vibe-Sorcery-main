@@ -1,0 +1,40 @@
+.member-perks {
+  padding: $space-sm;
+  border-radius: $radius-lg;
+  border: 1rpx solid $border-ritual;
+  background: rgba(14, 14, 22, 0.6);
+
+  &--active {
+    border-color: rgba(212, 175, 106, 0.35);
+    background: rgba(212, 175, 106, 0.08);
+  }
+
+  &--compact {
+    padding: $space-xs;
+  }
+
+  &--clickable:active {
+    opacity: 0.88;
+    background: rgba(212, 175, 106, 0.06);
+  }
+
+  &__title {
+    color: $gold;
+    font-size: var(--text-meta);
+    font-weight: 700;
+    display: block;
+    margin-bottom: $space-2xs;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rpx;
+  }
+
+  &__item {
+    color: $muted;
+    font-size: var(--text-micro);
+    line-height: 1.4;
+  }
+}

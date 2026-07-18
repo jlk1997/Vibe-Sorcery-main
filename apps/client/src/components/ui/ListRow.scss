@@ -1,0 +1,73 @@
+@import "../../styles/_utilities.scss";
+.ui-list-row {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-sm;
+  background: $obsidian;
+  border-bottom: 1rpx solid $border-ritual;
+  min-height: 96rpx;
+  box-sizing: border-box;
+
+  &--clickable:active {
+    background: $slate-veil;
+  }
+
+  &--danger .ui-list-row__label {
+    color: $danger;
+  }
+
+  &__icon {
+    width: 56rpx;
+    height: 56rpx;
+    border-radius: $radius-md;
+    background: $slate-veil;
+    border: 1rpx solid $border-ritual;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__badge {
+    background: $gold-muted;
+    color: $gold;
+    font-size: var(--text-micro);
+    font-weight: $font-weight-semibold;
+    font-family: var(--font-mono);
+    padding: $space-2xs $space-2xs;
+    border: 1rpx solid $border-ritual;
+    border-radius: $radius-pill;
+    flex-shrink: 0;
+  }
+
+  &__main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__label {
+    @extend .typo-body;
+    display: block;
+    font-family: var(--font-ui);
+  }
+
+  &__hint {
+    @extend .typo-meta;
+    margin-top: 4rpx;
+    display: block;
+  }
+
+  &__value {
+    @extend .typo-meta;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+  }
+
+  &__arrow {
+    color: $muted;
+    font-size: 36rpx;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+}

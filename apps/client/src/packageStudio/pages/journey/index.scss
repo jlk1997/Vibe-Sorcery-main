@@ -1,0 +1,372 @@
+.journey-page {
+  position: relative;
+  padding-bottom: calc(
+    480rpx + var(--tab-bar-stack, 0rpx) + var(--mini-player-height, 0rpx) + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+// ── Header with prominent back ───────────────────────────────────
+.journey-header {
+  margin-bottom: $space-md;
+}
+
+.journey-header__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  padding: 12rpx 20rpx 12rpx 14rpx;
+  margin-bottom: $space-sm;
+  border-radius: $radius-pill;
+  background: rgba(212, 175, 106, 0.12);
+  border: 1rpx solid rgba(212, 175, 106, 0.38);
+  box-shadow: inset 0 1rpx 0 rgba(255, 255, 255, 0.06);
+  transition: background $duration-fast, border-color $duration-fast;
+
+  &:active {
+    background: rgba(212, 175, 106, 0.22);
+    border-color: rgba(212, 175, 106, 0.55);
+  }
+}
+
+.journey-header__back-text {
+  color: $gold;
+  font-size: var(--text-meta);
+  font-weight: $font-weight-semibold;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+
+.journey-header__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: $font-weight-display;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: $text;
+}
+
+// ── Compact guide card ───────────────────────────────────────────
+.journey-guide {
+  padding: $space-md;
+  margin-bottom: $space-md;
+  border-radius: $radius-lg;
+  background: linear-gradient(165deg, rgba(22, 22, 34, 0.92) 0%, rgba(14, 14, 22, 0.96) 100%);
+  border: 1rpx solid rgba(212, 175, 106, 0.16);
+  box-shadow: $shadow-sm, inset 0 1rpx 0 rgba(255, 255, 255, 0.04);
+}
+
+.journey-guide__title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: $font-weight-semibold;
+  color: $text;
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.journey-guide__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-sm;
+  margin-bottom: $space-2xs;
+}
+
+.journey-guide__toggle,
+.journey-guide__expand-link {
+  color: $gold;
+  font-size: var(--text-meta);
+  font-family: var(--font-ui);
+  flex-shrink: 0;
+}
+
+.journey-guide__expand-link {
+  display: block;
+  margin-bottom: $space-md;
+  padding: $space-xs 0;
+}
+
+.journey-guide__lead {
+  display: block;
+  color: rgba(136, 136, 170, 0.95);
+  font-size: var(--text-meta);
+  line-height: 1.55;
+  font-family: var(--font-ui);
+  margin-bottom: $space-sm;
+}
+
+.journey-guide__steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-2xs;
+}
+
+.journey-guide__step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-width: 0;
+}
+
+.journey-guide__step-line {
+  position: absolute;
+  top: 22rpx;
+  right: 50%;
+  width: 100%;
+  height: 3rpx;
+  background: linear-gradient(90deg, rgba(212, 175, 106, 0.35), rgba(20, 184, 166, 0.35));
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.journey-guide__step-node {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: $radius-pill;
+  background: $gold-muted;
+  border: 1rpx solid rgba(212, 175, 106, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.journey-guide__step-num {
+  color: $gold;
+  font-size: var(--text-micro);
+  font-weight: $font-weight-bold;
+  font-family: var(--font-mono);
+}
+
+.journey-guide__step-label {
+  margin-top: $space-2xs;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: var(--text-micro);
+  font-family: var(--font-ui);
+  text-align: center;
+  white-space: nowrap;
+}
+
+// ── Tab switch ───────────────────────────────────────────────────
+.journey-tabs {
+  margin-bottom: $space-md;
+}
+
+.journey-panel {
+  .ui-section-label {
+    margin-top: 0;
+  }
+}
+
+.journey-hint {
+  display: block;
+  color: rgba(136, 136, 170, 0.9);
+  font-size: var(--text-micro);
+  line-height: 1.5;
+  font-family: var(--font-ui);
+  margin: (-$space-2xs) 0 $space-sm;
+}
+
+// ── Horizontal preset rail ───────────────────────────────────────
+.journey-presets {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: $space-sm;
+  margin: 0 (-$space-sm);
+  padding: $space-2xs $space-sm $space-xs;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+
+.journey-preset {
+  flex: 0 0 200rpx;
+  scroll-snap-align: start;
+  padding: $space-sm $space-xs;
+  border-radius: $radius-lg;
+  background: rgba(14, 14, 22, 0.96);
+  border: 1rpx solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  transition: border-color $duration-medium, background $duration-medium, box-shadow $duration-medium;
+
+  &--active {
+    border-color: rgba(212, 175, 106, 0.55);
+    background: $gold-muted;
+    box-shadow: $shadow-gold;
+  }
+
+  &--calm.journey-preset--active {
+    border-color: rgba(212, 175, 106, 0.5);
+  }
+
+  &--hope.journey-preset--active {
+    border-color: rgba(147, 130, 180, 0.55);
+  }
+
+  &--peace.journey-preset--active {
+    border-color: rgba(20, 184, 166, 0.5);
+  }
+}
+
+.journey-preset__emojis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  margin-bottom: $space-2xs;
+  font-size: 36rpx;
+  line-height: 1;
+}
+
+.journey-preset__arrow {
+  width: 24rpx;
+  height: 3rpx;
+  border-radius: 2rpx;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.25), $gold);
+}
+
+.journey-preset__label {
+  display: block;
+  color: $text;
+  font-size: var(--text-micro);
+  font-weight: $font-weight-semibold;
+  font-family: var(--font-display);
+  line-height: 1.35;
+}
+
+// ── Selected preset detail ───────────────────────────────────────
+.journey-detail {
+  margin-top: $space-sm;
+  padding: $space-md;
+  border-radius: $radius-lg;
+  background: linear-gradient(165deg, rgba(22, 22, 34, 0.95) 0%, rgba(14, 14, 22, 0.98) 100%);
+  border: 1rpx solid $border-ritual;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  &--calm::after {
+    background: linear-gradient(135deg, $gold 0%, $teal-mood 100%);
+  }
+
+  &--hope::after {
+    background: linear-gradient(135deg, $gold 0%, rgba(147, 130, 180, 0.5) 100%);
+  }
+
+  &--peace::after {
+    background: linear-gradient(135deg, rgba(147, 130, 180, 0.4) 0%, $teal-mood 100%);
+  }
+}
+
+.journey-detail__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xs;
+  margin-bottom: $space-sm;
+  position: relative;
+  z-index: 1;
+}
+
+.journey-detail__emoji {
+  font-size: 44rpx;
+  line-height: 1;
+}
+
+.journey-detail__arc {
+  flex: 1;
+  max-width: 180rpx;
+  display: flex;
+  align-items: center;
+}
+
+.journey-detail__arc-line {
+  flex: 1;
+  height: 4rpx;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), $gold);
+  border-radius: 2rpx;
+}
+
+.journey-detail__arc-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: $radius-pill;
+  flex-shrink: 0;
+
+  &--start {
+    background: rgba(212, 175, 106, 0.55);
+  }
+
+  &--end {
+    background: $gold;
+    box-shadow: $shadow-gold;
+  }
+}
+
+.journey-detail__title {
+  display: block;
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: $font-weight-semibold;
+  color: $text;
+  text-align: center;
+}
+
+.journey-detail__desc {
+  display: block;
+  position: relative;
+  z-index: 1;
+  margin-top: $space-2xs;
+  color: rgba(136, 136, 170, 0.95);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+  text-align: center;
+  font-family: var(--font-ui);
+}
+
+// ── Floating dock ────────────────────────────────────────────────
+.journey-dock {
+  position: fixed;
+  left: $space-sm;
+  right: $space-sm;
+  bottom: calc(var(--tab-bar-stack, 0rpx) + var(--mini-player-height, 0rpx) + #{$space-xs});
+  z-index: 180;
+  box-sizing: border-box;
+}
+
+.journey-dock__glow {
+  position: absolute;
+  inset: -16rpx -8rpx;
+  border-radius: $radius-lg;
+  background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(212, 175, 106, 0.16) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.journey-dock__inner {
+  position: relative;
+  z-index: 1;
+  padding: $space-sm $space-md;
+  background: linear-gradient(165deg, rgba(18, 18, 28, 0.94) 0%, rgba(8, 8, 14, 0.97) 100%);
+  backdrop-filter: blur(28px);
+  border-radius: $radius-lg;
+  border: 1rpx solid rgba(212, 175, 106, 0.22);
+  box-shadow: $shadow-glass, inset 0 1rpx 0 rgba(255, 255, 255, 0.06);
+
+  .ui-usage-meter {
+    margin-bottom: $space-sm;
+  }
+}

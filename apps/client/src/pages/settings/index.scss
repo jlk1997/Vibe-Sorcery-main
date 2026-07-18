@@ -1,0 +1,126 @@
+.settings-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2xs;
+  margin: $space-sm 0 $space-md;
+}
+
+.settings-nav-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-sm;
+  margin: $space-md 0 $space-lg;
+}
+
+.settings-deletion-pending {
+  margin-bottom: $space-md;
+  padding: $space-md;
+  border: 1rpx solid rgba(212, 175, 106, 0.25);
+}
+
+.settings-deletion-pending__title {
+  display: block;
+  font-size: var(--text-body);
+  font-weight: $font-weight-semibold;
+  color: $gold;
+  margin-bottom: $space-xs;
+}
+
+.settings-auth-cta {
+  margin-bottom: $space-md;
+}
+
+.settings-profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  margin-bottom: $space-lg;
+  padding: $space-lg $space-md;
+  border-radius: $radius-lg;
+  background: linear-gradient(165deg, rgba(22, 22, 34, 0.94) 0%, rgba(14, 14, 22, 0.98) 100%);
+  border: 1rpx solid rgba(212, 175, 106, 0.18);
+  box-shadow: $shadow-sm, inset 0 1rpx 0 rgba(255, 255, 255, 0.04);
+}
+
+.settings-profile-card__avatar-ring {
+  padding: 6rpx;
+  border-radius: $radius-pill;
+  background: linear-gradient(135deg, $gold, rgba(212, 175, 106, 0.35));
+  box-shadow: $shadow-gold;
+}
+
+.settings-profile-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2xs;
+  width: 100%;
+}
+
+.settings-profile-card__name {
+  color: $text;
+  font-size: var(--text-heading);
+  font-family: var(--font-display);
+  font-weight: $font-weight-display;
+}
+
+.settings-profile-card__handle {
+  color: $gold;
+  font-size: var(--text-meta);
+  font-family: var(--font-mono);
+}
+
+.settings-profile-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $space-2xs;
+  margin-top: $space-xs;
+}
+
+.settings-logout {
+  margin-top: $space-lg;
+}
+
+.settings-ledger {
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  padding: 0 $space-md;
+  margin-bottom: $space-md;
+}
+
+.settings-nav {
+  margin: $space-lg 0;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.settings-api-docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2xs;
+  margin-bottom: $space-sm;
+}
+
+.settings-webhook-row {
+  display: flex;
+  align-items: center;
+  gap: $space-2xs;
+  margin: $space-2xs 0;
+  padding: $space-md;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-md;
+}
+
+.settings-webhook {
+  display: block;
+  color: $muted;
+  font-size: 22rpx;
+  word-break: break-all;
+  flex: 1;
+}

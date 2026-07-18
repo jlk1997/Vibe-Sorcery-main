@@ -1,0 +1,22 @@
+.playlists-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: $space-md;
+}
+
+.playlists-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+}
+
+.playlists-list {
+  background: $surface;
+  border: 1rpx solid $border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.auth-gate__cta {
+  margin-top: $space-md;
+}

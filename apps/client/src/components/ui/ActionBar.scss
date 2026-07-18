@@ -1,0 +1,28 @@
+.ui-action-bar {
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+  padding: $space-sm 0;
+
+  &--compact {
+    gap: $space-md;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8rpx;
+    min-height: 44rpx;
+    min-width: 44rpx;
+    color: $muted;
+
+    &--active {
+      color: $accent;
+    }
+  }
+
+  &__meta {
+    font-size: 24rpx;
+    color: inherit;
+  }
+}

@@ -1,0 +1,49 @@
+.player-lyric {
+  width: 100%;
+  height: min(520rpx, 72vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 $space-lg;
+  box-sizing: border-box;
+}
+
+.player-lyric__scroll {
+  width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28rpx;
+}
+
+.player-lyric__line {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 30rpx;
+  line-height: 1.5;
+  text-align: center;
+  transition: all 0.35s ease;
+  max-width: 100%;
+
+  &--past {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 26rpx;
+  }
+
+  &--active {
+    color: #fff;
+    font-size: 36rpx;
+    font-weight: 600;
+    text-shadow: 0 2rpx 24rpx rgba(0, 0, 0, 0.4);
+    transform: scale(1.02);
+  }
+}
+
+.player-lyric__empty {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 1.6;
+}

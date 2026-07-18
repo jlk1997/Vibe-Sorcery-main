@@ -1,0 +1,45 @@
+@import "../../styles/_utilities.scss";
+.ui-feature-card {
+  display: flex;
+  gap: $space-sm;
+  padding: $space-sm;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  margin-bottom: $space-xs;
+
+  &__icon {
+    width: 80rpx;
+    height: 80rpx;
+    flex-shrink: 0;
+    border-radius: $radius-md;
+    background: $gold-muted;
+    border: 1rpx solid $border-ritual;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    @extend .typo-body;
+    font-family: var(--font-display);
+    font-weight: $font-weight-semibold;
+    display: block;
+  }
+
+  &__desc {
+    @extend .typo-meta;
+    margin-top: $space-2xs;
+    display: block;
+    line-height: 1.5;
+  }
+
+  &--clickable:active {
+    background: $slate-veil;
+  }
+}

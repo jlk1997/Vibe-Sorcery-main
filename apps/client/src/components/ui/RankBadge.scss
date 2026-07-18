@@ -1,0 +1,50 @@
+.rank-badge {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: $radius-full;
+  background: $surface-elevated;
+  border: 2rpx solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &--sm {
+    width: 44rpx;
+    height: 44rpx;
+  }
+
+  &--gold {
+    border-color: #fbbf24;
+    box-shadow: 0 0 16rpx rgba(251, 191, 36, 0.35);
+  }
+
+  &--silver {
+    border-color: #94a3b8;
+    box-shadow: 0 0 12rpx rgba(148, 163, 184, 0.3);
+  }
+
+  &--bronze {
+    border-color: #d97706;
+    box-shadow: 0 0 12rpx rgba(217, 119, 6, 0.3);
+  }
+}
+
+.rank-badge__medal {
+  font-size: 28rpx;
+  line-height: 1;
+}
+
+.rank-badge__num {
+  color: $muted;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.rank-badge--sm .rank-badge__medal {
+  font-size: 22rpx;
+}
+
+.rank-badge--sm .rank-badge__num {
+  font-size: 18rpx;
+}

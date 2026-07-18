@@ -1,0 +1,88 @@
+@import "../../styles/_utilities.scss";
+.ritual-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+  padding: $space-xs 0;
+}
+
+.ritual-timeline__item {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  min-height: 48rpx;
+}
+
+.ritual-timeline__rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48rpx;
+  flex-shrink: 0;
+}
+
+.ritual-timeline__line {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  width: 4rpx;
+  height: calc(100% + #{$space-2xs});
+  background: $border;
+  transform: translateX(-50%);
+
+  &--on {
+    background: linear-gradient(180deg, $gold, $teal-mood);
+  }
+}
+
+.ritual-timeline__node {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: $radius-pill;
+  background: $slate-veil;
+  border: 2rpx solid $border-ritual;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: border-color $duration-fast, box-shadow $duration-fast;
+
+  &--active {
+    border-color: $gold;
+    box-shadow: $shadow-gold;
+    background: $gold-muted;
+  }
+
+  &--done {
+    border-color: $gold;
+    background: $gold;
+  }
+}
+
+.ritual-timeline__check {
+  color: $void;
+  font-size: var(--text-micro);
+  font-weight: $font-weight-bold;
+}
+
+.ritual-timeline__num {
+  color: $muted;
+  font-size: var(--text-micro);
+  font-family: var(--font-mono);
+}
+
+.ritual-timeline__label {
+  @extend .typo-meta;
+  flex: 1;
+
+  &--active {
+    color: $gold;
+    font-weight: $font-weight-semibold;
+    font-family: var(--font-display);
+  }
+
+  &--done {
+    color: $muted;
+  }
+}

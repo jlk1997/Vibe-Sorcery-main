@@ -1,0 +1,36 @@
+.consent-update-banner {
+  position: relative;
+  z-index: 220;
+  margin: 16rpx 24rpx 0;
+  padding: 20rpx 24rpx;
+  border-radius: 16rpx;
+  background: rgba(212, 175, 106, 0.12);
+  border: 1rpx solid rgba(212, 175, 106, 0.35);
+  box-sizing: border-box;
+}
+
+/* WeChat: keep the full banner below the status bar / native nav — avoid clipped text */
+page .consent-update-banner {
+  margin-top: calc(12rpx + env(safe-area-inset-top, 0px));
+}
+
+.consent-update-banner__text {
+  display: block;
+  font-size: 24rpx;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 16rpx;
+}
+
+.consent-update-banner__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16rpx 24rpx;
+}
+
+.consent-update-banner__link {
+  font-size: 24rpx;
+  color: #d4af6a;
+  text-decoration: underline;
+}

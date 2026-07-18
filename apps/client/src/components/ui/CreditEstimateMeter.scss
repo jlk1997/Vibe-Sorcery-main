@@ -1,0 +1,45 @@
+.credit-estimate {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  flex-wrap: wrap;
+  padding: $space-2xs 0 $space-xs;
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+}
+
+.credit-estimate--low {
+  .credit-estimate__value {
+    color: $gold;
+  }
+}
+
+.credit-estimate__label {
+  color: $muted;
+}
+
+.credit-estimate__value {
+  color: $text;
+  font-weight: $font-weight-semibold;
+}
+
+.credit-estimate__balance {
+  color: $muted;
+  margin-left: auto;
+}
+
+.credit-estimate__topup {
+  color: $gold;
+  font-weight: $font-weight-semibold;
+  text-decoration: underline;
+}
+
+.credit-estimate--shortfall {
+  justify-content: space-between;
+  padding: $space-2xs 0;
+}
+
+.credit-estimate__shortfall {
+  color: $gold;
+  font-size: var(--text-meta);
+}

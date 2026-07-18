@@ -1,0 +1,23 @@
+.ui-view-toggle {
+  display: inline-flex;
+  padding: 4rpx;
+  background: $surface;
+  border: 1rpx solid $border;
+  border-radius: $radius-full;
+  gap: 4rpx;
+}
+
+.ui-view-toggle__btn {
+  width: 64rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  transition: background 0.15s;
+
+  &--active {
+    background: $gold-muted;
+    box-shadow: $shadow-gold;
+  }
+}

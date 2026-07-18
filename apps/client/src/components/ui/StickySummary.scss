@@ -1,0 +1,35 @@
+.ui-sticky-summary {
+  position: sticky;
+  bottom: calc(var(--safe-bottom, 0rpx) + $space-sm);
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $space-md;
+  padding: $space-md;
+  margin-top: $space-lg;
+  background: $surface-glass;
+  backdrop-filter: blur(12px);
+  border: 1rpx solid $border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+}
+
+.ui-sticky-summary__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.ui-sticky-summary__title {
+  display: block;
+  color: $text;
+  font-size: 28rpx;
+  font-weight: $font-display;
+}
+
+.ui-sticky-summary__subtitle {
+  display: block;
+  color: $muted;
+  font-size: 24rpx;
+  margin-top: 6rpx;
+}

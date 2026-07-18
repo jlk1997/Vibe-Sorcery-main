@@ -1,0 +1,73 @@
+.derivative-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.derivative-sheet__panel {
+  width: 100%;
+  max-width: 720px;
+  background: linear-gradient(180deg, rgba(22, 22, 34, 0.98) 0%, $bg 100%);
+  border-radius: $radius-lg $radius-lg 0 0;
+  padding: $space-md $space-md calc(#{$space-lg} + var(--safe-bottom));
+  border-top: 1rpx solid rgba(212, 175, 106, 0.28);
+  box-shadow: 0 -12rpx 48rpx rgba(0, 0, 0, 0.45);
+}
+
+.derivative-sheet__handle {
+  width: 72rpx;
+  height: 8rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.18);
+  margin: 0 auto $space-md;
+}
+
+.derivative-sheet__title {
+  color: $text;
+  font-size: var(--text-heading);
+  font-weight: $font-weight-semibold;
+  font-family: var(--font-display);
+  display: block;
+}
+
+.derivative-sheet__work {
+  color: $muted;
+  font-size: 26rpx;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.derivative-sheet__desc {
+  color: $muted;
+  font-size: 24rpx;
+  margin: 16rpx 0;
+  display: block;
+  line-height: 1.5;
+}
+
+.derivative-sheet__blocked {
+  color: $danger;
+  display: block;
+  margin-bottom: $space-sm;
+}
+
+.derivative-sheet__actions {
+  margin-top: $space-md;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+}
+
+.derivative-sheet__preview {
+  margin: $space-sm 0;
+  padding: $space-md;
+  background: rgba(212, 175, 106, 0.06);
+  border: 1rpx solid rgba(212, 175, 106, 0.2);
+  border-radius: $radius-md;
+  box-shadow: inset 0 1rpx 0 rgba(255, 255, 255, 0.04);
+}

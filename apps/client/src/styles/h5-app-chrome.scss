@@ -1,0 +1,84 @@
+// H5 only — loaded via app.tsx require when TARO_ENV === "h5".
+// Web DOM / Taro H5 Web Components; must not ship to WeChat WXSS.
+
+html,
+body,
+#app {
+  margin: 0;
+  min-height: 100%;
+  background: $void;
+  color: $text;
+  font-family: var(--font-ui);
+}
+
+/* Taro components inherit one sans stack (avoid browser/WeUI serif defaults). */
+.taro_page,
+taro-view-core,
+taro-text-core,
+taro-button-core {
+  font-family: inherit;
+}
+
+/* H5 TabBar — obsidian glass + gold accent; must sit above mini player for taps */
+.taro-tabbar__tabbar,
+.weui-tabbar,
+taro-tabbar {
+  z-index: 250 !important;
+  pointer-events: auto !important;
+  background: rgba(5, 5, 8, 0.92) !important;
+  backdrop-filter: blur(24px);
+  border-top: 1rpx solid $border-ritual !important;
+}
+
+/* Tab page visibility — no child combinator; pages may nest under App root on H5 */
+.taro_page.taro_tabbar_page.taro_page_shade {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Taro H5 page chrome — override default white page bg */
+.taro-tabbar__container,
+.taro-tabbar__panel,
+.taro_router,
+.taro_page {
+  background: $void !important;
+}
+
+.taro_page.taro_tabbar_page.taro_page_show {
+  display: block !important;
+  visibility: visible !important;
+  min-height: 100%;
+}
+
+/* navigateTo 子页面 — 必须压在 Tab 页之上 */
+.taro_router > .taro_page.taro_page_show:not(.taro_tabbar_page) {
+  display: block !important;
+  visibility: visible !important;
+  transform: none !important;
+  z-index: 10 !important;
+}
+
+.taro-tabbar__tabbar-item,
+.weui-tabbar__item {
+  color: rgba(136, 136, 170, 0.9) !important;
+  font-family: var(--font-ui);
+}
+
+.taro-tabbar__tabbar-item--active,
+.weui-tabbar__item.weui-bar__item_on {
+  color: $gold !important;
+}
+
+/* Studio subpages (情绪旅程等) — keep tab bar visible on H5 */
+html.layout-tab-visible {
+  .taro-tabbar__tabbar,
+  .weui-tabbar,
+  taro-tabbar {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+}

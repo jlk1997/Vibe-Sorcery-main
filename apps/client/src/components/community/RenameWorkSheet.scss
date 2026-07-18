@@ -1,0 +1,67 @@
+.rename-work-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  padding: 0 $space-sm $space-md;
+}
+
+.rename-work-sheet__label {
+  color: $muted;
+  font-size: var(--text-meta);
+}
+
+.rename-work-sheet__sync {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-xs;
+  padding: $space-xs;
+  border-radius: $radius-md;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1rpx solid $border-ritual;
+}
+
+.rename-work-sheet__check {
+  flex: 0 0 40rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: $radius-sm;
+  border: 2rpx solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $void;
+  font-size: 22rpx;
+  margin-top: 4rpx;
+
+  &--on {
+    background: $gold;
+    border-color: $gold;
+  }
+}
+
+.rename-work-sheet__sync-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.rename-work-sheet__sync-title {
+  display: block;
+  color: $text;
+  font-size: var(--text-body);
+  font-weight: 600;
+}
+
+.rename-work-sheet__sync-hint {
+  display: block;
+  margin-top: 4rpx;
+  color: $muted;
+  font-size: var(--text-micro);
+  line-height: 1.45;
+}
+
+.rename-work-sheet__auto-hint {
+  color: $muted;
+  font-size: var(--text-micro);
+  line-height: 1.45;
+  padding: 0 $space-2xs;
+}

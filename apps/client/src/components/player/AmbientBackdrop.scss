@@ -1,0 +1,167 @@
+.ambient-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+
+  &--netease {
+    .ambient-backdrop__cover {
+      filter: blur(80px) saturate(1.5) brightness(0.85);
+      opacity: 0.65;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+    }
+
+    .ambient-backdrop__overlay {
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.35) 0%,
+        rgba(0, 0, 0, 0.55) 40%,
+        rgba(0, 0, 0, 0.82) 100%
+      );
+    }
+
+    .ambient-backdrop__tint {
+      opacity: 0.35;
+    }
+  }
+
+  &__cover {
+    position: absolute;
+    inset: -40%;
+    width: 180%;
+    height: 180%;
+    filter: blur(64px) saturate(1.35);
+    opacity: 0.42;
+    transition: opacity 0.6s ease;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 15, 0.15) 0%,
+      rgba(10, 10, 15, 0.55) 45%,
+      $bg 88%
+    );
+  }
+
+  &__tint {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+  }
+
+  &__orb {
+    position: absolute;
+    border-radius: $radius-full;
+    filter: blur(40px);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  &__orb--1 {
+    width: 360rpx;
+    height: 360rpx;
+    top: 8%;
+    left: -10%;
+    background: rgba(20, 184, 166, 0.45);
+  }
+
+  &__orb--2 {
+    width: 420rpx;
+    height: 420rpx;
+    top: 28%;
+    right: -18%;
+    background: rgba(147, 130, 180, 0.35);
+  }
+
+  &__orb--3 {
+    width: 280rpx;
+    height: 280rpx;
+    bottom: 18%;
+    left: 20%;
+    background: rgba(20, 184, 166, 0.28);
+  }
+
+  &__shimmer {
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(20, 184, 166, 0.06) 60deg,
+      transparent 120deg,
+      rgba(147, 130, 180, 0.08) 200deg,
+      transparent 280deg
+    );
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  &--active {
+    .ambient-backdrop__cover {
+      opacity: 0.58;
+      animation: ambient-cover-breathe 6s ease-in-out infinite;
+    }
+
+    .ambient-backdrop__orb {
+      opacity: 1;
+      animation: ambient-orb-float 8s ease-in-out infinite;
+    }
+
+    .ambient-backdrop__orb--2 {
+      animation-delay: -2.5s;
+      animation-duration: 10s;
+    }
+
+    .ambient-backdrop__orb--3 {
+      animation-delay: -4s;
+      animation-duration: 9s;
+    }
+
+    .ambient-backdrop__shimmer {
+      opacity: 1;
+      animation: ambient-shimmer-spin 18s linear infinite;
+    }
+  }
+}
+
+@keyframes ambient-cover-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.52;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.62;
+  }
+}
+
+@keyframes ambient-orb-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(24rpx, -20rpx) scale(1.08);
+  }
+  66% {
+    transform: translate(-16rpx, 16rpx) scale(0.95);
+  }
+}
+
+@keyframes ambient-shimmer-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,28 @@
+@import "../../../styles/_utilities.scss";
+.challenge-hero__desc {
+  @extend .typo-body;
+  line-height: 1.55;
+  display: block;
+}
+
+.challenge-hero__deadline {
+  color: $gold;
+  font-size: var(--text-meta);
+  font-family: var(--font-mono);
+  margin-top: $space-2xs;
+  display: block;
+}
+
+.challenge-hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2xs;
+  margin-top: $space-sm;
+}
+
+.challenge-actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+  margin-top: $space-lg;
+}

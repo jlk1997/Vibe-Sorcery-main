@@ -1,0 +1,25 @@
+.notifications-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  margin-bottom: $space-md;
+  padding: $space-md;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+}
+
+.notifications-list {
+  margin-top: $space-md;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.auth-gate__cta {
+  margin-top: $space-md;
+}

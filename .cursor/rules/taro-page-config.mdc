@@ -1,0 +1,31 @@
+---
+description: Taro 页面 config 与 index 文件职责分离（禁止 config re-export 页面）
+globs: apps/client/**/*.config.ts
+alwaysApply: false
+---
+
+# Taro 页面文件布局
+
+## 约定
+
+- `*.config.ts`：只导出静态配置对象（标题、下拉刷新、分享等）
+- `index.tsx`：页面组件 + `import "./index.scss"`
+- 不要在 config 里 re-export 页面、import scss/tsx
+
+## 原因
+
+Taro 用 esbuild 编译 `*.config.ts`。re-export `./index` 会连带 SCSS，esbuild 无 SCSS loader → `build:mp` / `build:weapp` 失败。
+
+## 示例
+
+```ts
+// ✅ index.config.ts
+export default { navigationBarTitleText: "配方市场" };
+```
+
+```ts
+// ❌ index.config.ts
+export { default } from "./index";
+```
+
+校验：`npm run lint:taro-config`（见 `docs/CODE_REVIEW.md`）。

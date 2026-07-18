@@ -1,0 +1,51 @@
+@import "../../styles/_utilities.scss";
+.ui-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $space-sm;
+  margin-bottom: $space-sm;
+
+  &--tab {
+    margin-bottom: $space-md;
+  }
+
+  &--immersive {
+    margin-bottom: $space-lg;
+  }
+
+  &__main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__label {
+    @extend .micro-label;
+    display: block;
+    margin-bottom: $space-2xs;
+  }
+
+  &__title {
+    @extend .typo-h1;
+    font-size: var(--text-title);
+    color: $text;
+  }
+
+  &--tab &__title {
+    font-size: var(--text-display);
+    font-weight: $font-weight-display;
+  }
+
+  &__subtitle {
+    @extend .typo-meta;
+    margin-top: $space-2xs;
+    display: block;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $space-2xs;
+    flex-shrink: 0;
+  }
+}

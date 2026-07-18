@@ -1,0 +1,53 @@
+@import "../../../styles/_utilities.scss";
+.prov-trust {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-md;
+  margin-bottom: $space-sm;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+}
+
+.prov-tree-wrap {
+  margin: $space-sm 0;
+}
+
+.prov-derivatives {
+  margin: $space-lg 0;
+
+  &__title {
+    @extend .typo-h2;
+    font-family: var(--font-display);
+    display: block;
+    margin-bottom: $space-xs;
+  }
+}
+
+.prov-derivative-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2xs;
+  padding: $space-xs $space-sm;
+  margin: 0 $space-2xs $space-2xs 0;
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-pill;
+  color: $text;
+  font-size: var(--text-meta);
+  font-family: var(--font-mono);
+}
+
+.prov-tech-line {
+  @extend .typo-meta;
+  display: block;
+  margin-bottom: $space-2xs;
+  word-break: break-all;
+  font-family: var(--font-mono);
+}
+
+.prov-export-btn {
+  margin-top: $space-lg;
+}

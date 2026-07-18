@@ -1,0 +1,97 @@
+@import "../../styles/tokens";
+
+.mood-radio {
+  margin: 20rpx 0 8rpx;
+  padding: 24rpx 28rpx;
+  border-radius: $radius-lg;
+  background: linear-gradient(135deg, rgba(212, 175, 106, 0.08), rgba(80, 60, 120, 0.06));
+  border: 1rpx solid rgba(212, 175, 106, 0.12);
+}
+
+.mood-radio--empty {
+  padding-bottom: 20rpx;
+}
+
+.mood-radio__head {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.mood-radio__title {
+  font-size: 30rpx;
+  font-weight: $font-weight-semibold;
+  color: $text;
+}
+
+.mood-radio__empty {
+  font-size: 26rpx;
+  color: $muted;
+  line-height: 1.45;
+}
+
+.mood-radio__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.mood-radio__item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.06);
+}
+
+.mood-radio__item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.mood-radio__cover {
+  width: 80rpx;
+  height: 80rpx;
+  flex-shrink: 0;
+  border-radius: $radius-sm;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mood-radio__cover--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 175, 106, 0.1);
+}
+
+.mood-radio__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.mood-radio__name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: $font-weight-semibold;
+  color: $text;
+  line-height: 1.35;
+}
+
+.mood-radio__author {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: $muted;
+}
+
+.mood-radio__play {
+  flex-shrink: 0;
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-pill;
+  background: rgba(212, 175, 106, 0.12);
+}

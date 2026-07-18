@@ -1,0 +1,92 @@
+@import "../../styles/_utilities.scss";
+.challenge-card {
+  background: $obsidian;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  margin-bottom: $space-sm;
+
+  &--featured {
+    border-color: $gold;
+    box-shadow: $shadow-gold;
+  }
+}
+
+.challenge-card__hero {
+  position: relative;
+  height: 240rpx;
+}
+
+.challenge-card--featured .challenge-card__hero {
+  height: 320rpx;
+}
+
+.challenge-card__cover {
+  width: 100%;
+  height: 100%;
+  background: $slate-veil;
+
+  &--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(212, 175, 106, 0.28), rgba(5, 5, 8, 0.85));
+  }
+}
+
+.challenge-card__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(5, 5, 8, 0.92) 100%);
+}
+
+.challenge-card__badge {
+  position: absolute;
+  top: $space-xs;
+  left: $space-xs;
+  padding: $space-2xs $space-xs;
+  background: rgba(5, 5, 8, 0.65);
+  border-radius: $radius-pill;
+  border: 1rpx solid $border-ritual;
+}
+
+.challenge-card__hashtag {
+  color: $gold;
+  font-size: var(--text-meta);
+  font-weight: $font-weight-semibold;
+  font-family: var(--font-mono);
+}
+
+.challenge-card__featured-tag {
+  position: absolute;
+  top: $space-xs;
+  right: $space-xs;
+  display: flex;
+  align-items: center;
+  gap: $space-2xs;
+  padding: $space-2xs $space-xs;
+  background: $gold-muted;
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-pill;
+  color: $gold;
+  font-size: var(--text-micro);
+  font-family: var(--font-display);
+}
+
+.challenge-card__body {
+  padding: $space-sm;
+}
+
+.challenge-card__title {
+  @extend .typo-h2;
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  display: block;
+  margin-bottom: $space-2xs;
+}
+
+.challenge-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2xs;
+}

@@ -1,0 +1,152 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vibe-api
+  labels:
+    app: vibe-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vibe-api
+  template:
+    metadata:
+      labels:
+        app: vibe-api
+    spec:
+      containers:
+        - name: api
+          image: vibe-sorcery/api:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: vibe-secrets
+            - configMapRef:
+                name: vibe-config
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vibe-api
+spec:
+  selector:
+    app: vibe-api
+  ports:
+    - port: 80
+      targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vibe-worker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vibe-worker
+  template:
+    metadata:
+      labels:
+        app: vibe-worker
+    spec:
+      containers:
+        - name: worker
+          image: vibe-sorcery/worker:latest
+          command:
+            - celery
+            - -A
+            - app.celery_app.celery_app
+            - worker
+            - --loglevel=info
+            - -Q
+            - celery,priority
+            - --pool=prefork
+            - --concurrency=2
+          envFrom:
+            - secretRef:
+                name: vibe-secrets
+            - configMapRef:
+                name: vibe-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vibe-worker-post
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vibe-worker-post
+  template:
+    metadata:
+      labels:
+        app: vibe-worker-post
+    spec:
+      containers:
+        - name: worker-post
+          image: vibe-sorcery/worker:latest
+          command:
+            - celery
+            - -A
+            - app.celery_app.celery_app
+            - worker
+            - --loglevel=info
+            - -Q
+            - post_process
+            - --pool=prefork
+            - --concurrency=2
+          envFrom:
+            - secretRef:
+                name: vibe-secrets
+            - configMapRef:
+                name: vibe-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vibe-beat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vibe-beat
+  template:
+    metadata:
+      labels:
+        app: vibe-beat
+    spec:
+      containers:
+        - name: beat
+          image: vibe-sorcery/worker:latest
+          command: ["celery", "-A", "app.celery_app.celery_app", "beat", "--loglevel=info"]
+          envFrom:
+            - secretRef:
+                name: vibe-secrets
+            - configMapRef:
+                name: vibe-config
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: vibe-worker-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: vibe-worker
+  minReplicas: 2
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70

@@ -1,0 +1,13 @@
+models/
+__pycache__/
+playlist/
+.DS_Store
+song/
+.env
+apps/client/.env
+apps/client/dist/
+apps/client/dist-h5/
+node_modules/
+mobile/node_modules/
+*.pyc
+.backend_venv/

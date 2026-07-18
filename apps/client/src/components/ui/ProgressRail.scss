@@ -1,0 +1,48 @@
+.ui-progress-rail {
+  position: relative;
+  padding: $space-xs 0;
+
+  &__track {
+    position: relative;
+    height: 6rpx;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: $radius-pill;
+    overflow: visible;
+  }
+
+  &__fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, $gold, $teal-mood);
+    border-radius: $radius-pill;
+    transition: width $duration-fast linear;
+  }
+
+  &__glow {
+    position: absolute;
+    left: 0;
+    top: -4rpx;
+    height: 14rpx;
+    background: linear-gradient(90deg, transparent, $gold-glow);
+    border-radius: $radius-pill;
+    filter: blur(4px);
+    pointer-events: none;
+    transition: width $duration-fast linear;
+  }
+
+  &__thumb {
+    position: absolute;
+    top: 50%;
+    width: 18rpx;
+    height: 18rpx;
+    margin-left: -9rpx;
+    margin-top: -9rpx;
+    border-radius: $radius-pill;
+    background: $gold;
+    border: 2rpx solid $void;
+    box-shadow: $shadow-gold;
+    transition: left $duration-fast linear;
+  }
+}

@@ -1,0 +1,50 @@
+@import "../styles/_utilities.scss";
+@import "../styles/layout.scss";
+
+$page-top-offset: calc(var(--safe-area-top, 0px) + var(--app-header-height, 0px));
+
+.page-shell {
+  position: relative;
+  min-height: 100vh;
+  background: $void;
+  padding: $space-sm $space-sm calc(#{$space-sm} + var(--safe-bottom));
+  padding-top: calc(#{$page-top-offset} + #{$space-sm});
+  box-sizing: border-box;
+  font-family: var(--font-ui);
+
+  &--ambient {
+    background: $void;
+    overflow: hidden;
+
+    .ui-atmosphere {
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  .app-layout-root &--ambient {
+    overflow: visible;
+  }
+
+  &--wide {
+    @extend .container--wide;
+    padding-left: $space-sm;
+    padding-right: $space-sm;
+  }
+
+  /* Tab / home layouts: still clear global header, tighter title gap */
+  &--no-pad-top {
+    padding-top: calc(#{$page-top-offset} + #{$space-2xs});
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.page-shell__section-label {
+  @extend .micro-label;
+  display: block;
+  margin: $space-lg 0 $space-xs;
+}

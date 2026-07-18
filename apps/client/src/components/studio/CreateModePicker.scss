@@ -1,0 +1,102 @@
+.mode-picker {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+}
+
+.mode-picker__item {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  padding: $space-md;
+  background: $surface;
+  border: 1rpx solid $border;
+  border-radius: $radius-lg;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  &--quickTrack::before {
+    background: linear-gradient(90deg, rgba(251, 191, 36, 0.12), transparent);
+  }
+
+  &--lyrics::before {
+    background: linear-gradient(90deg, rgba(96, 165, 250, 0.12), transparent);
+  }
+
+  &--remix::before {
+    background: linear-gradient(90deg, $gold-muted, transparent);
+  }
+
+  &--cover::before {
+    background: linear-gradient(90deg, rgba(248, 113, 113, 0.12), transparent);
+  }
+
+  &--variation::before {
+    background: linear-gradient(90deg, rgba(167, 139, 250, 0.12), transparent);
+  }
+
+  &--active {
+    border-color: $gold;
+    box-shadow: 0 0 20rpx $gold-glow;
+
+    &::before {
+      opacity: 1;
+    }
+
+    .mode-picker__label {
+      color: $gold;
+    }
+  }
+}
+
+.mode-picker__emoji {
+  width: 64rpx;
+  height: 64rpx;
+  flex-shrink: 0;
+  border-radius: $radius-md;
+  background: $surface-elevated;
+  border: 1rpx solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  line-height: 1;
+}
+
+.mode-picker__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.mode-picker__label {
+  color: $text;
+  font-size: 28rpx;
+  font-weight: 600;
+  display: block;
+}
+
+.mode-picker__desc {
+  color: $muted;
+  font-size: 22rpx;
+  margin-top: 4rpx;
+  display: block;
+  line-height: 1.4;
+}
+
+.mode-picker__check {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: $radius-full;
+  background: $gold;
+  box-shadow: 0 0 12rpx $gold-glow;
+  flex-shrink: 0;
+}

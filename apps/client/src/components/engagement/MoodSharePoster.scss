@@ -1,0 +1,51 @@
+.mood-poster {
+  margin: $space-sm 0;
+  padding: $space-md;
+  background: linear-gradient(145deg, $obsidian 0%, rgba(26, 20, 40, 0.95) 100%);
+  border: 1rpx solid $border-ritual;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-gold;
+}
+
+.mood-poster__brand {
+  display: block;
+  color: $gold;
+  font-size: var(--text-meta);
+  font-family: var(--font-mono);
+  margin-bottom: $space-2xs;
+}
+
+.mood-poster__title {
+  display: block;
+  color: $text;
+  font-size: var(--text-title);
+  font-family: var(--font-display);
+  margin-bottom: $space-sm;
+}
+
+.mood-poster__tagline {
+  display: block;
+  text-align: center;
+  color: $muted;
+  font-size: var(--text-meta);
+  margin-top: $space-sm;
+}
+
+.mood-poster__watermark {
+  display: block;
+  text-align: center;
+  color: rgba(212, 175, 106, 0.55);
+  font-size: var(--text-micro);
+  margin-top: $space-xs;
+  font-family: var(--font-mono);
+}
+
+.mood-poster__canvas {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  width: 300px;
+  height: 400px;
+  opacity: 0;
+  pointer-events: none;
+}

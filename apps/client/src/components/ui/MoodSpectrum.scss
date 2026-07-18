@@ -1,0 +1,106 @@
+.mood-spectrum {
+  margin-bottom: $space-lg;
+
+  &__title {
+    color: $muted;
+    font-size: 24rpx;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: $space-sm;
+  }
+
+  &__hero {
+    display: flex;
+    align-items: baseline;
+    gap: 16rpx;
+    margin-bottom: $space-md;
+  }
+
+  &__value {
+    color: $accent;
+    font-size: 72rpx;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  &__label {
+    color: $text;
+    font-size: 32rpx;
+    font-weight: $font-display;
+  }
+
+  &__track {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48rpx;
+    padding: 0 4rpx;
+  }
+
+  &__gradient {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 12rpx;
+    border-radius: $radius-full;
+    background: linear-gradient(90deg, $gold 0%, $teal-mood 50%, $warning 100%);
+    opacity: 0.85;
+  }
+
+  &__dot {
+    position: relative;
+    z-index: 1;
+    width: 36rpx;
+    height: 36rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-inner {
+      width: 20rpx;
+      height: 20rpx;
+      border-radius: $radius-full;
+      background: $surface-elevated;
+      border: 3rpx solid rgba(255, 255, 255, 0.25);
+      transition: transform 0.15s $ease-out;
+    }
+
+    &--filled &-inner {
+      background: rgba(20, 184, 166, 0.5);
+      border-color: rgba(20, 184, 166, 0.6);
+    }
+
+    &--active &-inner {
+      width: 28rpx;
+      height: 28rpx;
+      background: $accent;
+      border-color: $text;
+      box-shadow: 0 0 16rpx $accent-glow;
+    }
+  }
+
+  &__ends {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr auto;
+    align-items: center;
+    gap: 8rpx;
+    margin-top: $space-2xs;
+  }
+
+  &__emoji {
+    font-size: 28rpx;
+  }
+
+  &__hint {
+    color: $muted;
+    font-size: 20rpx;
+
+    &--right {
+      text-align: right;
+    }
+  }
+}

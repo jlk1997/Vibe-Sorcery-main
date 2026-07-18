@@ -1,0 +1,106 @@
+.publish-dialog {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 500;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  backdrop-filter: blur(8px);
+
+  display: flex;
+
+  align-items: flex-end;
+
+
+
+  &__sheet {
+
+    width: 100%;
+
+    background: linear-gradient(180deg, rgba(22, 22, 34, 0.98) 0%, $bg 100%);
+
+    border-radius: $radius-lg $radius-lg 0 0;
+
+    border-top: 1rpx solid rgba(212, 175, 106, 0.28);
+
+    padding: $space-md $space-md calc(#{$space-lg} + var(--safe-bottom));
+
+    box-sizing: border-box;
+
+    box-shadow: 0 -12rpx 48rpx rgba(0, 0, 0, 0.45);
+
+  }
+
+
+
+  &__handle {
+
+    width: 72rpx;
+
+    height: 8rpx;
+
+    border-radius: 999rpx;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    margin: 0 auto $space-md;
+
+  }
+
+
+
+  &__title {
+
+    color: $text;
+
+    font-size: var(--text-heading);
+
+    font-weight: $font-weight-semibold;
+
+    font-family: var(--font-display);
+
+    margin-bottom: $space-md;
+
+    display: block;
+
+  }
+
+
+
+  &__label {
+
+    display: block;
+
+    color: $muted;
+
+    font-size: var(--text-micro);
+
+    letter-spacing: 0.06em;
+
+    text-transform: uppercase;
+
+    margin: $space-sm 0 $space-2xs;
+
+    font-family: var(--font-ui);
+
+  }
+
+
+
+  &__actions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: $space-2xs;
+
+    margin-top: $space-md;
+
+  }
+
+}
+

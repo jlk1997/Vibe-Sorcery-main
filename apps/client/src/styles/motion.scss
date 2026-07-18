@@ -1,0 +1,14 @@
+@import "./tokens/motion";
+
+// H5 only — loaded via app.tsx require when TARO_ENV === "h5".
+// WeChat WXSS does not support universal selectors (*).
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
