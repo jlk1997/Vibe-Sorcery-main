@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import { STACK_PAGE_ROUTES } from "../../constants/routes";
@@ -8,9 +8,12 @@ import { extractCoverAccent, useTheme } from "../../contexts/ThemeProvider";
 import { currentLayoutRoute } from "../../constants/routes";
 import { useLayoutVars } from "../../contexts/LayoutVarsProvider";
 import { useRouteTick } from "../../hooks/useRouteTick";
+import { NOW_PLAYING_EVENTS } from "../../constants/events";
 import { Icon } from "../ui";
 import { clsx } from "../../utils/clsx";
 import "./MiniPlayerBar.scss";
+
+const isWeapp = process.env.TARO_ENV === "weapp";
 
 function currentRoute(): string {
   return currentLayoutRoute();
@@ -24,7 +27,27 @@ export function MiniPlayerBar() {
   const routeTick = useRouteTick();
   const route = currentRoute();
   void routeTick;
-  const hidden = !currentTrack || route.includes("now-playing");
+
+  // 迷你条是否处于「正在播放全屏页」而需要隐藏。
+  // weapp 上 useRouteTick 依赖的路由事件不稳定，改由 now-playing 页面的
+  // useDidShow / useDidHide 主动广播进入/离开信号，保证退出全屏后能重新出现。
+  const [onNowPlaying, setOnNowPlaying] = useState<boolean>(() =>
+    currentRoute().includes("now-playing"),
+  );
+
+  useEffect(() => {
+    const enter = () => setOnNowPlaying(true);
+    const leave = () => setOnNowPlaying(false);
+    Taro.eventCenter.on(NOW_PLAYING_EVENTS.enter, enter);
+    Taro.eventCenter.on(NOW_PLAYING_EVENTS.leave, leave);
+    return () => {
+      Taro.eventCenter.off(NOW_PLAYING_EVENTS.enter, enter);
+      Taro.eventCenter.off(NOW_PLAYING_EVENTS.leave, leave);
+    };
+  }, []);
+
+  // weapp 以广播信号为准；H5 路由事件可靠，沿用路由判断。
+  const hidden = !currentTrack || (isWeapp ? onNowPlaying : route.includes("now-playing"));
 
   useEffect(() => {
     setMiniPlayerVisible(!hidden);

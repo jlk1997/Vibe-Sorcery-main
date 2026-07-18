@@ -15,6 +15,7 @@ import { BottomSheet, Icon, ShareButton } from "../../../components/ui";
 import { shareWork, workSharePayload } from "../../../platform/share";
 import { vibeApi } from "../../../services/api";
 import { currentPageRoute, isImmersiveRoute } from "../../../constants/routes";
+import { NOW_PLAYING_EVENTS } from "../../../constants/events";
 import { enterImmersivePlayerLayout, exitImmersivePlayerLayout } from "../../../platform/layout";
 import { bootstrapAuth, isLoggedIn, requireAuth } from "../../../utils/auth";
 import { openCommunityPost } from "../../../utils/communityNav";
@@ -82,6 +83,7 @@ export default function NowPlayingPage() {
   function dismissPlayer() {
     setPageActive(false);
     exitImmersivePlayerLayout();
+    Taro.eventCenter.trigger(NOW_PLAYING_EVENTS.leave);
     Taro.navigateBack().catch(() => Taro.switchTab({ url: "/pages/feed/index" }));
   }
 
@@ -93,11 +95,13 @@ export default function NowPlayingPage() {
     if (!isImmersiveRoute(currentPageRoute())) return;
     setPageActive(true);
     enterImmersivePlayerLayout();
+    Taro.eventCenter.trigger(NOW_PLAYING_EVENTS.enter);
   });
 
   useDidHide(() => {
     setPageActive(false);
     exitImmersivePlayerLayout();
+    Taro.eventCenter.trigger(NOW_PLAYING_EVENTS.leave);
   });
 
   // H5: useDidHide may not fire on navigateBack / tab switch — follow router instead.
@@ -107,7 +111,13 @@ export default function NowPlayingPage() {
     exitImmersivePlayerLayout();
   }, [onThisPage]);
 
-  useEffect(() => () => exitImmersivePlayerLayout(), []);
+  useEffect(
+    () => () => {
+      exitImmersivePlayerLayout();
+      Taro.eventCenter.trigger(NOW_PLAYING_EVENTS.leave);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!pageActive || !onThisPage || currentTrack) return;
