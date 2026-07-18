@@ -1,13 +1,18 @@
-models/
+# Python
 __pycache__/
-playlist/
-.DS_Store
-song/
+*.py[cod]
+.backend_venv/
+venv/
+.venv/
+
+# Env / secrets
 .env
 apps/client/.env
+.env.production
+
+# Node
+node_modules/
+
+# Build output
 apps/client/dist/
 apps/client/dist-h5/
-node_modules/
-mobile/node_modules/
-*.pyc
-.backend_venv/
