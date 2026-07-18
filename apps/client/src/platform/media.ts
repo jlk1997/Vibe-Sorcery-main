@@ -10,7 +10,7 @@ export function resolveMediaUrl(url: string): string {
   return url.startsWith("/") ? `${base}${url}` : `${base}/${url}`;
 }
 
-/** Append playback ticket or access_token for protected media gateway URLs. */
+/** Append playback ticket and/or access_token for protected media gateway URLs. */
 export function withMediaAuth(url: string): string {
   const resolved = resolveMediaUrl(url);
   if (!resolved) return resolved;
@@ -18,13 +18,15 @@ export function withMediaAuth(url: string): string {
     resolved.includes("/works/") &&
     (resolved.includes("/stream") || resolved.includes("/hls/"));
   if (!isProtected) return resolved;
-  if (resolved.includes("ticket=") || resolved.includes("access_token=")) return resolved;
+  if (resolved.includes("access_token=")) return resolved;
   const token = getAuthToken();
-  if (token) {
-    const sep = resolved.includes("?") ? "&" : "?";
-    return `${resolved}${sep}access_token=${encodeURIComponent(token)}`;
-  }
-  return resolved;
+  if (!token) return resolved;
+  // Always attach access_token alongside any embedded ticket. Tickets are minted
+  // when the work list/detail is fetched and expire after ~10 min, so a ticket
+  // embedded in cached data can be stale by the time the user hits play. The
+  // access_token lets the gateway authorize the viewer directly as a fallback.
+  const sep = resolved.includes("?") ? "&" : "?";
+  return `${resolved}${sep}access_token=${encodeURIComponent(token)}`;
 }
 
 export function playbackUrls(track: PlayerTrack): { primary: string; fallback: string } {

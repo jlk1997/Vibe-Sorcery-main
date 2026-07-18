@@ -365,6 +365,11 @@ def _stream_storage_object(key: str, range_header: str | None = None):
         "Cache-Control": "private, no-store, max-age=0",
         "Accept-Ranges": "bytes",
         "X-Content-Type-Options": "nosniff",
+        # Media bytes must reach the client uncompressed. GZipMiddleware skips any
+        # response that already declares Content-Encoding; browsers auto-inflate
+        # gzip but WeChat InnerAudioContext does not, so compressed audio fails to
+        # decode ("errCode:26 data error" / "Unable to decode audio data").
+        "Content-Encoding": "identity",
     }
     if resp.get("ContentRange"):
         headers["Content-Range"] = resp["ContentRange"]
@@ -401,6 +406,8 @@ def stream_work_audio(
         headers_out = {
             "Cache-Control": "private, no-store, max-age=0",
             "X-Content-Type-Options": "nosniff",
+            # Keep the proxied audio uncompressed (see _stream_storage_object).
+            "Content-Encoding": "identity",
         }
         req_headers = {}
         if range_header:

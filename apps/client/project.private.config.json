@@ -3,7 +3,7 @@
   "projectname": "vibe-sorcery-mp",
   "condition": {},
   "setting": {
-    "urlCheck": false,
+    "urlCheck": true,
     "coverView": false,
     "lazyloadPlaceholderEnable": false,
     "skylineRenderEnable": false,

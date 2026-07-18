@@ -19,6 +19,11 @@ export type AudioEngine = {
 };
 
 export function createAudioEngine(callbacks: AudioCallbacks): AudioEngine {
+  // Native streaming playback. The earlier "load or init native decode so fail" /
+  // "data error" failures were caused by the backend gzip-compressing the MP3
+  // stream (WeChat's media loader does not inflate gzip); with the gateway now
+  // serving Content-Encoding: identity the native decoder streams fine and avoids
+  // WebAudio's whole-song in-memory decode (heavy for long tracks).
   const ctx = Taro.createInnerAudioContext();
   // Music apps should ignore the hardware mute switch when possible.
   try {
@@ -92,9 +97,17 @@ export function createAudioEngine(callbacks: AudioCallbacks): AudioEngine {
     callbacks.onEnded?.();
   });
   ctx.onError((res) => {
+    const errObj = (res && typeof res === "object" ? res : {}) as { errMsg?: string; errCode?: number };
     const message =
-      (res && typeof res === "object" && "errMsg" in res && String((res as { errMsg?: string }).errMsg)) ||
-      "playback_failed";
+      (errObj.errMsg && String(errObj.errMsg)) ||
+      (errObj.errCode != null ? `audio_err_${errObj.errCode}` : "playback_failed");
+    // Surface the real WeChat audio error (10001 system / 10002 network·domain /
+    // 10003 file / 10004 format) so real-device debugging shows the true cause.
+    console.error("[audio] InnerAudioContext error", {
+      errCode: errObj.errCode,
+      errMsg: errObj.errMsg,
+      src: activeSrc,
+    });
     if (!triedFallback && pendingFallback && pendingFallback !== activeSrc) {
       triedFallback = true;
       const next = pendingFallback;
