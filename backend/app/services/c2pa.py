@@ -97,9 +97,19 @@ def embed_c2pa_binary(audio_bytes: bytes, manifest: dict) -> tuple[bytes, dict]:
                 TXXX(encoding=3, desc="VibeSorceryManifest", text=manifest_json.decode("utf-8"))
             )
 
-        out = BytesIO()
-        audio.save(out)
-        return out.getvalue(), {
+        # Save the ID3 tag back into the SAME buffer that already holds the audio
+        # frames. mutagen writes only the tag to whatever target it is given and
+        # never copies the audio, so saving to a fresh empty BytesIO produced a
+        # headers-only, silent MP3 that later overwrote the real track. Saving in
+        # place rewrites the tag while preserving all audio frames.
+        audio.save(buf)
+        embedded = buf.getvalue()
+        if len(embedded) < len(audio_bytes):
+            # Safety net: never return a payload smaller than the source audio.
+            raise ValueError(
+                f"embed shrank audio ({len(embedded)} < {len(audio_bytes)})"
+            )
+        return embedded, {
             "embedded": True,
             "method": "id3_txxx",
             "manifest_hash": manifest_hash,

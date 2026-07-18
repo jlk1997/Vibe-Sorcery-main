@@ -133,16 +133,29 @@ async def post_process_work(
                 "application/json",
             )
             if package_info.get("embedded") and work.storage_key:
-                try:
-                    get_storage_service().upload_bytes(
-                        embedded_bytes,
-                        work.storage_key,
-                        "audio/mpeg",
+                # Never overwrite the stored track with a payload smaller than the
+                # source audio: embedding ID3 tags can only grow (or equal) the file,
+                # so a shrink means the embed dropped audio frames. Overwriting with
+                # such a stub would produce a silent, undecodable track.
+                if len(embedded_bytes) < len(audio_bytes):
+                    logger.error(
+                        "C2PA embed shrank audio for %s (%d < %d) — skipping re-upload to protect the track",
+                        work_id,
+                        len(embedded_bytes),
+                        len(audio_bytes),
                     )
-                    package_info["audio_reuploaded"] = True
-                except Exception as exc:
-                    logger.warning("C2PA audio re-upload failed for %s: %s", work_id, exc)
                     package_info["audio_reuploaded"] = False
+                else:
+                    try:
+                        get_storage_service().upload_bytes(
+                            embedded_bytes,
+                            work.storage_key,
+                            "audio/mpeg",
+                        )
+                        package_info["audio_reuploaded"] = True
+                    except Exception as exc:
+                        logger.warning("C2PA audio re-upload failed for %s: %s", work_id, exc)
+                        package_info["audio_reuploaded"] = False
             if settings.blockchain_anchor_enabled:
                 anchor = anchor_to_blockchain(work.content_hash or "", str(work_id))
                 if anchor:
