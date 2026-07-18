@@ -175,7 +175,15 @@ export const WorkCard = memo(function WorkCard({
             { id: "like", icon: liked ? "heartFilled" : "heart", count: likeCount, active: liked, accent: liked, onClick: onLike },
             { id: "play", icon: playingThis ? "pause" : "play", primary: true, onClick: handlePlay },
             { id: "comment", icon: "comment", accent: commentsOpen, onClick: onCommentToggle },
-            { id: "share", icon: "share", onClick: handleShare },
+            {
+              id: "share",
+              icon: "share",
+              onClick: handleShare,
+              openType: "share",
+              dataset: workId
+                ? { workid: workId, title: track?.title || caption || copy.pages.discover.title }
+                : undefined,
+            },
             { id: "more", icon: "more", onClick: () => setMenuOpen(true) },
           ]}
         />

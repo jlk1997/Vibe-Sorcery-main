@@ -39,6 +39,17 @@
     background: rgba(255, 255, 255, 0.08);
     transform: scale(0.97);
   }
+
+  // Native <Button open-type="share"> reset (keeps the same pill look).
+  &--share {
+    margin: 0;
+    line-height: normal;
+    font-size: inherit;
+
+    &::after {
+      border: none;
+    }
+  }
 }
 
 .ui-action-bar__count {

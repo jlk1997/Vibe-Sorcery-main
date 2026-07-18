@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { View, Text } from "@tarojs/components";
-import Taro, { useRouter, useDidShow } from "@tarojs/taro";
+import Taro, { useRouter, useDidShow, useShareAppMessage } from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { PageShell } from "../../../components/PageShell";
 import { LineageNode } from "../../../components/community/LineageNode";
 import { Button, ChipGroup, Collapsible, EmptyState, Icon, LoadingSkeleton, ProvenanceTimeline, RingGauge, StatPill } from "../../../components/ui";
 import { vibeApi } from "../../../services/api";
 import { bootstrapAuth } from "../../../utils/auth";
-import { shareWork } from "../../../platform/share";
+import { shareWork, workSharePayload } from "../../../platform/share";
 import "./index.scss";
 
 type Tab = "lineage" | "remix";
@@ -19,6 +19,10 @@ export default function ProvenancePage() {
   const { copy } = useLocale();
   const pv = copy.provenanceUi;
   const workId = router.params.workId || "";
+  const isWeapp = process.env.TARO_ENV === "weapp";
+
+  useShareAppMessage(() => workSharePayload(workId, pv.pageTitle));
+
   const [lineage, setLineage] = useState<Array<Record<string, unknown>>>([]);
   const [remixTree, setRemixTree] = useState<TreeNode | null>(null);
   const [verified, setVerified] = useState<boolean | null>(null);
@@ -129,7 +133,13 @@ export default function ProvenancePage() {
       )}
 
       {!loading && (
-        <Button variant="ghost" block onClick={() => shareWork(workId, pv.pageTitle)} className="prov-share-btn">
+        <Button
+          variant="ghost"
+          block
+          openType={isWeapp ? "share" : undefined}
+          onClick={() => shareWork(workId, pv.pageTitle)}
+          className="prov-share-btn"
+        >
           {pv.shareLineage}
         </Button>
       )}

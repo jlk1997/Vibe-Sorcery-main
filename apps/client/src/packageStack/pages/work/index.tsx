@@ -1,6 +1,6 @@
 import { useState, lazy, Suspense, useEffect } from "react";
 import { View, Text, Image } from "@tarojs/components";
-import Taro, { useRouter, useDidShow } from "@tarojs/taro";
+import Taro, { useRouter, useDidShow, useShareAppMessage } from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { workToPlayerTrack } from "@vibe-sorcery/types";
 import { PageShell } from "../../../components/PageShell";
@@ -9,7 +9,7 @@ import { CommunityPostButton } from "../../../components/community/CommunityPost
 import { AiGeneratedBadge } from "../../../components/legal/AiGeneratedBadge";
 import { RenameWorkSheet, type RenameWorkTarget } from "../../../components/community/RenameWorkSheet";
 import type { DerivativeMode } from "../../../components/studio/DerivativeSheet";
-import { ActionIconBar, Badge, BottomSheet, Button, Collapsible, Icon, Input, LoadingSkeleton, PostProcessBadges, Tag, showError, showSuccess, type ActionIconItem } from "../../../components/ui";
+import { ActionIconBar, Badge, BottomSheet, Button, Collapsible, Icon, Input, LoadingSkeleton, PostProcessBadges, ShareButton, Tag, showError, showSuccess, type ActionIconItem } from "../../../components/ui";
 import { PlayTrackButton } from "../../../components/player/PlayTrackButton";
 import { WorkLightEditor } from "../../../components/studio/WorkLightEditor";
 import { MoodVisualPreview } from "../../../components/studio/MoodVisualPreview";
@@ -21,7 +21,8 @@ import { bootstrapAuth, requireAuth } from "../../../utils/auth";
 import { useCreditsOptional } from "../../../contexts/CreditsProvider";
 import { usePlayerTransport } from "../../../contexts/PlayerProvider";
 import { syncAfterFeedMutation } from "../../../utils/feedMutationSync";
-import { copyEmbedLink, shareWork } from "../../../platform/share";
+import { copyEmbedLink, shareWork, workSharePayload } from "../../../platform/share";
+import { uploadFile } from "../../../platform/upload";
 import { setItem } from "../../../platform/storage";
 import { openWorkDetail } from "../../../utils/workNav";
 import { socialPage, STUDIO_PAGE_ROUTES } from "../../../constants/routes";
@@ -64,6 +65,11 @@ export default function WorkDetailPage() {
   const isH5 = process.env.TARO_ENV === "h5";
 
   const [work, setWork] = useState<WorkDetail | null>(null);
+
+  useShareAppMessage(() =>
+    work ? workSharePayload(work.id, work.title) : { title: copy.brand.name }
+  );
+
   const [postId, setPostId] = useState<string | null>(null);
   const [postCaption, setPostCaption] = useState<string | null>(null);
   const [renameTarget, setRenameTarget] = useState<RenameWorkTarget | null>(null);
@@ -183,6 +189,29 @@ export default function WorkDetailPage() {
       setWork(refreshed);
     } catch {
       showError(w.deleteFail);
+    }
+  }
+
+  async function uploadCover() {
+    if (!work) return;
+    let filePath: string | undefined;
+    try {
+      const pick = await Taro.chooseImage({ count: 1, sizeType: ["compressed"] });
+      filePath = pick.tempFilePaths?.[0];
+    } catch {
+      return;
+    }
+    if (!filePath) return;
+    try {
+      Taro.showLoading({ title: w.coverUploading, mask: true });
+      await uploadFile("/studio/cover-upload", filePath, "file", { work_id: work.id });
+      Taro.hideLoading();
+      showSuccess(w.coverUploaded);
+      const refreshed = (await vibeApi.getWork(work.id)) as WorkDetail;
+      setWork(refreshed);
+    } catch {
+      Taro.hideLoading();
+      showError(w.coverUploadFail);
     }
   }
 
@@ -325,9 +354,9 @@ export default function WorkDetailPage() {
           </View>
           <View className="work-detail__header-actions">
             {work && (
-              <View className="work-detail__icon-btn" onClick={() => shareWork(work.id, work.title)}>
+              <ShareButton className="work-detail__icon-btn" onShare={() => shareWork(work.id, work.title)}>
                 <Icon name="share" size="sm" />
-              </View>
+              </ShareButton>
             )}
           </View>
         </View>
@@ -422,9 +451,17 @@ export default function WorkDetailPage() {
               <Button variant="secondary" size="sm" block onClick={continueFromWork}>
                 {d.continueFrom}
               </Button>
-              {!work.cover_url && (
+              {/* Cover controls only make sense for the owner. `canTip` is true only
+                  when viewing someone else's work, so hide them in that case (own
+                  drafts have no author link and still show). */}
+              {!canTip && !work.cover_url && (
                 <Button variant="ghost" size="sm" block onClick={generateCover}>
                   {w.generateCover}
+                </Button>
+              )}
+              {!canTip && (
+                <Button variant="ghost" size="sm" block onClick={uploadCover}>
+                  {w.coverUpload}
                 </Button>
               )}
               {isH5 && (

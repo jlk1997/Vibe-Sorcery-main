@@ -1,4 +1,23 @@
 @import "../../styles/_utilities.scss";
+
+// Bare wrapper for native <Button open-type="share">. Only reset the chrome that
+// is unique to WeChat's native button (padding / margin / ::after hairline border /
+// line-height). Deliberately DO NOT set display / background / size so the host
+// class (e.g. .now-playing__action, .work-detail__icon-btn) keeps full control of
+// layout, its circular background and centering.
+.ui-share-btn {
+  padding: 0;
+  margin: 0;
+  border: none;
+  line-height: normal;
+  font-size: inherit;
+  color: inherit;
+
+  &::after {
+    border: none;
+  }
+}
+
 .ui-btn {
   display: flex;
   align-items: center;

@@ -2,7 +2,7 @@ from typing import Literal
 import uuid
 
 from pydantic import BaseModel, Field
-from fastapi import APIRouter, Depends, Header, HTTPException
+from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_current_user, require_scope
@@ -343,6 +343,69 @@ async def cover_image(
         eco.record_ai_cover(db, user, work, cost=cost)
 
     return {"cover_url": work.cover_url, "prompt": prompt, **credits_snapshot(db, user.id)}
+
+
+_COVER_CONTENT_TYPES = {
+    "image/png": "png",
+    "image/jpeg": "jpg",
+    "image/jpg": "jpg",
+    "image/webp": "webp",
+}
+_COVER_EXTENSIONS = {"png": "png", "jpg": "jpg", "jpeg": "jpg", "webp": "webp"}
+_COVER_STORE_MIME = {"png": "image/png", "jpg": "image/jpeg", "webp": "image/webp"}
+_MAX_COVER_BYTES = 8 * 1024 * 1024
+
+
+def _sniff_image_ext(data: bytes) -> str | None:
+    """Detect image type from magic bytes (WeChat often sends octet-stream)."""
+    if data[:8].startswith(b"\x89PNG\r\n\x1a\n"):
+        return "png"
+    if data[:3] == b"\xff\xd8\xff":
+        return "jpg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "webp"
+    return None
+
+
+@router.post("/cover-upload")
+async def cover_upload(
+    work_id: str = Form(...),
+    file: UploadFile = File(...),
+    user: User = Depends(require_scope("generate")),
+    db: Session = Depends(get_db),
+):
+    """Upload a custom album cover image for a work the caller owns."""
+    work = get_owned_work(db, work_id, user)
+
+    data = await file.read()
+    if not data:
+        raise HTTPException(status_code=400, detail="图片内容为空")
+    if len(data) > _MAX_COVER_BYTES:
+        raise HTTPException(status_code=413, detail="图片过大（上限 8MB）")
+
+    # Resolve extension: prefer content-type, then filename, then magic bytes.
+    # Real devices frequently upload as application/octet-stream, so never trust
+    # content-type alone.
+    content_type = (file.content_type or "").lower()
+    ext = _COVER_CONTENT_TYPES.get(content_type)
+    if not ext and file.filename and "." in file.filename:
+        ext = _COVER_EXTENSIONS.get(file.filename.rsplit(".", 1)[-1].lower())
+    if not ext:
+        ext = _sniff_image_ext(data)
+    if not ext:
+        raise HTTPException(status_code=400, detail="仅支持 PNG / JPEG / WEBP 图片")
+
+    store_mime = _COVER_STORE_MIME[ext]
+
+    from app.services.storage import get_storage_service
+
+    key = f"covers/{work.id}.{ext}"
+    storage_key, url = get_storage_service().upload_bytes(data, key, store_mime)
+    work.cover_url = url
+    work.cover_storage_key = storage_key
+    db.commit()
+    db.refresh(work)
+    return {"cover_url": work.cover_url}
 
 
 @router.get("/works/{work_id}/mood-visual")

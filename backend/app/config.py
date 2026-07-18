@@ -77,6 +77,9 @@ class Settings(BaseSettings):
     multi_tenant_enabled: bool = False
     ffmpeg_path: str = "ffmpeg"
 
+    # 生成音乐时自动生成专辑封面（默认开启；需真实 MiniMax 图像接口）
+    music_cover_enabled: bool = True
+
     # C2PA / 存证 (Phase 3)
     c2pa_enabled: bool = True
     blockchain_anchor_enabled: bool = False

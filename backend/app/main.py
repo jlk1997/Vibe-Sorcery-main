@@ -55,7 +55,7 @@ def seed_platform_defaults():
     db = SessionLocal()
     try:
         flags = [
-            ("music_cover", False, "Enable AI cover generation during post-process"),
+            ("music_cover", settings.music_cover_enabled, "Enable AI cover generation during post-process"),
             ("hls_streaming", True, "Enable HLS transcoding"),
             ("c2pa_provenance", settings.c2pa_enabled, "Enable C2PA manifests"),
             ("personalized_feed", True, "Enable embedding-based feed ranking"),
@@ -71,6 +71,8 @@ def seed_platform_defaults():
             if not row:
                 db.add(FeatureFlag(key=key, enabled=enabled, description=desc))
             elif key == "credits_gate" and settings.credits_gate_enabled and not row.enabled:
+                row.enabled = True
+            elif key == "music_cover" and settings.music_cover_enabled and not row.enabled:
                 row.enabled = True
         if not db.query(Challenge).filter(Challenge.slug == "calm-to-chaos").first():
             db.add(Challenge(

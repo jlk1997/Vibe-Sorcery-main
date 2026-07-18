@@ -31,6 +31,7 @@ type Props = {
   onRemix?: () => void;
   onCover?: () => void;
   onGenerateCover?: () => void;
+  onUploadCover?: () => void;
   onPostProcess?: () => void;
   onEmbed?: () => void;
   onRename?: () => void;
@@ -55,6 +56,7 @@ export function WorkCoverCard({
   onRemix,
   onCover,
   onGenerateCover,
+  onUploadCover,
   onPostProcess,
   onEmbed,
   onRename,
@@ -74,6 +76,7 @@ export function WorkCoverCard({
       onClick: () => Taro.navigateTo({ url: `/pages/provenance/index?workId=${track.id}` }),
     },
     onGenerateCover && { id: "gen-cover", label: w.generateCover, onClick: onGenerateCover },
+    onUploadCover && { id: "upload-cover", label: w.coverUpload, onClick: onUploadCover },
     onPostProcess && { id: "post", label: w.postProcess, onClick: onPostProcess },
     onEmbed && { id: "embed", label: "Embed", onClick: onEmbed },
     onUnpublish && { id: "unpub", label: w.unpublish, onClick: onUnpublish, danger: true },

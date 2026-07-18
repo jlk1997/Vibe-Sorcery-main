@@ -1,5 +1,6 @@
 export { AtmosphereLayer, AmbientMesh } from "./AtmosphereLayer";
 export { Button } from "./Button";
+export { ShareButton } from "./ShareButton";
 export { Card } from "./Card";
 export { Input } from "./Input";
 export { TextArea } from "./TextArea";

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { View } from "@tarojs/components";
-import Taro, { useRouter } from "@tarojs/taro";
+import Taro, { useRouter, useShareAppMessage } from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { workToPlayerTrack } from "@vibe-sorcery/types";
 import { PageShell } from "../../../components/PageShell";
@@ -10,6 +10,8 @@ import { WorkCard } from "../../../components/community/WorkCard";
 import { FollowButton } from "../../../components/community/FollowButton";
 import { Avatar, ChipGroup, EmptyState, ImmersiveCover, LoadingSkeleton, MetricCard, ViewModeToggle, Button, showError, showSuccess } from "../../../components/ui";
 import { vibeApi, type FeedPost } from "../../../services/api";
+import { workSharePayload } from "../../../platform/share";
+import { stackPage } from "../../../constants/routes";
 import { bootstrapAuth, requireAuth } from "../../../utils/auth";
 import { useCreditsOptional } from "../../../contexts/CreditsProvider";
 import "./index.scss";
@@ -27,6 +29,12 @@ export default function UserPage() {
   const creditsCtx = useCreditsOptional();
   const w = copy.worksUi;
   const username = router.params.username || "";
+
+  useShareAppMessage((res) => {
+    const ds = (res?.target as { dataset?: Record<string, string> } | undefined)?.dataset;
+    if (ds?.workid) return workSharePayload(ds.workid, ds.title || copy.brand.name);
+    return { title: `@${username}`, path: stackPage("user", { username }) };
+  });
   const [profile, setProfile] = useState<{
     username: string;
     display_name?: string;

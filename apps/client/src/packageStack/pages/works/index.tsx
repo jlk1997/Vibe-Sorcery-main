@@ -17,6 +17,7 @@ import { useCreditsOptional } from "../../../contexts/CreditsProvider";
 import { usePlayerTransport } from "../../../contexts/PlayerProvider";
 import { syncAfterFeedMutation } from "../../../utils/feedMutationSync";
 import { copyEmbedLink } from "../../../platform/share";
+import { uploadFile } from "../../../platform/upload";
 import { filterWorks, isWorkPublished, openWorkDetail, parseWorkFilter, type WorkFilter } from "../../../utils/workNav";
 import "./index.scss";
 
@@ -171,6 +172,27 @@ export default function WorksPage() {
     }
   }
 
+  async function uploadCover(workId: string) {
+    let filePath: string | undefined;
+    try {
+      const pick = await Taro.chooseImage({ count: 1, sizeType: ["compressed"] });
+      filePath = pick.tempFilePaths?.[0];
+    } catch {
+      return;
+    }
+    if (!filePath) return;
+    try {
+      Taro.showLoading({ title: w.coverUploading, mask: true });
+      await uploadFile("/studio/cover-upload", filePath, "file", { work_id: workId });
+      Taro.hideLoading();
+      showSuccess(w.coverUploaded);
+      void loadWorks();
+    } catch {
+      Taro.hideLoading();
+      showError(w.coverUploadFail);
+    }
+  }
+
   async function triggerPostProcess(workId: string) {
     try {
       await vibeApi.triggerPostProcess(workId);
@@ -228,6 +250,7 @@ export default function WorksPage() {
       onRemix: selectMode ? undefined : () => setDerivative({ work: item, mode: "remix" }),
       onCover: selectMode ? undefined : () => setDerivative({ work: item, mode: "cover" }),
       onGenerateCover: selectMode ? undefined : () => generateCover(item.id),
+      onUploadCover: selectMode ? undefined : () => uploadCover(item.id),
       onPostProcess: selectMode ? undefined : () => triggerPostProcess(item.id),
       onEmbed: isH5 && !selectMode ? () => copyEmbedLink(item.id) : undefined,
       onRename:

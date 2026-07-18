@@ -1,1 +1,1 @@
-export default { navigationBarTitleText: "Vibe Sorcery" };
+export default { navigationBarTitleText: "Vibe Sorcery", enableShareAppMessage: true };

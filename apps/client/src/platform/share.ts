@@ -1,9 +1,15 @@
 import Taro from "@tarojs/taro";
 import { getLocaleCopy } from "../utils/localeCopy";
+import { studioPage } from "../constants/routes";
+
+/** Canonical share payload (title + registered page path) for a work. */
+export function workSharePayload(workId: string, title: string): { title: string; path: string } {
+  return { title, path: studioPage("provenance", { workId }) };
+}
 
 export function shareWork(workId: string, title: string) {
-  const path = `/pages/provenance/index?workId=${encodeURIComponent(workId)}`;
-  sharePage(title, path);
+  const { title: t, path } = workSharePayload(workId, title);
+  sharePage(t, path);
 }
 
 export function copyEmbedLink(workId: string) {

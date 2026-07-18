@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, lazy, Suspense } from "react";
 import { View, Text, Image } from "@tarojs/components";
-import Taro, { useDidHide, useDidShow } from "@tarojs/taro";
+import Taro, { useDidHide, useDidShow, useShareAppMessage } from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { moodAccent } from "@vibe-sorcery/types";
 import { usePageTitle } from "../../../hooks/usePageTitle";
@@ -11,8 +11,8 @@ import { NetEaseDisc } from "../../../components/player/NetEaseDisc";
 import { AiGeneratedBadge } from "../../../components/legal/AiGeneratedBadge";
 import { PlayerLyricPanel } from "../../../components/player/PlayerLyricPanel";
 import { PlayerScrubber } from "../../../components/player/PlayerScrubber";
-import { BottomSheet, Icon } from "../../../components/ui";
-import { shareWork } from "../../../platform/share";
+import { BottomSheet, Icon, ShareButton } from "../../../components/ui";
+import { shareWork, workSharePayload } from "../../../platform/share";
 import { vibeApi } from "../../../services/api";
 import { currentPageRoute, isImmersiveRoute } from "../../../constants/routes";
 import { enterImmersivePlayerLayout, exitImmersivePlayerLayout } from "../../../platform/layout";
@@ -66,6 +66,12 @@ export default function NowPlayingPage() {
   const [pageActive, setPageActive] = useState(true);
   const creditsCtx = useCreditsOptional();
   const { postId, setPostId } = useWorkPostStatus(currentTrack?.id);
+
+  useShareAppMessage(() =>
+    currentTrack?.id
+      ? workSharePayload(currentTrack.id, currentTrack.title)
+      : { title: copy.brand.name }
+  );
   const swipeStartX = useRef(0);
   const routeTick = useRouteTick();
   const onThisPage = useMemo(() => isImmersiveRoute(currentPageRoute()), [routeTick]);
@@ -198,12 +204,12 @@ export default function NowPlayingPage() {
           </View>
           {currentTrack.artist && <Text className="now-playing__header-artist">{currentTrack.artist}</Text>}
         </View>
-        <View
+        <ShareButton
           className="now-playing__header-action"
-          onClick={() => currentTrack.id && shareWork(currentTrack.id, currentTrack.title)}
+          onShare={() => currentTrack.id && shareWork(currentTrack.id, currentTrack.title)}
         >
           <Icon name="share" />
-        </View>
+        </ShareButton>
       </View>
 
       <View
@@ -252,9 +258,9 @@ export default function NowPlayingPage() {
         >
           <Icon name="info" size="lg" />
         </View>
-        <View className="now-playing__action" onClick={() => currentTrack.id && shareWork(currentTrack.id, currentTrack.title)}>
+        <ShareButton className="now-playing__action" onShare={() => currentTrack.id && shareWork(currentTrack.id, currentTrack.title)}>
           <Icon name="share" size="lg" />
-        </View>
+        </ShareButton>
         <View className="now-playing__action" onClick={() => setPanel(panel === "disc" ? "lyric" : "disc")}>
           <Icon name="lyrics" accent={panel === "lyric"} size="lg" />
         </View>

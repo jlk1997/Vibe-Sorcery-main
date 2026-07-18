@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, lazy, Suspense } from "react";
 import { Text, View } from "@tarojs/components";
-import Taro, { usePullDownRefresh, useDidShow } from "@tarojs/taro";
+import Taro, { usePullDownRefresh, useDidShow, useShareAppMessage } from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { workToPlayerTrack } from "@vibe-sorcery/types";
 import { PageShell } from "../../components/PageShell";
@@ -14,6 +14,7 @@ import { CoachMarks } from "../../components/onboarding/CoachMarks";
 import { openStackPage } from "../../utils/navigation";
 import { STACK_PAGE_ROUTES, socialPage } from "../../constants/routes";
 import { exitImmersivePlayerLayout } from "../../platform/layout";
+import { workSharePayload } from "../../platform/share";
 import { vibeApi, type FeedPost } from "../../services/api";
 import { bootstrapAuth, isLoggedIn, requireAuth } from "../../utils/auth";
 import { useCreditsOptional } from "../../contexts/CreditsProvider";
@@ -42,6 +43,12 @@ type FeedCachePayload = {
 export default function FeedPage() {
   const { copy } = useLocale();
   const d = copy.discoverUi;
+
+  useShareAppMessage((res) => {
+    const ds = (res?.target as { dataset?: Record<string, string> } | undefined)?.dataset;
+    if (ds?.workid) return workSharePayload(ds.workid, ds.title || copy.brand.name);
+    return { title: copy.brand.name };
+  });
   const [posts, setPosts] = useState<FeedPost[]>([]);
   const [risingCreators, setRisingCreators] = useState<RisingCreator[]>([]);
   const [loading, setLoading] = useState(true);

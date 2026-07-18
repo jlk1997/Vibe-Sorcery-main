@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { View, Text, Image } from "@tarojs/components";
-import Taro, { useRouter } from "@tarojs/taro";
+import Taro, { useRouter, useShareAppMessage } from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { workToPlayerTrack } from "@vibe-sorcery/types";
 import { PageShell } from "../../../components/PageShell";
@@ -54,6 +54,13 @@ export default function DuelDetailPage() {
   const s = copy.socialUi;
   const router = useRouter();
   const duelId = router.params.id || "";
+  const isWeapp = process.env.TARO_ENV === "weapp";
+
+  useShareAppMessage(() => ({
+    title: s.duelShareTitle,
+    path: `/packageSocial/pages/duel/index?id=${duelId}`,
+  }));
+
   const { playTrack, currentTrackId } = usePlayerTransport();
   const { currentTime, duration } = usePlayerProgress();
   const [duel, setDuel] = useState<DuelDetail | null>(null);
@@ -299,7 +306,12 @@ export default function DuelDetailPage() {
           </View>
         )}
 
-        <Button variant="ghost" block onClick={() => sharePage(s.duelShareTitle, `/packageSocial/pages/duel/index?id=${duelId}`)}>
+        <Button
+          variant="ghost"
+          block
+          openType={isWeapp ? "share" : undefined}
+          onClick={() => sharePage(s.duelShareTitle, `/packageSocial/pages/duel/index?id=${duelId}`)}
+        >
           {s.duelShare}
         </Button>
       </View>
