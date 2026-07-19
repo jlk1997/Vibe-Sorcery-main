@@ -100,6 +100,7 @@ export default function CreatePage() {
   const [selectedPresetId, setSelectedPresetId] = useState<string | null>(null);
   const [textIntent, setTextIntent] = useState(c.defaultIntent);
   const [diagnosisOpen, setDiagnosisOpen] = useState(true);
+  const [diagnosisSummary, setDiagnosisSummary] = useState("");
   const [workTitle, setWorkTitle] = useState("");
   const [lyrics, setLyrics] = useState("");
   const [lyricsStyleTags, setLyricsStyleTags] = useState("");
@@ -1139,18 +1140,27 @@ export default function CreatePage() {
         {mode !== "remix" && diagnosisOpen && !activeJobId && (mode === "quickTrack" || mode === "lyrics") && (
           <Suspense fallback={null}>
             <EmotionDiagnosisCard
-            onApply={({ arousal, valence, intentHint, presetHint }) => {
-              setCreativeSpec((prev) => ({ ...prev, arousal, valence }));
+            onApply={({ arousal, valence, intentHint, genres, summary }) => {
+              setCreativeSpec((prev) => ({
+                ...prev,
+                arousal,
+                valence,
+                genres: prev.genres.length ? prev.genres : genres,
+              }));
               if (!textIntent.trim() || textIntent === c.defaultIntent) setTextIntent(intentHint);
-              if (presetHint) {
-                const match = presets.find((p) => p.id.includes(presetHint) || p.category === presetHint);
-                if (match) setSelectedPresetId(match.id);
-              }
+              setDiagnosisSummary(summary);
               setDiagnosisOpen(false);
             }}
             onDismiss={() => setDiagnosisOpen(false)}
           />
           </Suspense>
+        )}
+
+        {mode !== "remix" && !diagnosisOpen && diagnosisSummary && !activeJobId && (mode === "quickTrack" || mode === "lyrics") && (
+          <View className="create-home__diagnosis-echo" onClick={() => setDiagnosisOpen(true)}>
+            <Text className="create-home__diagnosis-echo-text">{diagnosisSummary}</Text>
+            <Text className="create-home__diagnosis-echo-edit">{c.diagnosisReopen}</Text>
+          </View>
         )}
 
         {mode !== "remix" && (

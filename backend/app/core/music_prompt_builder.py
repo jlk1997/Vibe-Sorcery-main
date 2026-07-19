@@ -38,6 +38,10 @@ class MusicCreativeSpec(BaseModel):
     style_tags: str = ""
     journey_hint: str = ""
     custom_prompt_override: str = ""
+    # 情绪坐标（1-9）：arousal=能量，valence=明暗。来自情绪诊断/情绪盘，
+    # 通过 av_to_prompt_tokens() 转成能量词/明暗词/tempo 注入提示词。
+    arousal: float | None = Field(default=None, ge=1, le=9)
+    valence: float | None = Field(default=None, ge=1, le=9)
 
     def has_user_constraints(self) -> bool:
         return bool(
@@ -54,6 +58,8 @@ class MusicCreativeSpec(BaseModel):
             or self.meter
             or self.era
             or self.custom_prompt_override.strip()
+            or self.arousal is not None
+            or self.valence is not None
         )
 
 
@@ -61,6 +67,42 @@ def tempo_feel_to_bpm_range(tempo_feel: str | None) -> tuple[int, int] | None:
     if not tempo_feel:
         return None
     return TEMPO_FEEL_BPM.get(tempo_feel)
+
+
+def av_to_prompt_tokens(
+    arousal: float | None, valence: float | None
+) -> tuple[list[str], tuple[int, int] | None]:
+    """确定性地把情绪坐标(1-9)映射成能量/明暗描述词与推导 BPM 区间。
+
+    - arousal 决定能量与 tempo：低→舒缓少音、中→稳定律动、高→高能推进。
+    - valence 决定明暗氛围：低→阴郁、中→内省、高→明亮温暖。
+    仅做本地规则映射，不调用任何大模型。
+    """
+    tokens: list[str] = []
+    bpm_range: tuple[int, int] | None = None
+
+    if arousal is not None:
+        a = max(1.0, min(9.0, float(arousal)))
+        if a <= 3:
+            tokens.append("calm, gentle, sparse arrangement, soft dynamics")
+            bpm_range = (60, 80)
+        elif a <= 6:
+            tokens.append("moderate energy, steady groove")
+            bpm_range = (85, 110)
+        else:
+            tokens.append("high energy, driving rhythm, intense")
+            bpm_range = (115, 140)
+
+    if valence is not None:
+        v = max(1.0, min(9.0, float(valence)))
+        if v <= 3:
+            tokens.append("dark, melancholic, somber mood")
+        elif v <= 6:
+            tokens.append("contemplative, introspective mood")
+        else:
+            tokens.append("bright, uplifting, warm mood")
+
+    return tokens, bpm_range
 
 
 def _dedupe_join(parts: list[str], limit: int = 12) -> str:
@@ -113,6 +155,9 @@ def build_minimax_prompt(spec: MusicCreativeSpec) -> str:
     parts.extend(_resolve_list(spec.genres))
     parts.extend(_resolve_list(spec.moods))
 
+    av_tokens, av_bpm_range = av_to_prompt_tokens(spec.arousal, spec.valence)
+    parts.extend(av_tokens)
+
     era = resolve_prompt_token(spec.era)
     if era:
         parts.append(era)
@@ -137,6 +182,8 @@ def build_minimax_prompt(spec: MusicCreativeSpec) -> str:
         rng = tempo_feel_to_bpm_range(spec.tempo_feel)
         if rng:
             parts.append(f"{rng[0]}-{rng[1]} BPM")
+    elif av_bpm_range:
+        parts.append(f"{av_bpm_range[0]}-{av_bpm_range[1]} BPM")
 
     key = (spec.key or "").strip()
     if key and key.lower() not in ("auto", ""):
@@ -152,6 +199,39 @@ def build_minimax_prompt(spec: MusicCreativeSpec) -> str:
 
     prompt = _dedupe_join(parts)
     return prompt[:2000]
+
+
+_MOOD_AV_MAP: dict[str, tuple[float, float]] = {
+    # mood_id: (arousal, valence)  1-9 量表
+    "calm": (3.0, 6.0),
+    "peaceful": (2.5, 6.5),
+    "ambient": (2.5, 5.5),
+    "melancholic": (3.5, 2.5),
+    "melancholy": (3.5, 2.5),
+    "sad": (3.0, 2.0),
+    "dark": (5.0, 2.5),
+    "tense": (7.0, 3.0),
+    "dramatic": (7.5, 4.0),
+    "energetic": (8.0, 7.0),
+    "happy": (6.5, 8.0),
+    "uplifting": (7.0, 8.0),
+    "romantic": (4.5, 7.0),
+    "dreamy": (3.5, 6.5),
+    "epic": (8.0, 6.5),
+    "hopeful": (5.5, 7.5),
+}
+
+
+def estimate_av_from_moods(moods: list[str] | None) -> tuple[float | None, float | None]:
+    """无显式 A/V 时，用 moods 粗略推导情绪坐标，用于点亮下游情绪生态。"""
+    if not moods:
+        return None, None
+    hits = [_MOOD_AV_MAP[m.strip().lower()] for m in moods if m and m.strip().lower() in _MOOD_AV_MAP]
+    if not hits:
+        return None, None
+    avg_a = sum(h[0] for h in hits) / len(hits)
+    avg_v = sum(h[1] for h in hits) / len(hits)
+    return round(avg_a, 1), round(avg_v, 1)
 
 
 def spec_from_legacy_config(config: dict[str, Any]) -> MusicCreativeSpec:
@@ -191,6 +271,8 @@ def spec_from_legacy_config(config: dict[str, Any]) -> MusicCreativeSpec:
         style_tags=style_tags or base.style_tags,
         journey_hint=base.journey_hint,
         custom_prompt_override=base.custom_prompt_override,
+        arousal=base.arousal,
+        valence=base.valence,
     )
 
 
@@ -264,6 +346,15 @@ def merge_creative_spec(
             out.journey_hint = manual.journey_hint
         if manual.custom_prompt_override:
             out.custom_prompt_override = manual.custom_prompt_override
+        if manual.arousal is not None:
+            out.arousal = manual.arousal
+        if manual.valence is not None:
+            out.valence = manual.valence
+    if parsed:
+        if out.arousal is None and parsed.arousal is not None:
+            out.arousal = parsed.arousal
+        if out.valence is None and parsed.valence is not None:
+            out.valence = parsed.valence
     if style_tags and style_tags.strip():
         out.style_tags = style_tags.strip()
     return out

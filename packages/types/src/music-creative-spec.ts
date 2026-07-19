@@ -15,6 +15,10 @@ export type MusicCreativeSpec = {
   style_tags: string;
   journey_hint?: string;
   custom_prompt_override?: string;
+  /** 情绪能量 (1-9)，越高越激烈。来自情绪诊断/情绪盘，驱动 tempo 与能量描述词。 */
+  arousal?: number | null;
+  /** 情绪明暗 (1-9)，越高越明亮愉悦。来自情绪诊断/情绪盘，驱动明暗氛围描述词。 */
+  valence?: number | null;
 };
 
 export type SoundRecipeOption = {

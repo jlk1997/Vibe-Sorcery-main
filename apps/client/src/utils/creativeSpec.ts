@@ -24,6 +24,9 @@ export function buildPayloadSpec(
     ...spec,
     text_intent: textIntent.trim(),
     style_tags: styleTags.trim(),
+    // 显式透传情绪坐标，保证情绪诊断/情绪盘的选择真正到达后端
+    arousal: spec.arousal ?? null,
+    valence: spec.valence ?? null,
   };
 }
 

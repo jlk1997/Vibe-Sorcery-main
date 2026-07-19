@@ -27,6 +27,8 @@ _MINIMAX_CODE_MAP: dict[int, str] = {
     1026: MINIMAX_CONTENT,
     1027: MINIMAX_CONTENT,
     1001: NETWORK_TIMEOUT,
+    # 2056: Token Plan 用量上限 / 需升级套餐或购买积分（服务商额度耗尽）
+    2056: MINIMAX_BALANCE,
 }
 
 
@@ -61,7 +63,13 @@ def classify_error_message(message: str, *, partial: bool = False) -> str:
         if "api rate" in lowered:
             return RATE_LIMITED
         return MINIMAX_RATE_LIMIT
-    if "余额不足" in msg or "balance" in lowered:
+    if (
+        "余额不足" in msg
+        or "balance" in lowered
+        or "用量上限" in msg
+        or "token plan" in lowered
+        or "购买积分" in msg
+    ):
         return MINIMAX_BALANCE
     if "审核" in msg or "涉敏" in msg:
         return MINIMAX_CONTENT

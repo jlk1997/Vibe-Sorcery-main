@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12rpx;
+    margin-bottom: 4rpx;
   }
 
   &__title {
@@ -17,23 +17,74 @@
     font-size: var(--text-body);
   }
 
-  &__step {
+  &__skip-inline {
     font-size: var(--text-micro);
     color: var(--muted);
-    font-family: var(--font-mono);
   }
 
-  &__q {
+  &__subtitle {
     display: block;
     margin-bottom: 16rpx;
     font-size: var(--text-meta);
+    color: var(--muted);
+    line-height: 1.4;
   }
 
-  &__skip {
+  &__presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12rpx;
+    margin-bottom: 20rpx;
+  }
+
+  &__preset {
+    flex: 1 1 calc(25% - 12rpx);
+    min-width: calc(25% - 12rpx);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6rpx;
+    padding: 14rpx 6rpx;
+    border-radius: var(--radius-md);
+    border: 1rpx solid rgba(212, 175, 106, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.15s ease-out;
+
+    &--on {
+      border-color: rgba(212, 175, 106, 0.85);
+      background: rgba(212, 175, 106, 0.16);
+      transform: translateY(-2rpx);
+    }
+  }
+
+  &__preset-emoji {
+    font-size: 40rpx;
+    line-height: 1;
+  }
+
+  &__preset-label {
+    font-size: var(--text-micro);
+    color: var(--text-soft, rgba(255, 255, 255, 0.75));
+  }
+
+  &__drag-hint {
     display: block;
-    margin-top: 12rpx;
-    text-align: center;
+    margin-bottom: 4rpx;
     font-size: var(--text-micro);
     color: var(--muted);
+    text-align: center;
+  }
+
+  &__summary {
+    display: block;
+    margin: 16rpx 0;
+    padding: 14rpx 18rpx;
+    border-radius: var(--radius-md);
+    background: rgba(212, 175, 106, 0.12);
+    border: 1rpx solid rgba(212, 175, 106, 0.3);
+    font-size: var(--text-meta);
+    color: rgba(212, 175, 106, 0.95);
+    line-height: 1.4;
+    text-align: center;
   }
 }

@@ -1,4 +1,30 @@
 @import "../../styles/_utilities.scss";
+
+.create-home__diagnosis-echo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xs;
+  margin: $space-2xs 0 $space-xs;
+  padding: $space-2xs $space-sm;
+  border-radius: $radius-md;
+  background: rgba(212, 175, 106, 0.1);
+  border: 1rpx solid rgba(212, 175, 106, 0.28);
+}
+
+.create-home__diagnosis-echo-text {
+  flex: 1;
+  font-size: var(--text-meta);
+  color: rgba(212, 175, 106, 0.95);
+  line-height: 1.35;
+}
+
+.create-home__diagnosis-echo-edit {
+  flex-shrink: 0;
+  font-size: var(--text-micro);
+  color: var(--muted);
+}
+
 .create-home {
   position: relative;
   padding-bottom: calc(

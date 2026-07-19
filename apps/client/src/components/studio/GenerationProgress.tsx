@@ -437,6 +437,21 @@ export function GenerationProgress({
   const failedPrimary = errorCode ? resolveGenerationError(ge, errorCode, error).primary : g.retry;
   const failedSecondary = errorCode && ge[errorCode]?.secondary ? ge[errorCode].secondary! : null;
 
+  function backToCreate() {
+    // 清理当前失败任务并回到创作首页，避免用户卡死在失败界面。
+    // onEditIntent 会清掉 activeJob → 创作页自动切回输入表单（即创作首页）。
+    clearActiveGeneration();
+    activeJobCtx?.setJob(null);
+    if (onEditIntent) {
+      onEditIntent();
+      return;
+    }
+    stopRef.current?.();
+    Taro.switchTab({ url: "/pages/create/index" }).catch(() => {
+      Taro.reLaunch({ url: "/pages/create/index" }).catch(() => {});
+    });
+  }
+
   function handleFailedSecondary() {
     if (errorCode === "QUEUE_TIMEOUT") {
       void Taro.showModal({
@@ -589,16 +604,21 @@ export function GenerationProgress({
         </View>
       )}
 
-      {error && onRetry && !isPartialFailure && (
+      {error && !isPartialFailure && (
         <View className="gen-progress__actions">
-          <Button variant="primary" size="sm" onClick={onRetry}>
-            {failedPrimary}
-          </Button>
+          {onRetry && (
+            <Button variant="primary" size="sm" onClick={onRetry}>
+              {failedPrimary}
+            </Button>
+          )}
           {failedSecondary && (
             <Button variant="ghost" size="sm" onClick={handleFailedSecondary}>
               {failedSecondary}
             </Button>
           )}
+          <Button variant="ghost" size="sm" onClick={backToCreate}>
+            {g.backToCreate}
+          </Button>
         </View>
       )}
 

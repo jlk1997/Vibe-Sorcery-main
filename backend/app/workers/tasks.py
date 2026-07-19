@@ -9,6 +9,7 @@ import httpx
 from app.celery_app import celery_app
 from app.config import settings
 from app.core.emotion_engine import emotion_engine
+from app.core.music_prompt_builder import estimate_av_from_moods
 from app.core.music_spec_resolver import infer_moods_genres_from_spec, resolve_creative_spec
 from app.core.playlist_orchestrator import PlaylistOrchestrator
 from app.database import SessionLocal
@@ -703,6 +704,15 @@ def generate_single_task(job_id: str, config: dict):
             owner = db.query(User).filter(User.id == job.owner_id).first()
             owner_tenant = owner.tenant_id if owner else settings.default_tenant_id
 
+            work_arousal = creative_spec.arousal
+            work_valence = creative_spec.valence
+            if work_arousal is None or work_valence is None:
+                est_a, est_v = estimate_av_from_moods(moods)
+                if work_arousal is None:
+                    work_arousal = est_a
+                if work_valence is None:
+                    work_valence = est_v
+
             work = Work(
                 owner_id=job.owner_id,
                 title=config.get("title") or config.get("song_title") or "Generated Track",
@@ -714,6 +724,8 @@ def generate_single_task(job_id: str, config: dict):
                 reference_work_id=reference_work_uuid,
                 moods=moods,
                 genres=genres,
+                arousal=work_arousal,
+                valence=work_valence,
                 tenant_id=owner_tenant,
             )
             db.add(work)
@@ -828,6 +840,8 @@ def generate_cover_task(job_id: str, config: dict):
                 content_hash=content_hash,
                 moods=work.moods,
                 genres=work.genres,
+                arousal=work.arousal,
+                valence=work.valence,
                 visibility="private",
             )
             db.add(new_work)
