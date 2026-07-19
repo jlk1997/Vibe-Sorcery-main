@@ -19,6 +19,7 @@ import {
 
 type LayoutVarsContextValue = {
   setMiniPlayerVisible: (visible: boolean) => void;
+  miniPlayerVisible: boolean;
 };
 
 const LayoutVarsContext = createContext<LayoutVarsContextValue | null>(null);
@@ -45,7 +46,10 @@ export function LayoutVarsProvider({ children }: PropsWithChildren) {
     }
   }, [vars]);
 
-  const ctx = useMemo(() => ({ setMiniPlayerVisible }), [setMiniPlayerVisible]);
+  const ctx = useMemo(
+    () => ({ setMiniPlayerVisible, miniPlayerVisible }),
+    [setMiniPlayerVisible, miniPlayerVisible],
+  );
 
   if (process.env.TARO_ENV === "weapp") {
     return (
@@ -63,7 +67,7 @@ export function LayoutVarsProvider({ children }: PropsWithChildren) {
 export function useLayoutVars() {
   const ctx = useContext(LayoutVarsContext);
   if (!ctx) {
-    return { setMiniPlayerVisible: () => {} };
+    return { setMiniPlayerVisible: () => {}, miniPlayerVisible: false };
   }
   return ctx;
 }

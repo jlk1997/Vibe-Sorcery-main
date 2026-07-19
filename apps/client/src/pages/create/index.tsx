@@ -1321,6 +1321,10 @@ export default function CreatePage() {
               loading={submitting || jobBlocking}
               disabled={creditsBlocked ? false : !remixReady}
               onClick={() => {
+                if (!isLoggedIn()) {
+                  requireAuth();
+                  return;
+                }
                 if (creditsBlocked) {
                   openPaywall({ source: "create_dock", tab: "pack" });
                   return;

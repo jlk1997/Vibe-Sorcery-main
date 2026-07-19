@@ -1,8 +1,10 @@
-import { PropsWithChildren, ReactNode, useEffect } from "react";
+import { PropsWithChildren, ReactNode, useEffect, type CSSProperties } from "react";
 import { View } from "@tarojs/components";
 import Taro, { useDidShow } from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { useCreditsOptional } from "../contexts/CreditsProvider";
+import { useLayoutVars } from "../contexts/LayoutVarsProvider";
+import { LAYOUT, layoutLength } from "../platform/layout";
 import { clsx } from "../utils/clsx";
 import { STACK_PAGE_ROUTES } from "../constants/routes";
 import { syncNavTitle } from "../utils/syncNavTitle";
@@ -43,7 +45,20 @@ export function PageShell({
   children,
 }: Props) {
   const credits = useCreditsOptional();
+  const { miniPlayerVisible } = useLayoutVars();
   const { copy, locale } = useLocale();
+
+  // weapp 上，app.tsx 里的 .app-layout-root 包裹层不会真正包住各页面的 WXML，
+  // 所以在那里设置的 --mini-player-height 无法传到页面内的底部弹窗（BottomSheet）。
+  // 这里在页面级的 .page-shell 上重新注入迷你条高度，保证充值弹窗等能给迷你条留出空间。
+  const pageShellStyle =
+    process.env.TARO_ENV === "weapp"
+      ? ({
+          "--mini-player-height": miniPlayerVisible
+            ? layoutLength(LAYOUT.miniPlayer)
+            : layoutLength(0),
+        } as CSSProperties)
+      : undefined;
   const displayBadge =
     badge ??
     (showCredits && credits?.balance != null
@@ -80,6 +95,7 @@ export function PageShell({
         noPadTop && "page-shell--no-pad-top",
         ambient && "page-shell--ambient"
       )}
+      style={pageShellStyle}
     >
       {ambient && <AtmosphereLayer variant={ambientVariant} />}
       {!hideHeader && (

@@ -2,8 +2,6 @@ import Taro from "@tarojs/taro";
 import { setHttpAdapter, API_BASE } from "@vibe-sorcery/api-client";
 import type { HttpResponse } from "@vibe-sorcery/api-client";
 import { clearToken } from "../utils/auth";
-import { STACK_PAGE_ROUTES } from "../constants/routes";
-import { getLocaleCopy } from "../utils/localeCopy";
 
 function arrayBufferToBlob(data: ArrayBuffer, contentType?: string) {
   if (typeof Blob === "undefined") {
@@ -18,15 +16,10 @@ function isFormDataBody(body: unknown): boolean {
 
 function handleUnauthorized(status: number) {
   if (status !== 401) return;
+  // 只清掉失效的 token，不主动跳登录页。
+  // 登录跳转统一交给用户主动操作时的 requireAuth()（例如点击「炼成」）触发，
+  // 保证未登录 / token 过期的用户仍能在首页等页面正常浏览，符合审核要求。
   clearToken();
-  Taro.showToast({ title: getLocaleCopy().httpUi.loginRequired, icon: "none" });
-  const pages = Taro.getCurrentPages();
-  const route = pages[pages.length - 1]?.route || "";
-  if (!route.includes("login/index")) {
-    setTimeout(() => {
-      Taro.navigateTo({ url: STACK_PAGE_ROUTES.login }).catch(() => {});
-    }, 400);
-  }
 }
 
 export function installHttpAdapter() {
