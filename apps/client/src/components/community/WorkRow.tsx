@@ -6,6 +6,7 @@ import type { PlayerTrack } from "@vibe-sorcery/types";
 import { PlayTrackButton } from "../player/PlayTrackButton";
 import { BottomSheet, Icon, Badge } from "../ui";
 import { CommunityPostButton } from "./CommunityPostButton";
+import { AiGeneratedBadge } from "../legal/AiGeneratedBadge";
 import { clsx } from "../../utils/clsx";
 import "./WorkRow.scss";
 
@@ -92,6 +93,7 @@ export function WorkRow({
             <Text className="work-row__title">{title}</Text>
             {moods?.length ? <Text className="work-row__tags">{moods.slice(0, 3).join(" · ")}</Text> : null}
             <View className="work-row__badges">
+              <AiGeneratedBadge compact />
               {published && <Badge tone="accent">{w.published}</Badge>}
               {hlsReady && <Badge tone="success">HLS</Badge>}
             </View>

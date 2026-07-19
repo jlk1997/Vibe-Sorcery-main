@@ -104,11 +104,26 @@ class Settings(BaseSettings):
     wechat_tpl_job_complete: str = ""
     wechat_tpl_low_credits: str = ""
 
+    # WeChat mini-program virtual payment (虚拟支付 / 米大师, 道具直购)
+    wechat_offer_id: str = ""
+    wechat_vpay_appkey_prod: str = ""
+    wechat_vpay_appkey_sandbox: str = ""
+    # 0 = 现网(正式), 1 = 沙箱. 联调用 1，提审/上线前切 0。
+    wechat_vpay_env: int = 1
+    # 消息推送 Token（MP 开发管理 -> 消息推送，明文/兼容模式）。用于校验发货推送来源。
+    wechat_push_token: str = ""
+    # 道具映射：JSON 字符串 {"pack_10":"微信道具ID", ...}。配了这里就不用改代码里的 WECHAT_VPAY_GOODS。
+    wechat_vpay_goods_json: str = ""
+
     @field_validator(
         "wechat_app_id",
         "wechat_app_secret",
         "wechat_pay_mch_id",
         "wechat_pay_api_key",
+        "wechat_offer_id",
+        "wechat_vpay_appkey_prod",
+        "wechat_vpay_appkey_sandbox",
+        "wechat_push_token",
         mode="before",
     )
     @classmethod
@@ -199,6 +214,33 @@ class Settings(BaseSettings):
     @property
     def wechat_pay_enabled(self) -> bool:
         return bool(self.wechat_app_id and self.wechat_pay_mch_id and self.wechat_pay_api_key)
+
+    @property
+    def wechat_vpay_appkey(self) -> str:
+        """按当前 env 选择 AppKey：env=0 现网，env=1 沙箱。"""
+        return self.wechat_vpay_appkey_prod if self.wechat_vpay_env == 0 else self.wechat_vpay_appkey_sandbox
+
+    @property
+    def wechat_vpay_goods_map(self) -> dict[str, str]:
+        """解析 .env 里的道具映射 JSON；解析失败返回空字典。"""
+        if not self.wechat_vpay_goods_json:
+            return {}
+        try:
+            import json as _json
+
+            data = _json.loads(self.wechat_vpay_goods_json)
+            return {str(k): str(v) for k, v in data.items() if v}
+        except Exception:
+            return {}
+
+    @property
+    def wechat_vpay_enabled(self) -> bool:
+        return bool(
+            self.wechat_app_id
+            and self.wechat_app_secret
+            and self.wechat_offer_id
+            and self.wechat_vpay_appkey
+        )
 
     @property
     def alipay_enabled(self) -> bool:

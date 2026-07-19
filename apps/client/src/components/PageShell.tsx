@@ -7,6 +7,7 @@ import { clsx } from "../utils/clsx";
 import { STACK_PAGE_ROUTES } from "../constants/routes";
 import { syncNavTitle } from "../utils/syncNavTitle";
 import { AtmosphereLayer, PageHeader, StatPill } from "./ui";
+import { MiniPlayerBar } from "./player/MiniPlayerBar";
 import "./PageShell.scss";
 
 type Props = PropsWithChildren<{
@@ -92,6 +93,7 @@ export function PageShell({
         />
       )}
       <View className="page-shell__content">{children}</View>
+      <MiniPlayerBar />
     </View>
   );
 }

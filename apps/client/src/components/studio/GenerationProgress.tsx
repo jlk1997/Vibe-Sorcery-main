@@ -16,6 +16,7 @@ import { WorkQualityCard } from "./WorkQualityCard";
 import { VariationLab } from "./VariationLab";
 import { RitualTimeline } from "./RitualTimeline";
 import { GenerationReveal } from "./GenerationReveal";
+import { AiGeneratedBadge } from "../legal/AiGeneratedBadge";
 import { clearActiveGeneration } from "../../utils/generationStorage";
 import { setItem, getItem } from "../../platform/storage";
 import { scheduleClearActiveGeneration } from "../../utils/restoreGeneration";
@@ -459,6 +460,7 @@ export function GenerationProgress({
 
   return (
     <View className="gen-progress">
+      <AiGeneratedBadge className="gen-progress__ai-badge" prominent />
       {remixContext?.workId && (
         <View className="gen-progress__remix" onClick={() => openWorkDetail(remixContext.workId)}>
           <View className="gen-progress__remix-icon">

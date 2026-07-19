@@ -1335,6 +1335,9 @@ export default function CreatePage() {
                 {c.dockCostHint.replace("{n}", String(creditCost))}
               </Text>
             )}
+            <Text className="create-home__ai-note typo-meta">
+              {copy.legalUi.aiGeneratedNotice}
+            </Text>
           </View>
         </View>
         )}

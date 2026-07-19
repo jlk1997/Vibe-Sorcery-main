@@ -440,6 +440,14 @@ taro-button-core.create-home__draft-btn {
   line-height: 1.35;
 }
 
+.create-home__ai-note {
+  display: block;
+  margin-top: $space-2xs;
+  text-align: center;
+  color: rgba(212, 175, 106, 0.85);
+  line-height: 1.35;
+}
+
 .create-home__member-tag {
   flex-shrink: 0;
   padding: 4rpx 12rpx;

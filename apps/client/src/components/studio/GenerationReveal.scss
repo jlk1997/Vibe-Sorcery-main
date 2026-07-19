@@ -69,6 +69,11 @@
   }
 }
 
+.gen-reveal__ai-badge {
+  display: flex;
+  margin-bottom: 12rpx;
+}
+
 .gen-reveal__eyebrow {
   @extend .typo-meta;
   color: $gold;

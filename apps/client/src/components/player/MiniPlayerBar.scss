@@ -58,19 +58,6 @@
   &--fallback {
     background: linear-gradient(135deg, var(--player-accent, #{$gold}), $gold-muted);
   }
-
-  &--spin {
-    animation: mini-cover-spin 12s linear infinite;
-  }
-}
-
-@keyframes mini-cover-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .mini-player__info {
@@ -110,8 +97,4 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-}
-
-.reduce-motion .mini-player__cover--spin {
-  animation: none;
 }

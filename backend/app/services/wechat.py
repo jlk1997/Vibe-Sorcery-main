@@ -80,12 +80,17 @@ async def login_with_code(
     return {"access_token": token, "token_type": "bearer", "user_id": str(user.id)}
 
 
-async def _resolve_openid(code: str) -> str:
+async def code2session(code: str) -> tuple[str, str]:
+    """用 wx.login 的 code 换取 (openid, session_key)。
+
+    虚拟支付的「用户态签名」需要 session_key，所以对外暴露完整结果。
+    未配置微信且 debug 时返回 mock 值以便本地联调。
+    """
     if not settings.wechat_app_id or not settings.wechat_app_secret:
         if not settings.debug:
             raise HTTPException(status_code=503, detail="WeChat login is not configured")
         digest = hashlib.sha256(f"{settings.jwt_secret}:{code}".encode()).hexdigest()
-        return f"mock_{digest[:24]}"
+        return f"mock_{digest[:24]}", f"mocksession_{digest[:16]}"
     url = (
         "https://api.weixin.qq.com/sns/jscode2session"
         f"?appid={settings.wechat_app_id}&secret={settings.wechat_app_secret}"
@@ -97,6 +102,11 @@ async def _resolve_openid(code: str) -> str:
     openid = data.get("openid")
     if not openid:
         raise HTTPException(status_code=400, detail=data.get("errmsg", "WeChat login failed"))
+    return openid, data.get("session_key", "")
+
+
+async def _resolve_openid(code: str) -> str:
+    openid, _ = await code2session(code)
     return openid
 
 

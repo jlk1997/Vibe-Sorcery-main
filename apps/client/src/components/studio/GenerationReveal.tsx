@@ -7,6 +7,7 @@ import { vibeApi } from "../../services/api";
 import { isWorkVersionConflict } from "@vibe-sorcery/api-client";
 import { usePlayer } from "../../contexts/PlayerProvider";
 import { Button, Input } from "../ui";
+import { AiGeneratedBadge } from "../legal/AiGeneratedBadge";
 import "./GenerationReveal.scss";
 
 type Props = {
@@ -102,6 +103,11 @@ export function GenerationReveal({ workId, title, coverUrl, moods = [], onDismis
           )}
         </View>
         <View className="gen-reveal__body">
+          <AiGeneratedBadge
+            className="gen-reveal__ai-badge"
+            prominent={!compact}
+            compact={compact}
+          />
           {!compact && <Text className="gen-reveal__eyebrow">{r.title}</Text>}
           {editingTitle ? (
             <Input

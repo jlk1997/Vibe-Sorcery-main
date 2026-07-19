@@ -170,6 +170,14 @@ export function CreditsPaywallSheet({
         setQrPay({ codeUrl: res.codeUrl, label, outTradeNo: res.outTradeNo });
         return;
       }
+      if (res.mode === "unsupported") {
+        await Taro.showModal({
+          title: copy.legalUi.iosPayUnsupportedTitle,
+          content: copy.legalUi.iosPayUnsupportedBody,
+          showCancel: false,
+        }).catch(() => undefined);
+        return;
+      }
       if (res.mode !== "redirect") {
         await syncBalanceAfterPay(res);
         vibeApi.trackEvent("payment_success", { source: "paywall", product_id: productId, channel }).catch(() => {});

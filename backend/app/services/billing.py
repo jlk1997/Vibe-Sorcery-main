@@ -106,6 +106,63 @@ def is_subscription_product(product_id: str) -> bool:
     return product_id in SUBSCRIPTION_PLANS
 
 
+# 微信「虚拟支付-道具直购」道具ID 映射。
+#
+# 你在小程序后台「虚拟支付 -> 道具管理」为每个商品创建道具后，把返回的 productId
+# 填到这里（键=我们自己的商品ID，值=微信道具ID）。留空则回退用商品ID本身占位，
+# 此时沙箱/现网会因找不到道具而下单失败——这是预期的，配好后即通。
+#
+# 重要：道具在后台配置的价格(单位:分)必须与本商品的 amount_fen 完全一致，
+# 否则微信会因金额不符拒绝下单。
+WECHAT_VPAY_GOODS: dict[str, str] = {
+    "pack_10": "",
+    "pack_50": "",
+    "pack_100": "",
+    "duel_season_pass": "",
+    "sub_monthly": "",
+    "sub_yearly": "",
+    "sub_pro_commercial": "",
+    "sub_team": "",
+    "sub_api_starter": "",
+}
+
+
+def wechat_vpay_product_id(product_id: str) -> str:
+    """返回该商品对应的微信道具ID。
+
+    优先级：.env 的 WECHAT_VPAY_GOODS_JSON > 代码内 WECHAT_VPAY_GOODS > 回退商品ID本身。
+    """
+    env_map = settings.wechat_vpay_goods_map
+    return env_map.get(product_id) or WECHAT_VPAY_GOODS.get(product_id) or product_id
+
+
+def all_purchasable_products() -> dict[str, dict[str, Any]]:
+    """所有可购买商品（额度包 + 会员套餐），用于配置校验/对账。"""
+    merged: dict[str, dict[str, Any]] = {}
+    for pid in list(CREDIT_PACKS.keys()) + list(SUBSCRIPTION_PLANS.keys()):
+        p = get_product(pid)
+        if p:
+            merged[pid] = p
+    return merged
+
+
+def vpay_goods_report() -> list[dict[str, Any]]:
+    """列出每个商品的道具映射状态与应配置的价格（分），供后台配置对照。"""
+    report: list[dict[str, Any]] = []
+    for pid, product in all_purchasable_products().items():
+        mapped = wechat_vpay_product_id(pid)
+        report.append(
+            {
+                "product_id": pid,
+                "label": product.get("label", pid),
+                "amount_fen": product_amount_fen(product),
+                "wechat_product_id": mapped,
+                "configured": mapped != pid,
+            }
+        )
+    return report
+
+
 def list_plans() -> list[dict[str, Any]]:
     return [
         {

@@ -4,6 +4,7 @@ import Taro, { useRouter, useDidShow, useShareAppMessage } from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { PageShell } from "../../../components/PageShell";
 import { LineageNode } from "../../../components/community/LineageNode";
+import { AiGeneratedBadge } from "../../../components/legal/AiGeneratedBadge";
 import { Button, ChipGroup, Collapsible, EmptyState, Icon, LoadingSkeleton, ProvenanceTimeline, RingGauge, StatPill } from "../../../components/ui";
 import { vibeApi } from "../../../services/api";
 import { bootstrapAuth } from "../../../utils/auth";
@@ -77,6 +78,7 @@ export default function ProvenancePage() {
 
   return (
     <PageShell label={pv.shellLabel} title={pv.pageTitle} subtitle={pv.pageSubtitle} wide immersive ambient ambientVariant="warm">
+      <AiGeneratedBadge className="prov-ai-badge" prominent />
       {loading && <LoadingSkeleton count={4} variant="line" />}
       {!loading && (
         <View className="prov-trust">

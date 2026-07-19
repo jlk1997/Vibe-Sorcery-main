@@ -56,6 +56,13 @@ class SubscribeRequest(BaseModel):
     accepted_payment_terms_version: str | None = None
 
 
+class VpayPrepareRequest(BaseModel):
+    pack_id: str = Field(min_length=1)
+    code: str = Field(min_length=1, description="wx.login() 返回的 code，用于换取 openid/session_key")
+    platform: str = Field(default="android", description="android | windows")
+    accepted_payment_terms_version: str | None = None
+
+
 class CancelSubscriptionRequest(BaseModel):
     immediate: bool = False
 
@@ -174,7 +181,7 @@ def list_payment_orders(
 
 
 @router.get("/orders/{out_trade_no}")
-def payment_order_status(
+async def payment_order_status(
     out_trade_no: str,
     user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
@@ -182,12 +189,62 @@ def payment_order_status(
     row = get_order_status(db, out_trade_no, user.id)
     if not row:
         return {"status": "unknown"}
+    # 虚拟支付订单：轮询时主动向微信核对，已支付则幂等发货
+    if row["status"] != "paid" and row.get("channel") == "wechat_vpay":
+        from app.services.virtual_payment import query_vpay_order
+
+        await query_vpay_order(db, out_trade_no)
+        row = get_order_status(db, out_trade_no, user.id) or row
     if row["status"] == "paid":
         from app.services.credits import get_or_create_credits
 
         balance = get_or_create_credits(db, user.id).balance
         return {**row, "balance": balance}
     return row
+
+
+@router.get("/vpay/config")
+def vpay_config(user: User = Depends(get_current_user)):
+    """（管理员）查看虚拟支付配置状态与道具映射对照，便于后台配置核对。"""
+    from app.api.deps import require_admin
+
+    require_admin(user)
+    from app.config import settings as _s
+    from app.services.billing import vpay_goods_report
+
+    return {
+        "enabled": _s.wechat_vpay_enabled,
+        "env": _s.wechat_vpay_env,
+        "offer_id": _s.wechat_offer_id,
+        "appkey_set": bool(_s.wechat_vpay_appkey),
+        "push_token_set": bool(_s.wechat_push_token),
+        "goods": vpay_goods_report(),
+    }
+
+
+@router.post("/vpay/prepare")
+async def vpay_prepare(
+    payload: VpayPrepareRequest,
+    request: Request,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """微信虚拟支付（道具直购）下单，返回前端 wx.requestVirtualPayment 所需签名。"""
+    check_billing_rate_limit(user)
+    from app.services.legal import record_payment_terms_consent
+    from app.services.virtual_payment import create_vpay_order
+
+    terms_version = require_payment_terms(payload.accepted_payment_terms_version)
+    if terms_version:
+        record_payment_terms_consent(db, user, terms_version, request=request)
+    return await create_vpay_order(
+        db,
+        user,
+        payload.pack_id,
+        code=payload.code,
+        platform=payload.platform,
+        payment_terms_version=terms_version,
+    )
 
 
 @router.post("/checkout")
@@ -240,6 +297,34 @@ async def wechat_pay_notify(request: Request, db: Session = Depends(get_db)):
     check_webhook_rate_limit(request)
     body = await request.body()
     return handle_wechat_pay_notify(db, body)
+
+
+@router.get("/wechat/xpay-notify")
+async def wechat_xpay_verify(
+    signature: str = "",
+    timestamp: str = "",
+    nonce: str = "",
+    echostr: str = "",
+):
+    """消息推送 URL 校验（MP 保存推送配置时会发一次 GET）。"""
+    from app.config import settings as _settings
+    from app.services.virtual_payment import _verify_push_signature
+    from fastapi.responses import PlainTextResponse
+
+    token = _settings.wechat_push_token
+    params = {"signature": signature, "timestamp": timestamp, "nonce": nonce}
+    if not token or _verify_push_signature(token, params):
+        return PlainTextResponse(echostr)
+    return PlainTextResponse("", status_code=403)
+
+
+@router.post("/wechat/xpay-notify")
+async def wechat_xpay_notify(request: Request, db: Session = Depends(get_db)):
+    """虚拟支付发货推送（xpay_goods_deliver_notify 等）。"""
+    check_webhook_rate_limit(request)
+    from app.services.virtual_payment import handle_xpay_notify
+
+    return await handle_xpay_notify(db, request)
 
 
 @router.post("/alipay/notify")

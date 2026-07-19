@@ -43,10 +43,13 @@
   justify-content: center;
   flex-shrink: 0;
   border-radius: $radius-full;
-  background: rgba(255, 255, 255, 0.06);
+  // 顶部背景可能被封面染成浅色，用较深的半透明底保证白色图标始终清晰可见
+  background: rgba(0, 0, 0, 0.32);
+  border: 1rpx solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
 
   &:active {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.48);
   }
 }
 

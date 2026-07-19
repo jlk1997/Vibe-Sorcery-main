@@ -9,7 +9,6 @@ import { CreditsProvider } from "./contexts/CreditsProvider";
 import { PlayerProvider } from "./contexts/PlayerProvider";
 import { ActiveJobProvider } from "./contexts/ActiveJobProvider";
 import { ActiveJobHydrator } from "./components/ActiveJobHydrator";
-import { MiniPlayerBar } from "./components/player/MiniPlayerBar";
 import { TabBarLocaleSync } from "./components/TabBarLocaleSync";
 import { AppShell } from "./components/AppShell";
 import { getLocaleCopy } from "./utils/localeCopy";
@@ -136,7 +135,6 @@ export default function App({ children }: PropsWithChildren) {
                     <AppShell>{children}</AppShell>
                   </WechatPrivacyGate>
                 )}
-                <MiniPlayerBar />
               </LayoutVarsProvider>
             </PlayerProvider>
           </ActiveJobProvider>

@@ -10,7 +10,6 @@ import { useLayoutVars } from "../../contexts/LayoutVarsProvider";
 import { useRouteTick } from "../../hooks/useRouteTick";
 import { NOW_PLAYING_EVENTS } from "../../constants/events";
 import { Icon } from "../ui";
-import { clsx } from "../../utils/clsx";
 import "./MiniPlayerBar.scss";
 
 const isWeapp = process.env.TARO_ENV === "weapp";
@@ -72,7 +71,7 @@ export function MiniPlayerBar() {
       </View>
       <View className="mini-player__main" onClick={() => Taro.navigateTo({ url: STACK_PAGE_ROUTES.nowPlaying })}>
         {currentTrack.coverUrl ? (
-          <Image className={clsx("mini-player__cover", isPlaying && "mini-player__cover--spin")} src={currentTrack.coverUrl} mode="aspectFill" />
+          <Image className="mini-player__cover" src={currentTrack.coverUrl} mode="aspectFill" />
         ) : (
           <View className="mini-player__cover mini-player__cover--fallback" />
         )}

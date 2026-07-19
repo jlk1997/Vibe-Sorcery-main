@@ -174,6 +174,14 @@ export default function PricingPage() {
     vibeApi.trackEvent("payment_start", { product_id: productId, channel }).catch(() => {});
     try {
       const res = await payProduct(productId, channel, paymentTermsVersion);
+      if (res.mode === "unsupported") {
+        await Taro.showModal({
+          title: copy.legalUi.iosPayUnsupportedTitle,
+          content: copy.legalUi.iosPayUnsupportedBody,
+          showCancel: false,
+        }).catch(() => undefined);
+        return;
+      }
       if (res.mode === "mock" && res.balance != null) {
         creditsCtx?.setBalance(res.balance);
         vibeApi.trackEvent("payment_success", { product_id: productId, channel, source: "pricing" }).catch(() => {});

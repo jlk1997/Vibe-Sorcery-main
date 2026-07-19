@@ -9,6 +9,13 @@
   overflow: hidden;
 }
 
+.gen-progress__ai-badge {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  margin-bottom: $space-sm;
+}
+
 .gen-progress__remix {
   position: relative;
   z-index: 1;

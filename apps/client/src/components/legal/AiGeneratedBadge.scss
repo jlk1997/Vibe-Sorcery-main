@@ -16,3 +16,34 @@
   color: #d4af6a;
   line-height: 1.2;
 }
+
+.ai-badge--prominent {
+  gap: 12rpx;
+  padding: 12rpx 20rpx;
+  border-radius: 14rpx;
+  background: rgba(212, 175, 106, 0.18);
+  border: 2rpx solid rgba(212, 175, 106, 0.55);
+
+  .ai-badge__text {
+    font-size: 26rpx;
+    font-weight: 700;
+    letter-spacing: 1rpx;
+  }
+
+  .ai-badge__text::before {
+    content: "";
+    display: inline-block;
+    width: 12rpx;
+    height: 12rpx;
+    margin-right: 8rpx;
+    border-radius: 50%;
+    background: #d4af6a;
+    vertical-align: middle;
+  }
+
+  .ai-badge__note {
+    font-size: 22rpx;
+    color: rgba(212, 175, 106, 0.9);
+    line-height: 1.3;
+  }
+}

@@ -1042,6 +1042,32 @@ export const api = {
         accepted_payment_terms_version: acceptedPaymentTermsVersion,
       }),
     }),
+  createVirtualPayment: (
+    packId: string,
+    code: string,
+    platform: "android" | "windows",
+    acceptedPaymentTermsVersion?: string,
+  ) =>
+    request<{
+      mode?: string;
+      out_trade_no?: string;
+      balance?: number;
+      env?: number;
+      vpay?: {
+        mode: string;
+        signData: string;
+        paySig: string;
+        signature: string;
+      };
+    }>("/billing/vpay/prepare", {
+      method: "POST",
+      body: JSON.stringify({
+        pack_id: packId,
+        code,
+        platform,
+        accepted_payment_terms_version: acceptedPaymentTermsVersion,
+      }),
+    }),
   listPaymentOrders: (limit = 20) =>
     request<
       Array<{

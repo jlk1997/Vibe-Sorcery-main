@@ -91,6 +91,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   queueRef.current = queue;
   queueIndexRef.current = queueIndex;
   currentTimeRef.current = currentTime;
+  const isPlayingRef = useRef(isPlaying);
+  isPlayingRef.current = isPlaying;
+  // 记录「已发起播放」与「已预缓冲」的曲目，避免预缓冲与真正播放互相打架、重复加载。
+  const startedIdRef = useRef<string | null>(null);
+  const preparedIdRef = useRef<string | null>(null);
 
   const ensureEngine = useCallback(() => {
     if (!engineRef.current) {
@@ -115,6 +120,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       setCurrentTime(0);
       setDuration(0);
       const { primary, fallback } = playbackUrls(track);
+      startedIdRef.current = track.id;
       void engine.play(primary, fallback).catch(() => {
         Taro.showToast({ title: getCopy(getStoredLocale()).player.playError, icon: "none" });
         setIsPlaying(false);
@@ -160,6 +166,21 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  // 预缓冲：当前曲目已就绪但还没开始播放时，提前把音频源加载好。
+  // 首次点击播放卡 2~3 秒的根因是「点击后才开始下载/解码」；提前 prepare
+  // 后，用户真正点播放时通常已缓冲完成，可走快速 resume，几乎无等待。
+  useEffect(() => {
+    const track = currentTrack;
+    if (!track) return;
+    if (isPlayingRef.current) return; // 正在播放/即将自动播放，无需预缓冲
+    if (startedIdRef.current === track.id) return; // 已发起播放
+    if (preparedIdRef.current === track.id) return; // 已预缓冲过
+    preparedIdRef.current = track.id;
+    const engine = ensureEngine();
+    const { primary, fallback } = playbackUrls(track);
+    void engine.prepare(primary, fallback).catch(() => {});
+  }, [currentTrack?.id, ensureEngine]);
+
   useEffect(() => {
     if (!currentTrack?.id || !duration || duration <= 0) return;
     const ratio = currentTime / duration;
@@ -195,6 +216,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     const engine = ensureEngine();
     const playCurrent = () => {
       const { primary, fallback } = playbackUrls(currentTrack);
+      startedIdRef.current = currentTrack.id;
       void engine.play(primary, fallback).catch(() => {
         Taro.showToast({ title: getCopy(getStoredLocale()).player.playError, icon: "none" });
         setIsPlaying(false);
