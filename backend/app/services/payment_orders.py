@@ -251,6 +251,67 @@ def complete_paid_order(
     return {"fulfilled": True, **result}
 
 
+def revoke_paid_order(db: Session, out_trade_no: str, *, reason: str = "refund") -> dict[str, Any]:
+    """退款回退：幂等地把已支付订单标记为 refunded，并回收已发放的权益。
+
+    - 积分包：按当前余额安全扣减（不扣成负数），并记一笔负向流水。
+    - 订阅 / 决斗季卡：自动回收有额外副作用，改为记录告警交由人工处理，避免误伤。
+    """
+    import logging
+
+    from app.services.billing import CREDIT_PACKS, is_subscription_product
+    from app.services.credits import get_or_create_credits, record_credit_transaction
+
+    logger = logging.getLogger(__name__)
+
+    row = (
+        db.query(PaymentOrder)
+        .filter(PaymentOrder.out_trade_no == out_trade_no)
+        .with_for_update()
+        .first()
+    )
+    if not row:
+        return {"skipped": "order_not_found"}
+    if row.status == "refunded":
+        return {"skipped": "already_refunded"}
+    if row.status != "paid":
+        # 未支付/已过期单：直接标记，避免后续误发货
+        row.status = "refunded"
+        db.commit()
+        return {"refunded_unpaid": True}
+
+    reversed_credits = 0
+    pack = CREDIT_PACKS.get(row.pack_id)
+    if is_subscription_product(row.pack_id) or (pack and pack.get("type") == "duel_pass"):
+        logger.warning(
+            "vpay refund needs manual handling (subscription/duel): order=%s pack=%s user=%s",
+            out_trade_no,
+            row.pack_id,
+            row.user_id,
+        )
+    elif pack and int(pack.get("credits") or 0) > 0:
+        credits = int(pack["credits"])
+        credit_row = get_or_create_credits(db, row.user_id)
+        take = min(int(credit_row.balance or 0), credits)
+        if take > 0:
+            credit_row.balance -= take
+            record_credit_transaction(
+                db,
+                row.user_id,
+                -take,
+                source=f"wechat_vpay_{reason}",
+                pack_id=row.pack_id,
+                external_id=f"refund_{out_trade_no}",
+                commit=False,
+            )
+        reversed_credits = take
+
+    row.status = "refunded"
+    db.commit()
+    logger.info("vpay order refunded: %s reversed_credits=%s", out_trade_no, reversed_credits)
+    return {"refunded": True, "reversed_credits": reversed_credits}
+
+
 async def stripe_refund_for_order(order: PaymentOrder) -> dict[str, Any]:
     """Best-effort Stripe refund for a paid order (checkout session → payment_intent)."""
     from app.config import settings

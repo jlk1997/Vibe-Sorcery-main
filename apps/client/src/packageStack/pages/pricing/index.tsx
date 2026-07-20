@@ -10,7 +10,7 @@ import { MemberStatsPanel } from "../../../components/engagement/MemberStatsPane
 import { vibeApi } from "../../../services/api";
 import { bootstrapAuth, isLoggedIn, requireAuth } from "../../../utils/auth";
 import { useCreditsOptional } from "../../../contexts/CreditsProvider";
-import { payProduct } from "../../../platform/payment";
+import { isWeappIos, payProduct } from "../../../platform/payment";
 import { pollPaymentUntilPaid } from "../../../utils/paymentPoll";
 import { LegalFooter } from "../../../components/legal/LegalFooter";
 import { LEGAL_ROUTES } from "../../../utils/legal";
@@ -63,6 +63,7 @@ export default function PricingPage() {
   const [invoiceSubmitting, setInvoiceSubmitting] = useState(false);
   const isH5 = process.env.TARO_ENV === "h5";
   const isWeapp = process.env.TARO_ENV === "weapp";
+  const onIos = isWeappIos();
   const balance = creditsCtx?.balance ?? 0;
   const isMember = creditsCtx?.isMember || subscription?.status === "active";
   const lastUserFetchRef = useRef(0);
@@ -107,9 +108,15 @@ export default function PricingPage() {
 
   const featuredPackId = "pack_50";
 
+  /** iOS Apple 支付最低 1 元：隐藏低于 1 元的额度包，避免审核与真机失败。 */
+  const visiblePacks = useMemo(
+    () => (onIos ? packs.filter((pack) => (pack.price_cny_yuan ?? 0) >= 1) : packs),
+    [onIos, packs],
+  );
+
   const chartItems = useMemo(
     () =>
-      packs
+      visiblePacks
         .filter((pack) => (pack.credits ?? 0) > 0)
         .map((pack) => ({
           id: pack.id,
@@ -118,7 +125,7 @@ export default function PricingPage() {
           price: pack.price_cny_yuan,
           featured: pack.id === featuredPackId,
         })),
-    [packs, featuredPackId]
+    [visiblePacks, featuredPackId]
   );
 
   const usageItems = useMemo(
@@ -166,22 +173,15 @@ export default function PricingPage() {
   async function pay(
     productId: string,
     productLabel: string,
-    channel: "wechat" | "alipay" | "stripe" = isWeapp ? "wechat" : "stripe"
+    channel: "wechat" | "alipay" | "stripe" = isWeapp ? "wechat" : "stripe",
+    amountFen?: number,
   ) {
     if (!requireAuth()) return;
     if (!(await ensurePaymentAgreed())) return;
     setBuying(`${productId}:${channel}`);
     vibeApi.trackEvent("payment_start", { product_id: productId, channel }).catch(() => {});
     try {
-      const res = await payProduct(productId, channel, paymentTermsVersion);
-      if (res.mode === "unsupported") {
-        await Taro.showModal({
-          title: copy.legalUi.iosPayUnsupportedTitle,
-          content: copy.legalUi.iosPayUnsupportedBody,
-          showCancel: false,
-        }).catch(() => undefined);
-        return;
-      }
+      const res = await payProduct(productId, channel, paymentTermsVersion, amountFen);
       if (res.mode === "mock" && res.balance != null) {
         creditsCtx?.setBalance(res.balance);
         vibeApi.trackEvent("payment_success", { product_id: productId, channel, source: "pricing" }).catch(() => {});
@@ -203,8 +203,13 @@ export default function PricingPage() {
       if (res.mode === "redirect") {
         await refreshAfterPay();
       }
-    } catch {
-      Taro.showToast({ title: p.payFail, icon: "none" });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      await Taro.showModal({
+        title: p.payFail,
+        content: msg || p.payFail,
+        showCancel: false,
+      }).catch(() => undefined);
     } finally {
       setBuying(null);
     }
@@ -313,9 +318,10 @@ export default function PricingPage() {
 
       <SectionLabel>{p.packsLabel}</SectionLabel>
       <View className="pricing-grid">
-        {packs.map((pack) => {
+        {visiblePacks.map((pack) => {
           const isFeatured = pack.id === featuredPackId;
           const expanded = expandedPacks.has(pack.id);
+          const amountFen = Math.round((pack.price_cny_yuan ?? 0) * 100);
           return (
           <PricingPackCard key={pack.id} label={pack.label} price={`¥${pack.price_cny_yuan ?? "—"}`} featured={isFeatured} badge={isFeatured ? p.bestValue : pack.type === "duel_pass" ? p.duelSeasonLabel : undefined}>
             {pack.type === "duel_pass" && pack.duel_starts != null ? (
@@ -329,7 +335,7 @@ export default function PricingPage() {
               </Text>
             ) : null}
             {pack.description && <Text className="typo-meta">{pack.description}</Text>}
-            <Button variant="primary" size="sm" block loading={buying?.startsWith(`${pack.id}:`)} onClick={() => pay(pack.id, pack.label, isWeapp ? "wechat" : "stripe")}>
+            <Button variant="primary" size="sm" block loading={buying?.startsWith(`${pack.id}:`)} onClick={() => pay(pack.id, pack.label, isWeapp ? "wechat" : "stripe", amountFen)}>
               {isWeapp ? p.wechatPay : p.recharge}
             </Button>
             {isH5 && !expanded && (
@@ -339,10 +345,10 @@ export default function PricingPage() {
             )}
             {isH5 && expanded && (
               <View className="pricing-pack__alt">
-                <Button size="sm" variant="secondary" loading={buying === `${pack.id}:alipay`} onClick={() => pay(pack.id, pack.label, "alipay")}>
+                <Button size="sm" variant="secondary" loading={buying === `${pack.id}:alipay`} onClick={() => pay(pack.id, pack.label, "alipay", amountFen)}>
                   {p.alipay}
                 </Button>
-                <Button size="sm" variant="ghost" loading={buying === `${pack.id}:wechat`} onClick={() => pay(pack.id, pack.label, "wechat")}>
+                <Button size="sm" variant="ghost" loading={buying === `${pack.id}:wechat`} onClick={() => pay(pack.id, pack.label, "wechat", amountFen)}>
                   {p.wechatQr}
                 </Button>
               </View>
@@ -386,7 +392,7 @@ export default function PricingPage() {
                   size="sm"
                   block
                   loading={buying?.startsWith(plan.id)}
-                  onClick={() => pay(plan.id, plan.label, isWeapp ? "wechat" : "stripe")}
+                  onClick={() => pay(plan.id, plan.label, isWeapp ? "wechat" : "stripe", Math.round((plan.price_cny_yuan ?? 0) * 100))}
                 >
                   {isWeapp ? p.wechatPay : p.subscribe}
                 </Button>
@@ -404,7 +410,7 @@ export default function PricingPage() {
             .map((plan) => (
               <PricingPackCard key={plan.id} label={plan.label} price={`¥${plan.price_cny_yuan}${p.perMonth}`}>
                 {plan.description && <Text className="typo-meta">{plan.description}</Text>}
-                <Button variant="primary" size="sm" block loading={buying?.startsWith(plan.id)} onClick={() => pay(plan.id, plan.label, isWeapp ? "wechat" : "stripe")}>
+                <Button variant="primary" size="sm" block loading={buying?.startsWith(plan.id)} onClick={() => pay(plan.id, plan.label, isWeapp ? "wechat" : "stripe", Math.round((plan.price_cny_yuan ?? 0) * 100))}>
                   {p.subscribe}
                 </Button>
               </PricingPackCard>

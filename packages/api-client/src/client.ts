@@ -1045,7 +1045,7 @@ export const api = {
   createVirtualPayment: (
     packId: string,
     code: string,
-    platform: "android" | "windows",
+    platform: "android" | "windows" | "ios",
     acceptedPaymentTermsVersion?: string,
   ) =>
     request<{

@@ -59,7 +59,7 @@ class SubscribeRequest(BaseModel):
 class VpayPrepareRequest(BaseModel):
     pack_id: str = Field(min_length=1)
     code: str = Field(min_length=1, description="wx.login() 返回的 code，用于换取 openid/session_key")
-    platform: str = Field(default="android", description="android | windows")
+    platform: str = Field(default="android", description="android | windows | ios（仅日志/校验，不进签名）")
     accepted_payment_terms_version: str | None = None
 
 

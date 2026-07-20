@@ -4,7 +4,7 @@ import Taro from "@tarojs/taro";
 import { useLocale } from "@vibe-sorcery/i18n";
 import { vibeApi } from "../../services/api";
 import { useCreditsOptional } from "../../contexts/CreditsProvider";
-import { payProduct, type PaymentChannel } from "../../platform/payment";
+import { isWeappIos, payProduct, type PaymentChannel } from "../../platform/payment";
 import { pollPaymentUntilPaid } from "../../utils/paymentPoll";
 import { getRequiredVersions } from "../../utils/consent";
 import { LEGAL_ROUTES } from "../../utils/legal";
@@ -76,6 +76,7 @@ export function CreditsPaywallSheet({
   const trackedOpenRef = useRef(false);
   const isWeapp = process.env.TARO_ENV === "weapp";
   const isH5 = process.env.TARO_ENV === "h5";
+  const onIos = isWeappIos();
 
   useEffect(() => {
     getRequiredVersions().then((v) => {
@@ -106,8 +107,14 @@ export function CreditsPaywallSheet({
   const yearlyPlan = plans.find((pl) => pl.id === "sub_yearly");
   const featuredPlan = yearlyPlan || monthlyPlan;
 
+  const visiblePacks = useMemo(
+    () => (onIos ? packs.filter((pk) => (pk.price_cny_yuan ?? 0) >= 1) : packs),
+    [onIos, packs],
+  );
+
   const recommended =
-    packs.find((pk) => pk.id === "pack_50") || [...packs].sort((a, b) => (b.credits || 0) - (a.credits || 0))[0];
+    visiblePacks.find((pk) => pk.id === "pack_50") ||
+    [...visiblePacks].sort((a, b) => (b.credits || 0) - (a.credits || 0))[0];
 
   const roi = useMemo(() => {
     if (!monthlyPlan?.price_cny_yuan || !recommended?.credits || !recommended.price_cny_yuan) return null;
@@ -160,22 +167,16 @@ export function CreditsPaywallSheet({
     if (!(await ensurePaymentAgreed())) {
       return;
     }
+    const product =
+      plans.find((pl) => pl.id === productId) || packs.find((pk) => pk.id === productId);
+    const amountFen = Math.round((product?.price_cny_yuan ?? 0) * 100);
     setBuying(`${productId}:${channel}`);
     vibeApi.trackEvent("paywall_purchase_start", { source, product_id: productId, channel }).catch(() => {});
     try {
-      const res = await payProduct(productId, channel, paymentTermsVersion);
+      const res = await payProduct(productId, channel, paymentTermsVersion, amountFen);
       if (res.mode === "qr" && res.codeUrl) {
-        const label =
-          plans.find((pl) => pl.id === productId)?.label || packs.find((pk) => pk.id === productId)?.label || productId;
+        const label = product?.label || productId;
         setQrPay({ codeUrl: res.codeUrl, label, outTradeNo: res.outTradeNo });
-        return;
-      }
-      if (res.mode === "unsupported") {
-        await Taro.showModal({
-          title: copy.legalUi.iosPayUnsupportedTitle,
-          content: copy.legalUi.iosPayUnsupportedBody,
-          showCancel: false,
-        }).catch(() => undefined);
         return;
       }
       if (res.mode !== "redirect") {
@@ -185,8 +186,13 @@ export function CreditsPaywallSheet({
         onSuccess?.();
         onClose();
       }
-    } catch {
-      Taro.showToast({ title: pr.payFail, icon: "none" });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      await Taro.showModal({
+        title: pr.payFail,
+        content: msg || pr.payFail,
+        showCancel: false,
+      }).catch(() => undefined);
     } finally {
       setBuying(null);
     }
@@ -314,13 +320,13 @@ export function CreditsPaywallSheet({
                   </View>
                 )}
               </PricingPackCard>
-              {!expanded && packs.length > 1 && (
+              {!expanded && visiblePacks.length > 1 && (
                 <Button variant="ghost" size="sm" block onClick={() => setExpanded(true)}>
                   {p.moreOptions}
                 </Button>
               )}
               {expanded &&
-                packs
+                visiblePacks
                   .filter((pk) => pk.id !== recommended?.id)
                   .map((pk) => (
                     <PricingPackCard key={pk.id} label={pk.label} price={`¥${pk.price_cny_yuan ?? "—"}`}>

@@ -105,6 +105,11 @@ async def create_vpay_order(
         raise HTTPException(status_code=400, detail="Unknown product_id")
     amount_fen = product_amount_fen(product)
 
+    # iOS Apple 支付最低 1 元；platform 仅作校验/日志，不进入签名
+    plat_norm = (platform or "android").lower()
+    if plat_norm == "ios" and amount_fen < 100:
+        raise HTTPException(status_code=400, detail="iOS 最低支付金额为 1 元，请选择其他商品")
+
     # 未配置虚拟支付：仅 debug 下走 mock 直接发货，便于本地联调
     if not settings.wechat_vpay_enabled:
         if not settings.debug:
@@ -129,7 +134,11 @@ async def create_vpay_order(
 
     out_trade_no = f"vp{uuid.uuid4().hex[:22]}"
     env = _env()
-    plat = "windows" if platform == "windows" else "android"
+    if plat_norm == "ios" and env == 1:
+        raise HTTPException(
+            status_code=400,
+            detail="iOS 仅支持现网虚拟支付，请将 WECHAT_VPAY_ENV 设为 0",
+        )
 
     product_id = wechat_vpay_product_id(pack_id)
     if product_id == pack_id:
@@ -138,12 +147,12 @@ async def create_vpay_order(
             "vpay: 商品 %s 未配置微信道具ID(productId)，请在小程序后台创建道具并填入映射", pack_id
         )
 
+    # 官方已废弃 signData.platform；勿写入，否则易签名失败。设备路由由微信客户端完成。
     sign_payload = {
         "offerId": settings.wechat_offer_id,
         "buyQuantity": 1,
         "env": env,
         "currencyType": "CNY",
-        "platform": plat,
         "productId": product_id,
         "goodsPrice": amount_fen,
         "outTradeNo": out_trade_no,
@@ -164,6 +173,7 @@ async def create_vpay_order(
     )
     # 缓存 openid 供后续 query_order 使用（query_order 只需 pay_sig，无需 session_key）
     cache_set(f"vpay_openid:{out_trade_no}", openid, 7200)
+    logger.info("vpay prepare ok pack=%s platform=%s env=%s out=%s", pack_id, plat_norm, env, out_trade_no)
 
     return {
         "mode": "vpay",
@@ -261,6 +271,46 @@ def _push_ok() -> JSONResponse:
     return JSONResponse(content={"ErrCode": 0, "ErrMsg": "success"})
 
 
+def _ios_refund_query_advice(db: Session, pay_order_id: str | None) -> tuple[int, str, str]:
+    """Apple 退款问询策略：额度未花完建议退款；已基本消耗则拦截。
+
+    Returns: (result_code, result_info, evidence)
+      result_code 0 = 建议退款，1 = 拒绝退款
+    """
+    from app.services.billing import CREDIT_PACKS
+
+    if not pay_order_id:
+        return 0, "missing pay_order_id", "no order id; recommend refund for user protection"
+    order = db.query(PaymentOrder).filter(PaymentOrder.out_trade_no == pay_order_id).first()
+    if not order:
+        return 0, "order not found", f"order {pay_order_id} not found locally; recommend refund"
+    if order.status != "paid":
+        return 0, f"order status={order.status}", f"order {pay_order_id} not in paid state; recommend refund"
+
+    pack = CREDIT_PACKS.get(order.pack_id) or {}
+    granted = int(pack.get("credits") or 0)
+    if granted <= 0:
+        # 会员/决斗卡等：建议退款并交人工复核（Apple 仍有最终决定权）
+        return (
+            0,
+            "non-credit product",
+            f"order {pay_order_id} pack={order.pack_id}; recommend refund pending manual review",
+        )
+
+    balance = int(get_or_create_credits(db, order.user_id).balance or 0)
+    if balance < granted:
+        return (
+            1,
+            "credits consumed",
+            f"order {pay_order_id} granted={granted} balance={balance}; reject refund",
+        )
+    return (
+        0,
+        "credits unused",
+        f"order {pay_order_id} granted={granted} balance={balance}; recommend refund",
+    )
+
+
 async def handle_xpay_notify(db: Session, request: Request) -> JSONResponse:
     """处理虚拟支付发货推送（xpay_goods_deliver_notify 等）。
 
@@ -298,11 +348,59 @@ async def handle_xpay_notify(db: Session, request: Request) -> JSONResponse:
     openid = payload.get("OpenId") or payload.get("openid")
     logger.info("xpay notify event=%s out_trade_no=%s", event, out_trade_no)
 
-    # 发货类事件：核对并发货。退款/投诉等事件仅回执成功。
+    # 发货类事件：核对并发货
     if event in ("xpay_goods_deliver_notify", "xpay_coin_pay_notify") and out_trade_no:
         try:
             await query_vpay_order(db, out_trade_no, openid=openid)
         except Exception:
             logger.exception("xpay notify: fulfill failed for %s", out_trade_no)
+
+    # 退款事件：退款成功(RetCode=0)则回退权益。商户单号字段为 MchOrderId
+    elif event == "xpay_refund_notify":
+        ret_code = payload.get("RetCode", payload.get("ret_code"))
+        refund_order_no = payload.get("MchOrderId") or payload.get("mch_order_id") or out_trade_no
+        if str(ret_code) in ("0", "0.0") and refund_order_no:
+            try:
+                from app.services.payment_orders import revoke_paid_order
+
+                revoke_paid_order(db, refund_order_no, reason="refund")
+            except Exception:
+                logger.exception("xpay notify: refund revoke failed for %s", refund_order_no)
+
+    # Apple 退款问询：须尽快应答（官方要求约 3 秒内）
+    elif event == "xpay_subscribe_ios_refund_query_notify":
+        pay_order_id = (
+            payload.get("pay_order_id")
+            or payload.get("PayOrderId")
+            or payload.get("OutTradeNo")
+            or out_trade_no
+        )
+        try:
+            result_code, result_info, evidence = _ios_refund_query_advice(db, pay_order_id)
+        except Exception:
+            logger.exception("xpay notify: ios refund query failed for %s", pay_order_id)
+            result_code, result_info, evidence = (
+                0,
+                "internal error",
+                "handler error; recommend refund",
+            )
+        logger.info(
+            "xpay ios refund query pay_order_id=%s result_code=%s",
+            pay_order_id,
+            result_code,
+        )
+        return JSONResponse(
+            content={
+                "ErrCode": 0,
+                "ErrMsg": "success",
+                "result_code": result_code,
+                "result_info": result_info,
+                "evidence": evidence,
+            }
+        )
+
+    # 投诉/风控事件：记录以便人工介入，回执成功避免重推
+    elif event in ("xpay_complaint_notify", "xpay_wxpay_callback_notify"):
+        logger.warning("xpay notify needs attention: event=%s payload=%s", event, payload)
 
     return _push_ok()

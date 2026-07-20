@@ -95,7 +95,7 @@ export default function CopilotPage() {
         Taro.showModal({
           title: cp.generateConfirmTitle,
           content: cp.generateConfirmBody.replace("{n}", String(cost)),
-          confirmText: cp.actionGenerate.replace("{n}", String(cost)),
+          confirmText: cp.generateConfirmOk,
           cancelText: cp.generateConfirmStudio,
           success: (res) => resolve(!!res.confirm),
         });

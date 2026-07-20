@@ -30,7 +30,22 @@
 | 沙箱 AppKey | 点「查看沙箱AppKey」 | `WECHAT_VPAY_APPKEY_SANDBOX` |
 | 现网 AppKey | 点「查看现网AppKey」 | `WECHAT_VPAY_APPKEY_PROD` |
 
-- 「是否启用平台路径」「是否启用苹果IAP支付」保持默认（本期不用 iOS IAP）。
+- **「是否启用苹果IAP支付」必须打开**（审核要求全终端虚拟支付；iOS 走 Apple 支付）。
+- 同步配置**小程序简称**（Apple display name 要求）：公众平台 → 设置 → 基本设置 / 或按微信开放社区指引配置简称。
+
+> 代币配置：**不需要**。本项目走「道具直购」模型，与代币充值二选一。
+
+---
+
+## 2.1 iOS 全终端必做清单（提审前）
+
+1. MP：虚拟支付 → 基础配置 → **开启「苹果 IAP 支付」**。
+2. MP：配置**小程序简称**。
+3. 确认消息推送 URL 已通过校验：`https://你的域名/api/v1/billing/wechat/xpay-notify`（本项目生产域名为 `https://loveaibaby.cn/api/v1/billing/wechat/xpay-notify`）。
+4. 上线/提审前：`.env` 中 **`WECHAT_VPAY_ENV=0`（现网）**。Apple 支付**不支持沙箱**。
+5. iOS **最低支付 1 元**：`pack_10`（¥0.01）在 iOS 端会自动隐藏；真机请用 ≥¥1 的包（如 `pack_50`）验证。
+6. 真机条件：iOS 15+、微信 8.0.68+、中国大陆 App Store 账户。
+7. 重新提审时可在「审核说明」写明：已接入官方虚拟支付全终端（`wx.requestVirtualPayment`），Android/鸿蒙/Windows 走微信支付、iOS 走 Apple 支付；界面按钮为「立即购买」而非普通「微信支付」。
 
 ---
 
