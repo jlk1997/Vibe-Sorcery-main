@@ -41,7 +41,7 @@ export function ConsentUpdateBanner() {
       const versions = requiredVersions.terms ? requiredVersions : await getRequiredVersions();
       const consents = missing.map((type) => ({
         consent_type: type,
-        version: versions[type as keyof typeof versions] || "2026-07-08",
+        version: versions[type as keyof typeof versions] || "2026-07-20",
       }));
       await vibeApi.recordConsents(consents);
       setMissing([]);

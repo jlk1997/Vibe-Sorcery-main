@@ -20,6 +20,7 @@ RUN pip install --upgrade pip setuptools wheel && \
 
 COPY backend /app/backend
 COPY src /app/src
+COPY docs/legal /app/docs/legal
 
 ENV PYTHONPATH=/app:/app/backend
 WORKDIR /app/backend

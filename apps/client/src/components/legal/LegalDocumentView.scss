@@ -1,11 +1,17 @@
 .legal-doc {
-  max-height: calc(100vh - 200rpx);
-  padding: 24rpx 0;
+  padding: 24rpx 0 48rpx;
 }
 
-.legal-doc__loading {
+.legal-doc__loading,
+.legal-doc__error {
+  display: block;
   color: rgba(255, 255, 255, 0.5);
   font-size: 28rpx;
+  line-height: 1.6;
+}
+
+.legal-doc__error {
+  color: rgba(255, 180, 120, 0.9);
 }
 
 .legal-doc__para {

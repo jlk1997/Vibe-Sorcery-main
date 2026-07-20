@@ -30,11 +30,11 @@ export default function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
-  const [legalVersions, setLegalVersions] = useState({ terms: "2026-07-08", privacy: "2026-07-08" });
+  const [legalVersions, setLegalVersions] = useState({ terms: "2026-07-20", privacy: "2026-07-20" });
 
   useEffect(() => {
     getRequiredVersions().then((v) =>
-      setLegalVersions({ terms: v.terms || "2026-07-08", privacy: v.privacy || "2026-07-08" }),
+      setLegalVersions({ terms: v.terms || "2026-07-20", privacy: v.privacy || "2026-07-20" }),
     );
   }, []);
 

@@ -17,7 +17,7 @@ export async function ensureAiNoticeConsent(): Promise<boolean> {
   const status = await fetchConsentStatus();
   if (!status.missing.includes("ai_notice")) return true;
   const versions = status.required_versions || {};
-  await vibeApi.recordConsents([{ consent_type: "ai_notice", version: versions.ai_notice || "2026-07-08" }]);
+  await vibeApi.recordConsents([{ consent_type: "ai_notice", version: versions.ai_notice || "2026-07-20" }]);
   return true;
 }
 
@@ -26,6 +26,6 @@ export async function getRequiredVersions(): Promise<Record<string, string>> {
     const docs = await vibeApi.getLegalDocuments();
     return docs.required_versions || {};
   } catch {
-    return { terms: "2026-07-08", privacy: "2026-07-08", payment: "2026-07-08" };
+    return { terms: "2026-07-20", privacy: "2026-07-20", payment: "2026-07-20" };
   }
 }

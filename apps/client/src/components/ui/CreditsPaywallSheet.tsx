@@ -71,7 +71,7 @@ export function CreditsPaywallSheet({
   const [buying, setBuying] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [paymentAgreed, setPaymentAgreed] = useState(false);
-  const [paymentTermsVersion, setPaymentTermsVersion] = useState("2026-07-08");
+  const [paymentTermsVersion, setPaymentTermsVersion] = useState("2026-07-20");
   const [qrPay, setQrPay] = useState<{ codeUrl: string; label: string; outTradeNo?: string } | null>(null);
   const trackedOpenRef = useRef(false);
   const isWeapp = process.env.TARO_ENV === "weapp";

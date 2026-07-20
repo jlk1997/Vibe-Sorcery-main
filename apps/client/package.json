@@ -4,6 +4,7 @@
   "private": true,
   "description": "Unified Taro client — H5 Web + WeChat mini-program",
   "scripts": {
+    "prebuild:weapp": "node ../../scripts/bundle-legal-docs.mjs",
     "build:weapp": "taro build --type weapp",
     "predev:weapp": "node scripts/ensure-mp-dist.mjs --build",
     "dev:weapp": "taro build --type weapp --watch",

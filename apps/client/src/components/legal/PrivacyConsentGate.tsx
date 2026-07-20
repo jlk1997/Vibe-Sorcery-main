@@ -23,7 +23,7 @@ export function PrivacyConsentGate({ onAccepted }: Props) {
       return;
     }
     setItem(LEGAL_STORAGE_KEYS.privacyAccepted, "1");
-    setItem(LEGAL_STORAGE_KEYS.privacyVersion, "2026-07-08");
+    setItem(LEGAL_STORAGE_KEYS.privacyVersion, "2026-07-20");
     onAccepted();
   }
 

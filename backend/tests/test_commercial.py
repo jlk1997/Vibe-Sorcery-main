@@ -7,7 +7,7 @@ import pytest
 
 from app.database import SessionLocal
 from app.models.schemas import PaymentOrder, User, UserConsentLog, UserSubscription
-from app.services.legal import record_payment_terms_consent
+from app.services.legal import get_current_versions, record_payment_terms_consent
 from app.services.payment_orders import expire_stale_pending_orders, register_pending_order
 from app.services.subscriptions import cancel_subscription, get_user_subscription
 
@@ -27,6 +27,7 @@ def test_register_pending_order_stores_payment_terms():
         db.add(user)
         db.commit()
 
+        payment_version = get_current_versions()["payment-terms"]
         row = register_pending_order(
             db,
             user_id=user_id,
@@ -34,9 +35,9 @@ def test_register_pending_order_stores_payment_terms():
             channel="mock",
             out_trade_no=out_trade_no,
             amount_fen=680,
-            payment_terms_version="2026-07-08",
+            payment_terms_version=payment_version,
         )
-        assert row.payment_terms_version == "2026-07-08"
+        assert row.payment_terms_version == payment_version
         assert row.expires_at is not None
     finally:
         db.query(PaymentOrder).filter(PaymentOrder.out_trade_no == out_trade_no).delete()
@@ -95,7 +96,8 @@ def test_record_payment_terms_consent_logs():
         db.add(user)
         db.commit()
 
-        record_payment_terms_consent(db, user, "2026-07-08")
+        payment_version = get_current_versions()["payment-terms"]
+        record_payment_terms_consent(db, user, payment_version)
         db.commit()
         log = (
             db.query(UserConsentLog)
@@ -103,7 +105,7 @@ def test_record_payment_terms_consent_logs():
             .first()
         )
         assert log is not None
-        assert log.version == "2026-07-08"
+        assert log.version == payment_version
     finally:
         db.query(UserConsentLog).filter(UserConsentLog.user_id == user_id).delete()
         db.query(User).filter(User.id == user_id).delete()

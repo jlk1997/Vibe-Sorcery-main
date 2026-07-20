@@ -49,7 +49,7 @@ export default function PricingPage() {
   const [creditTx, setCreditTx] = useState<Array<{ id: string; credits: number; source: string; created_at: string | null }>>([]);
   const [memberStats, setMemberStats] = useState<Awaited<ReturnType<typeof vibeApi.getProgress>>["stats"] | null>(null);
   const [paymentAgreed, setPaymentAgreed] = useState(false);
-  const [paymentTermsVersion, setPaymentTermsVersion] = useState("2026-07-08");
+  const [paymentTermsVersion, setPaymentTermsVersion] = useState("2026-07-20");
   const [cnRecurringMsg, setCnRecurringMsg] = useState<string | null>(null);
   const [cnOnWaitlist, setCnOnWaitlist] = useState(false);
   const [cnJoining, setCnJoining] = useState(false);
